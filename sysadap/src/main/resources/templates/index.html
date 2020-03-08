@@ -164,24 +164,25 @@
 										<div sec:authentication="name"></div>
 									</div>
 									 -->
-									<div class="form-group">
+									<div class="form-group col-sm-5">
 										<label class="form-control">Fecha de clase</label> <input
 											id="fechaConsulta" data-date-format="yyyy-mm-dd"
 											class="form-control" width="276"
 											placeholder="Confirmar fecha" />
 									</div>
-									<div class="form-group">
+									<div class="form-group col-sm-5">
 										<label class="form-control">Sección</label> <select
 											disabled="disabled">
 											<option id="1">3 años A</option>
 										</select>
 									</div>
-									<div class="form-group">
+									<div class="form-group col-sm-2">
 										<button type="button" onclick="consultar()"
 											class="btn btn-success btn-block">Consultar</button>
 									</div>
 								</form>
-								<table id="alumnosTable" class="display">
+								
+								<table id="alumnosTable" style="display:none;" class="display">
 
 									<!-- Header Table -->
 									<thead>
@@ -662,8 +663,17 @@
 	                 }
 	   	            }
 	   			],
+	   			"language": {
+	   	            "lengthMenu": "Mostrar _MENU_ filas por página",
+	   	            "zeroRecords": "Ninguna fila",
+	   	            "info": "Mostrando página _PAGE_ de _PAGES_",
+	   	            "infoEmpty": "Ninguna fila disponible",
+	   	            "infoFiltered": "(Filtrado de _MAX_ total filas)",
+	   	         	"search": "Buscar:"
+	   	        }
 	   			
 	   	 })
+	   	document.getElementById("alumnosTable").style.display = "block";
 	    }
 	    
 	    function pad (str, max) {
