@@ -22,6 +22,11 @@ public class MainController {
     public String viewAlumnos(Model model) {
         return "indexApoderado";
     }
+    
+    @GetMapping("/viewEA")
+    public String viewEA(Model model) {
+        return "indexEstiloAprendisaje";
+    }
 
     @GetMapping("/user")
     public String userIndex() {

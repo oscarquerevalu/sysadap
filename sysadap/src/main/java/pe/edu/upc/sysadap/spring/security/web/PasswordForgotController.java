@@ -70,7 +70,7 @@ public class PasswordForgotController {
         model.put("user", persona);
         model.put("signature", "https://sistemadaptativo.com");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/reset-password/reset-password?token=" + token.getToken());
+        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
         mail.setModel(model);
         emailService.sendEmail(mail);
 

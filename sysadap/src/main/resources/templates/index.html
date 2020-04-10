@@ -71,30 +71,36 @@
 	cursor: pointer;
 }
 
-.loader {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid blue;
-  border-right: 16px solid green;
-  border-bottom: 16px solid red;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
+ .loader { 
+   position: absolute; 
+   left: 50%; 
+   top: 50%; 
+   z-index: 1; 
+   width: 150px; 
+   height: 150px; 
+   margin: -75px 0 0 -75px; 
+   border: 16px solid #f3f3f3; 
+   border-radius: 50%; 
+   border-top: 16px solid blue; 
+   border-right: 16px solid green; 
+   border-bottom: 16px solid red; 
+   width: 120px; 
+   height: 120px; 
+   -webkit-animation: spin 2s linear infinite; 
+   animation: spin 2s linear infinite;
+ } 
 
 .loader2 {
   position: absolute;
   left: 43%;
   top: 60%;
 }
+
+/* .loader { */
+/*   position: absolute; */
+/*   left: 43%; */
+/*   top: 60%; */
+/* } */
 
 /* Safari */
 @-webkit-keyframes spin {
@@ -135,6 +141,7 @@
 
 
 	<div class="loader">
+<!-- 		<p>Cargando...</p> -->
 	</div>
 	
 	<div class="loader2">
@@ -142,6 +149,33 @@
 	</div>
 	<div class="container animate-bottom" style="display:none;" id="myDiv" >
 		<div class="row">
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="#">Sistema Adaptativo Predictivo</a>
+			    </div>
+			
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="nav navbar-nav">
+			        <li class="active"><a href="#">Registro de Clase<span class="sr-only">(current)</span></a></li>
+			        <li><a href="/viewEA">Estilos de Aprendizaje</a></li>
+			      </ul>
+			      <ul class="nav navbar-nav navbar-right">
+			        <li class="dropdown">
+			          <a href="/login" class="btn btn-default">Cerrar Sesión</a>
+			        </li>
+			      </ul>
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
 			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">
 					<div class="panel-body">
@@ -178,7 +212,7 @@
 									</div>
 									<div class="form-group col-sm-2">
 										<button type="button" onclick="consultar()"
-											class="btn btn-success btn-block">Consultar</button>
+											class="btn btn-success btn-block btn-load">Consultar</button>
 									</div>
 								</form>
 								
@@ -309,6 +343,8 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	    var table;
+		var urlsys = 'http://ec2-54-144-59-201.compute-1.amazonaws.com:8080';
+// 		var urlsys = 'http://localhost:8080';
 	    $(document).ready( function () {
 	//    	 $('#fechaConsulta').datepicker();
 	
@@ -317,13 +353,23 @@
 	//    	var table = $('#alumnosTable').DataTable( {
 	//    	    paging: false
 	//    	} );
-	   		$(".loader").css("visibility", "hidden");
-			$(".loader2").css("visibility", "hidden");
+// 	   		$(".loader").css("visibility", "hidden");
+// 			$(".loader2").css("visibility", "hidden");
 	    	  
-			document.getElementById("myDiv").style.display = "block";
+// 			document.getElementById("myDiv").style.display = "block";
 			//iniciar();
 // 			iniciar();
 	   });
+	    
+	    $(document)
+	    .ajaxStart(function () {
+	      $('.btn-load').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Buscando...').addClass('disabled');
+	      $('.btn-table').addClass('disabled');
+	    })
+	    .ajaxStop(function () {
+	    	$('.btn-load').html('Consultar').removeClass('disabled');
+	    	$('.btn-table').removeClass('disabled');
+	    });
 	    
 	    async function iniciar () {
 	    	const [xTrain, yTrain, xTest, yTest] = getEstilosData(.2);
@@ -357,7 +403,7 @@
 			var fecha = "" + pad(d, 2) + pad(m, 2) + y;
 	    	
 	    	$.ajax({
-	    		url: 'http://localhost:8080/alumno/getalumno/'+fecha+'/1/'+id,
+	    		url: urlsys+'/alumno/getalumno/'+fecha+'/1/'+id,
 	    		type:"GET",
 	    		success: function(respuesta) {
 	    			console.log(respuesta);
@@ -457,7 +503,7 @@
 // 		    				});
 		    			
 // 		    	    	$.ajax({
-// 		    	    		url: 'http://localhost:8080/estiloAlumno/grabarEstilo',
+// 		    	    		url: urlsys+'/estiloAlumno/grabarEstilo',
 // 		    	    		type:"POST",
 // 		    	    		data:JSON.stringify({"fecha":fecha, "idAlumno":id, "recursos":recursos, "valores":rsc }),
 // 		    	    		contentType:"application/json; charset=utf-8",
@@ -608,7 +654,7 @@
 	    
 	    function consultar(){
 	//     	$.ajax({
-	//     		url: 'http://localhost:8080/alumno/listalumnos/'+$('#fechaConsulta').val(),
+	//     		url: urlsys+'/alumno/listalumnos/'+$('#fechaConsulta').val(),
 	//     		success: function(respuesta) {
 	//     			console.log(respuesta);
 	//     		},
@@ -645,7 +691,7 @@
 	   				{ "mData": "calificado" },
 	   	            {"mRender": function (data, type, full) {
 	   	            	if(full.calificado == 'NO'){
-	   	            		return '<a href="#" onclick="abrirCalificacion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary ImprimirTicket">Calificar</a>'
+	   	            		return '<a href="#" onclick="abrirCalificacion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary btn-table">Calificar</a>'
 	   	         		}else{
 	   	         			return 'Calificado';		
 	   	         		}
@@ -657,7 +703,7 @@
 	   	         		if(full.calificado == 'NO'){
 	   	         			return 'NO';
 	   	         		}else{
-	   	         			return '<a href="#" onclick="abrirPrediccion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary ImprimirTicket">Predecir</a>'		
+	   	         			return '<a href="#" onclick="abrirPrediccion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary btn-table">Predecir</a>'		
 	   	         		}
 	                 
 	                 }
@@ -716,7 +762,7 @@
 				});
 			
 	    	$.ajax({
-	    		url: 'http://localhost:8080/alumno/grabarClase',
+	    		url: urlsys+'/alumno/grabarClase',
 	    		type:"POST",
 	    		data:JSON.stringify({"fecha":fech, "idAlumno":$('#idAlumno').val(), "actividad":$('#selActividad').val(), "recursos":rsc, "valores":valores }),
 	    		contentType:"application/json; charset=utf-8",
@@ -724,7 +770,7 @@
 	    		success: function(respuesta) {
 		    			console.log(respuesta);
 		    			$.ajax({
-		    	    		url: 'http://localhost:8080/alumno/getalumno/'+fech+'/1/'+$('#idAlumno').val(),
+		    	    		url: urlsys+'/alumno/getalumno/'+fech+'/1/'+$('#idAlumno').val(),
 		    	    		type:"GET",
 		    	    		success: function(respuesta) {
 		    	    			console.log(respuesta);
@@ -799,7 +845,7 @@
 		    		    				});
 		    		    			
 		    		    	    	$.ajax({
-		    		    	    		url: 'http://localhost:8080/estiloAlumno/grabarEstilo',
+		    		    	    		url: urlsys+'/estiloAlumno/grabarEstilo',
 		    		    	    		type:"POST",
 		    		    	    		data:JSON.stringify({"fecha":fech, "idAlumno":$('#idAlumno').val(), "recursos":recursos, "valores":rsc }),
 		    		    	    		contentType:"application/json; charset=utf-8",
@@ -839,12 +885,18 @@
 		    
 		   async function run() {
 		   	  $.ajax({
-		       		url: 'http://localhost:8080/alumno/getDataClaseAlumnos',
+		       		url: urlsys+'/alumno/getDataClaseAlumnos',
 		       		type:"GET",
 		       		success: function(respuesta) {
 		       			console.log('RUN DATA:', respuesta);
 		       	    	  $(".loader").css("visibility", "visible");
-		       	    		
+		       	    		var listaDB = [];
+		       	    	for (const fila of respuesta) {
+		       	    		var item = [fila.recurso1,fila.recurso2,fila.recurso3,fila.recurso4,fila.recurso5,fila.recurso6,fila.recurso7,fila.recurso8,fila.recurso9,fila.recurso10,fila.recurso11,fila.recurso12,fila.estilo];
+		       	    		listaDB.push(item);
+		       	    	}
+		       	    	ESTILOS_DATA=listaDB;
+		       	    	  	
 		       	    		const [xTrain, yTrain, xTest, yTest] = getEstilosData(.2);
 							entrenarModelo(xTrain, yTrain, xTest, yTest);
 		       	    	  console.log('Done Training');
@@ -864,7 +916,7 @@
 	   		const ESTILOS_NRO = ESTILOS.length;
 	
 	   		// SET DE DATOS PARA LOS ESTILOS DE APRENDIZAJE
-	   		const ESTILOS_DATA = [
+	   		var ESTILOS_DATA = [
 	   		    [0.9, 0.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	   		    [0.8, 0.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	   		    [0.8, 0.9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -1025,13 +1077,17 @@
 	    	        const yTests = [];
 
 	    	        $.each(ESTILOS, (index, element) => {
-	    	        	const [xTrain, yTrain, xTest, yTest] = 
-	    	                convertirATensores(datosPorClase[index], resultadoPorClase[index], testDividir);
+	    	        	
+	    	        	if(datosPorClase[index].length > 0 ){
+	    	        		const [xTrain, yTrain, xTest, yTest] = 
+		    	                convertirATensores(datosPorClase[index], resultadoPorClase[index], testDividir);
 
-	    	            xTrains.push(xTrain);
-	    	            yTrains.push(yTrain);
-	    	            xTests.push(xTest);
-	    	            yTests.push(yTest);
+		    	            xTrains.push(xTrain);
+		    	            yTrains.push(yTrain);
+		    	            xTests.push(xTest);
+		    	            yTests.push(yTest);
+	    	        	}
+	    	        	
 	    	        });	    	     
 
 	    	        const concatAxis = 0;

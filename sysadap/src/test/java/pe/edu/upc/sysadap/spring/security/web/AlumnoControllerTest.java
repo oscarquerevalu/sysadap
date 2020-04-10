@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.HashMap;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,17 @@ public class AlumnoControllerTest extends SpringBootHelloWorldTests{
 	
 	@Test
 	public void testGetClaseAlumnos() throws Exception {
+		HashMap<String, String> obj = new HashMap<>();
+		obj.put("nombre", "Angelo");
+		obj.put("edad", "22");
+		
+		String nombre = "abc";
+		
+		if(obj.containsKey("edad") && "abc".contains(nombre)) {
+			System.out.println(obj.get("edad"));
+			
+		}
+		
 		mockMvc.perform(get("/alumno/getDataClaseAlumnos")).andExpect(status().isOk())
 				.andExpect(content().contentType("application/json;charset=UTF-8"));
 

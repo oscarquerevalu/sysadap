@@ -18,6 +18,7 @@ import pe.edu.upc.sysadap.spring.security.model.Alumno;
 import pe.edu.upc.sysadap.spring.security.model.ClaseAlumno;
 import pe.edu.upc.sysadap.spring.security.model.ClaseAlumnoActividades;
 import pe.edu.upc.sysadap.spring.security.model.EstiloAlumno;
+import pe.edu.upc.sysadap.spring.security.service.ClaseAlumnoService;
 import pe.edu.upc.sysadap.spring.security.service.EstiloAlumnoService;
 
 import io.swagger.annotations.Api;
@@ -31,6 +32,9 @@ public class EstiloAlumnoController {
 
     @Autowired
     private EstiloAlumnoService estiloAlumnoService;
+    
+    @Autowired
+    private ClaseAlumnoService claseAlumnoService;
 
     @ApiOperation(value = "Graba datos de Estilo")
     @PostMapping("/grabarEstilo")
@@ -45,27 +49,68 @@ public class EstiloAlumnoController {
     	String[] recursos = body.get("recursos").split(",");
     	String[] valores = body.get("valores").split(",");
     	
+    	Double mayor_valor = new Double(0.0);
+    	String mayor_estilo = "0";
     	for (int i = 0; i < recursos.length; i++) {
     		String rec = recursos[i];
     		if("1".equals(rec)) {
     			estiloAlumno.setValor1(new Double(valores[i]));
+    			if(mayor_valor.compareTo(new Double(valores[i]))< 0){
+    				mayor_valor = new Double(valores[i]);
+    				mayor_estilo="0";
+    			}
     		}else if("2".equals(rec)) {
     			estiloAlumno.setValor2(new Double(valores[i]));
+    			if(mayor_valor.compareTo(new Double(valores[i]))< 0){
+    				mayor_valor = new Double(valores[i]);
+    				mayor_estilo="1";
+    			}
     		}else if("3".equals(rec)) {
     			estiloAlumno.setValor3(new Double(valores[i]));
+    			if(mayor_valor.compareTo(new Double(valores[i]))< 0){
+    				mayor_valor = new Double(valores[i]);
+    				mayor_estilo="2";
+    			}
     		}else if("4".equals(rec)) {
     			estiloAlumno.setValor4(new Double(valores[i]));
+    			if(mayor_valor.compareTo(new Double(valores[i]))< 0){
+    				mayor_valor = new Double(valores[i]);
+    				mayor_estilo="3";
+    			}
     		}else if("5".equals(rec)) {
     			estiloAlumno.setValor5(new Double(valores[i]));
+    			if(mayor_valor.compareTo(new Double(valores[i]))< 0){
+    				mayor_valor = new Double(valores[i]);
+    				mayor_estilo="4";
+    			}
     		}else if("6".equals(rec)) {
     			estiloAlumno.setValor6(new Double(valores[i]));
+    			if(mayor_valor.compareTo(new Double(valores[i]))< 0){
+    				mayor_valor = new Double(valores[i]);
+    				mayor_estilo="5";
+    			}
     		}else if("7".equals(rec)) {
     			estiloAlumno.setValor7(new Double(valores[i]));
+    			if(mayor_valor.compareTo(new Double(valores[i]))< 0){
+    				mayor_valor = new Double(valores[i]);
+    				mayor_estilo="6";
+    			}
     		}else if("8".equals(rec)) {
     			estiloAlumno.setValor8(new Double(valores[i]));
+    			if(mayor_valor.compareTo(new Double(valores[i]))< 0){
+    				mayor_valor = new Double(valores[i]);
+    				mayor_estilo="7";
+    			}
     		}
 		}
+    	
+    	estiloAlumno.setId_estilo(new Long(mayor_estilo));
     	estiloAlumnoService.guardar(estiloAlumno);
+    	List<ClaseAlumno> listaClaseAlumno = claseAlumnoService.findByFechaIdAlumno(body.get("fecha"),new Long(body.get("idAlumno")));
+    	if(listaClaseAlumno!=null && listaClaseAlumno.size()>0) {
+    		listaClaseAlumno.get(0).setId_estilo(new Long(mayor_estilo));
+    		claseAlumnoService.guardar(listaClaseAlumno.get(0));
+    	}
     	return "";
     }
     

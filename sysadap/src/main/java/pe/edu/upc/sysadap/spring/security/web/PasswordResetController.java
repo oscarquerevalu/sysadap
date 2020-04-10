@@ -66,7 +66,7 @@ public class PasswordResetController {
         tokenRepository.delete(token);
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         System.out.println(url);
-        return "redirect:"+url+"/alquilerautosrara/login?resetSuccess";
+        return "redirect:"+url+"/login?resetSuccess";
     }
 
 }
