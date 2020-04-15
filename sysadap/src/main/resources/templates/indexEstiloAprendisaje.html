@@ -132,75 +132,49 @@
 			    </div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 			</nav>
-			<div class="col-md-10 col-md-offset-1">
+			<div class="col-md-6 col-sm-offset-3">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="text-center">
 							<h3>
 								<i class="glyphicon glyphicon-user" style="font-size: 2em;"></i>
 							</h3>
-							<h2 class="text-center">Registro de Clase</h2>
+							<h2 class="text-center">Registro de Estilo de Aprendizaje</h2>
 							<div class="panel-body">
-								<div th:if="${param.success}">
-									<div class="alert alert-info">!Se registro la clase
-										satisfactoriamente!</div>
-								</div>
-
-								<form id="frmClase" method="post">
-
-									<!-- 
+								<form id="frmEstiloAprendizaje" method="post">
+									<label class="form-control">Recursos Didácticos</label>
 									<div class="form-group">
-										<h2>Bienvenido</h2>
-										<div sec:authentication="name"></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="1"> Cuaderno de Dibujo</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang1"></input><label id="rangeText1">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="2"> Reproductor de sonido</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang2"></input><label id="rangeText2">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="3"> Telefono</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang3"></input><label id="rangeText3">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="4"> Pelota</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang4"></input><label id="rangeText4">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="5"> Puzzle</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang5"></input><label id="rangeText5">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="6"> Flores</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang6"></input><label id="rangeText6">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="7"> Libro de animaciones</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang7"></input><label id="rangeText7">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="8"> Castillo</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang8"></input><label id="rangeText8">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="9"> Plastilina</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang9"></input><label id="rangeText9">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="10"> Cubos</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang10"> </input><label id="rangeText10">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="11"> Papel de seda</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang11"> </input><label id="rangeText11">Valor: 0</label></div>
+										<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="12"> Tambor</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang12"> </input><label id="rangeText12">Valor: 0</label></div>
 									</div>
-									 -->
-									<div class="form-group col-sm-5">
-										<label class="form-control">Fecha de clase</label> <input
-											id="fechaConsulta" data-date-format="yyyy-mm-dd"
-											class="form-control" width="276"
-											placeholder="Confirmar fecha" />
-									</div>
-									<div class="form-group col-sm-5">
-										<label class="form-control">Sección</label> <select
-											disabled="disabled">
-											<option id="1">3 años A</option>
+									<div class="form-group">
+										<label class="form-control">Estilo</label>
+										<select id="cboEstilo" name="cboEstilo">
+											<option value="0">LINGÜÍSTICO- VERBAL</option>
+											<option value="1">LÓGICA MATEMÁTICA</option>
+											<option value="2">ESPACIAL</option>
+											<option value="3">CORPORAL KINESTÉSICA</option>
+											<option value="4">MUSICAL</option>
+											<option value="5">INTERPERSONAL</option>
+											<option value="6">INTRAPERSONAL</option>
+											<option value="7">NATURALISTA</option>
 										</select>
 									</div>
-									<div class="form-group col-sm-2">
-										<button type="button" onclick="consultar()"
-											class="btn btn-success btn-block btn-load">Consultar</button>
+									<div class="form-group">
+										<button type="button" onclick="grabarEstilo()"
+											class="btn btn-success btn-block btn-load">Registrar</button>
 									</div>
 								</form>
-								
-								<table id="alumnosTable" style="display:none;" class="display">
-
-									<!-- Header Table -->
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Documento</th>
-											<th>Nombre</th>
-											<th>Email</th>
-											<th>Telefono</th>
-											<th>¿Calificado?</th>
-											<th>Calificar</th>
-											<th>Predecir</th>
-										</tr>
-									</thead>
-									<!-- Footer Table -->
-									<tfoot>
-										<tr>
-											<th>Id</th>
-											<th>Documento</th>
-											<th>Nombre</th>
-											<th>Email</th>
-											<th>Telefono</th>
-											<th>¿Calificado?</th>
-											<th>Calificar</th>
-											<th>Predecir</th>
-										</tr>
-									</tfoot>
-								</table>
 							</div>
 						</div>
 					</div>
@@ -209,101 +183,105 @@
 		</div>
 	</div>
 
-	<!-- Modal -->
-	<div id="mdCalificacion" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Calificacion</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<input type="hidden" id="idAlumno" name="idAlumno" /> <label
-							class="form-control">Documento</label> <input id="docAlumno"
-							name="docAlumno" readonly="readonly" />
-					</div>
-					<div class="form-group">
-						<label class="form-control">Nombre del Alumno</label> <input
-							id="nombreAlumno" name="nombreAlumno" readonly="readonly" />
-					</div>
-					<div class="form-group">
-						<label class="form-control">Actividad</label> <select
-							id="selActividad" name="selActividad">
-							<option value="">---Seleccione---</option>
-							<option value="1">Actidad 1</option>
-							<option value="2">Actidad 2</option>
-							<option value="3">Actidad 3</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label class="form-control">Recursos Didácticos</label>
-						<!--              	<select id="selRecurso" name="selRecurso"> -->
-						<!--              	</select> -->
-						<div id="dvRecurso"></div>
-					</div>
-					<!--             <div class="form-group"> -->
-					<!--              <label class="form-control">¿Lo utilizó?</label> -->
-					<!--              	<input type="radio" name="utilizo" value="0"> SI</input> -->
-					<!-- 				<input type="radio" name="utilizo" value="1"> NO</input> -->
-					<!--             </div> -->
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" onclick="grabarClase()"
-						class="btn btn-default" data-dismiss="modal">Guardar</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	
-	<div id="mdPrediccion" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Predicción</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<input type="hidden" id="idAlumnoPred" name="idAlumnoPred" /> <label
-							class="form-control">Documento</label> <input id="docAlumnoPred"
-							name="docAlumnoPred" readonly="readonly" />
-					</div>
-					<div class="form-group">
-						<label class="form-control">Nombre del Alumno</label> <input
-							id="nombreAlumnoPred" name="nombreAlumnoPred" readonly="readonly" />
-					</div>
-					<div class="form-group">
-						<label class="form-control">Nombre del Alumno</label>
-					</div>
-					<div id="dvEstilo"></div>
-					<div id="dvGrafico">
-						<canvas id="speedChart" width="250" height="100"></canvas>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	    var table;
-		var urlsys = 'http://ec2-54-144-59-201.compute-1.amazonaws.com:8080';
-// 		var urlsys = 'http://localhost:8080';
+		var urlsys = 'http://34.195.249.193';
+// 		var urlsys = 'http://localhost';
 	    $(document).ready( function () {
 	   		$("#fechaConsulta").datepicker({format: 'dd/mm/yyyy'});
+	   		$('#rang1').on('input change', function () {
+		        $('#rangeText1').text("Valor: "+$(this).val());
+		    });
+			$('#rang2').on('input change', function () {
+		        $('#rangeText2').text("Valor: "+$(this).val());
+		    });
+			$('#rang3').on('input change', function () {
+		        $('#rangeText3').text("Valor: "+$(this).val());
+		    });
+			$('#rang4').on('input change', function () {
+		        $('#rangeText4').text("Valor: "+$(this).val());
+		    });
+			$('#rang5').on('input change', function () {
+		        $('#rangeText5').text("Valor: "+$(this).val());
+		    });
+			$('#rang6').on('input change', function () {
+		        $('#rangeText6').text("Valor: "+$(this).val());
+		    });
+			$('#rang7').on('input change', function () {
+		        $('#rangeText7').text("Valor: "+$(this).val());
+		    });
+			$('#rang8').on('input change', function () {
+		        $('#rangeText8').text("Valor: "+$(this).val());
+		    });
+			$('#rang9').on('input change', function () {
+		        $('#rangeText9').text("Valor: "+$(this).val());
+		    });
+			$('#rang10').on('input change', function () {
+		        $('#rangeText10').text("Valor: "+$(this).val());
+		    });
+			$('#rang11').on('input change', function () {
+		        $('#rangeText11').text("Valor: "+$(this).val());
+		    });
+			$('#rang12').on('input change', function () {
+		        $('#rangeText12').text("Valor: "+$(this).val());
+		    });
 	   });
+	    
+function grabarEstilo(){
+	    	
+			var recursos = [];
+			var valores = "";
+			var rsc = "";
+			
+			$.each($("input[name='checkRecurso']:checked"), function(){
+				recursos.push($(this).val());
+	        });
+			
+			$.each(recursos, function( index, value ) {
+				  if(index==0){
+						rsc = recursos[index];
+						valores= $('#rang'+recursos[index]).val()
+					}else{
+						rsc += ","+ recursos[index];
+						valores += ","+ $('#rang'+recursos[index]).val()
+					}
+				});
+			
+	    	$.ajax({
+	    		url: urlsys+'/alumno/grabarClaseEstilo',
+	    		type:"POST",
+	    		data:JSON.stringify({"recursos":rsc, "valores":valores , "estilo":$('#cboEstilo').val() }),
+	    		contentType:"application/json; charset=utf-8",
+	    		dataType:"json",
+	    		success: function(respuesta) {
+		    			console.log(respuesta);
+		    			alert("Estilo Registrado correctamente");
+		    		},
+		    		error: function (jqXHR, exception) {
+		    	        var msg = '';
+		    	        if (jqXHR.status === 0) {
+		    	            msg = 'Not connect.\n Verify Network.';
+		    	        } else if (jqXHR.status == 404) {
+		    	            msg = 'Requested page not found. [404]';
+		    	        } else if (jqXHR.status == 500) {
+		    	            msg = 'Internal Server Error [500].';
+		    	        } else if (exception === 'parsererror') {
+		    	            msg = 'Requested JSON parse failed.';
+		    	        } else if (exception === 'timeout') {
+		    	            msg = 'Time out error.';
+		    	        } else if (exception === 'abort') {
+		    	            msg = 'Ajax request aborted.';
+		    	        } else {
+		    	            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+		    	        }
+		    	        $('#post').html(msg);
+		    	    }
+		    	});
+		//     	$('#alumnosTable').empty();
+		//         $('#myTable').empty();
+		
+		    }	    
 	    
 	    $(document)
 	    .ajaxStart(function () {

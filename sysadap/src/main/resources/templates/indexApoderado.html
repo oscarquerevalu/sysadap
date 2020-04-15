@@ -202,7 +202,7 @@
 											class="btn btn-success btn-block btn-load">Consultar</button>
 									</div>
 									<div id="dvGrafico">
-										<canvas id="speedChart" width="250" height="100"></canvas>
+										<canvas id="speedChart" width="250" height="150"></canvas>
 									</div>
 								</form>
 							</div>
@@ -216,8 +216,8 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	    var table;
-		var urlsys = 'http://ec2-54-144-59-201.compute-1.amazonaws.com:8080';
-// 		var urlsys = 'http://localhost:8080';
+		var urlsys = 'http://34.195.249.193';
+// 		var urlsys = 'http://localhost';
 	    $(document).ready( function () {
 	   		$("#fechaIni").datepicker({format: 'dd/mm/yyyy'});
 	   		$("#fechaFin").datepicker({format: 'dd/mm/yyyy'});
@@ -262,6 +262,9 @@
 	    		type:"GET",
 	    		success: function(respuesta) {
 	    			var speedCanvas = document.getElementById("speedChart");
+	    			
+	    			const context = speedCanvas.getContext('2d');
+	    			context.beginPath();	    			
 
 	    			Chart.defaults.global.defaultFontFamily = "Lato";
 	    			Chart.defaults.global.defaultFontSize = 12;
@@ -285,7 +288,8 @@
 	    			var lineChart = new Chart(speedCanvas, {
 	    			  type: 'bar',
 	    			  data: speedData,
-	    			  options: chartOptions
+	    			  options: chartOptions,
+	    			  responsive: true
 	    			});
 			    },
 				error: function() {

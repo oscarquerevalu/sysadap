@@ -290,7 +290,7 @@ public class AlumnoController {
     }
     
     @ApiOperation(value = "Graba datos de clase")
-    @PostMapping("/grabarClase")
+    @PostMapping(value="/grabarClase", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String create(@RequestBody Map<String, String> body){
     	
     	ClaseAlumno claseAlumno = new ClaseAlumno();
@@ -312,6 +312,33 @@ public class AlumnoController {
     		claseAlumnoActividadesService.guardarActividad(claseAlumnoActividades);
 		}
     	return claseAlumnoResp.getId().toString();
+    }
+    
+    @ApiOperation(value = "Grabar Estilo de aprendizaje")
+    @PostMapping(value="/grabarClaseEstilo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String createEstilo(@RequestBody Map<String, String> body){
+    	
+    	String[] recursos = body.get("recursos").split(",");
+    	String[] valores = body.get("valores").split(",");
+    	
+    	for (int j = 0; j < 20; j++) {
+    		ClaseAlumno claseAlumno = new ClaseAlumno();
+        	claseAlumno.setFecha("01019999");
+        	claseAlumno.setId_alumno(new Long("-1"));
+        	claseAlumno.setId_clase(new Long("1"));
+        	claseAlumno.setId_estilo(new Long(body.get("estilo")));
+    		ClaseAlumno claseAlumnoResp= claseAlumnoService.guardar(claseAlumno);
+    		for (int i = 0; i < recursos.length; i++) {
+        		String rec = recursos[i];
+        		ClaseAlumnoActividades claseAlumnoActividades = new ClaseAlumnoActividades();
+        		claseAlumnoActividades.setId_clasealumno(claseAlumnoResp.getId());
+        		claseAlumnoActividades.setId_recurso(new Long(rec));
+        		claseAlumnoActividades.setValor((new Double(valores[i]))/100);
+        		claseAlumnoActividadesService.guardarActividad(claseAlumnoActividades);
+    		}
+		}
+    	
+    	return "{\"success\":1}";
     }
     
     @GetMapping(value="/promRecursos", produces=MediaType.APPLICATION_JSON_VALUE)

@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 
-    <title>Login</title>
+    <title>Sistema Adaptativo Predictivo</title>
 </head>
 <body>
 <div class="container">
@@ -18,7 +18,7 @@
                 <div class="panel-body">
                     <div class="text-center">
                         <h3><i class="glyphicon glyphicon-lock" style="font-size:2em;"></i></h3>
-                        <h2 class="text-center">Login</h2>
+                        <h2 class="text-center">Sistema Adaptativo Predictivo</h2>
                         <div class="panel-body">
 
                             <div th:if="${param.error}">
@@ -45,7 +45,7 @@
                                                name="username"
                                                autofocus="autofocus"
                                                class="form-control"
-                                               placeholder="Username"/>
+                                               placeholder="Correo"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -56,12 +56,12 @@
                                         <input id="password"
                                                name="password"
                                                class="form-control"
-                                               placeholder="Password"
+                                               placeholder="Contraseña"
                                                type="password"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success btn-block">Login</button>
+                                    <button type="submit" class="btn btn-success btn-block">Ingresar</button>
                                 </div>
                             </form>
                         </div>

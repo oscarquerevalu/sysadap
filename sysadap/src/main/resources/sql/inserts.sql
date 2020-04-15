@@ -55,4 +55,5 @@ INSERT INTO `db_eduini`.`apoderado` (`id`) VALUES ('1');
 INSERT INTO `db_eduini`.`persona` (`confirm_email`, `direccion`, `documento`, `email`, `name`, `telefono`, `terms`, `username`, `password`, `role`, `id_apoderado`) VALUES ('jcastillo@gmail.com', 'metro de av. Tomas Valle', '1111111', 'jcastillo@gmail.com', 'apoderado1', '44444444', true, 'apoderado1','$2a$10$InNhEXWztd5qf2WAa/iTQOblQb3oW.VhOGZOApOWCy4//k/JUhMBa','ROLE_APODE', 1);
 
 
-select * from persona
+select * from clase_alumno_actividades
+select * from estilo_alumno
