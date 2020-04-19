@@ -1,5 +1,6 @@
 package pe.edu.upc.sysadap.spring.security.web;
 
+import pe.edu.upc.sysadap.spring.security.constraint.FieldMatch;
 import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.service.UserService;
 import pe.edu.upc.sysadap.spring.security.web.dto.UserRegistrationDto;
@@ -36,12 +37,17 @@ public class UserRegistrationController {
 
         Persona existing = userService.findByEmail(userDto.getEmail());
         if (existing != null){
-            result.rejectValue("email", null, "Ya existe una cuenta registrada con este correo:"+userDto.getEmail());
+            result.rejectValue("email", null, "Ya existe una cuenta registrada con este correo: "+userDto.getEmail());
+        }else if (!userDto.getPassword().equals(userDto.getConfirmPassword())){
+            result.rejectValue("password", null, "Las contraseñas no coinciden");
+        }else if (!userDto.getEmail().equals(userDto.getConfirmEmail())){
+            result.rejectValue("email", null, "Los correos no coinciden");
         }
 
-//        if (result.hasErrors()){
-//            return "registration";
-//        }
+        if (result.hasErrors()){
+            return "registration";
+        }
+        userDto.setUsername(userDto.getEmail());
 
         userService.save(userDto);
         return "redirect:/registration?success";

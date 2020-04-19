@@ -43,7 +43,7 @@
                                         </span>
                                         <input id="lastName"
                                                class="form-control"
-                                               placeholder="Apellido"
+                                               placeholder="Nombres y Apellidos"
                                                th:field="*{name}"/>
                                     </div>
                                     <p class="error-message"
@@ -136,6 +136,24 @@
                                     </div>
                                     <p class="error-message"
                                        th:each="error: ${#fields.errors('confirmPassword')}"
+                                       th:text="${error}">Validation error</p>
+                                </div>
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('role')}? 'has-error':''">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-user"></i>
+                                        </span>
+                                        <select id="role"
+											name="role" class="form-control"
+											th:field="*{role}">
+											<option value="">------Seleccione------</option>
+											<option value="ROLE_USER">Profesor</option>
+											<option value="ROLE_APODE">Apoderado</option>
+										</select>
+                                    </div>
+                                    <p class="error-message"
+                                       th:each="error: ${#fields.errors('role')}"
                                        th:text="${error}">Validation error</p>
                                 </div>
                                 <div class="form-group"

@@ -1,8 +1,9 @@
 package pe.edu.upc.sysadap.spring.security.service;
 
-import pe.edu.upc.sysadap.spring.security.model.Persona;
-import pe.edu.upc.sysadap.spring.security.repository.UserRepository;
-import pe.edu.upc.sysadap.spring.security.web.dto.UserRegistrationDto;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,17 +12,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Collectors;
-
-import javax.management.relation.Role;
+import pe.edu.upc.sysadap.spring.security.model.Apoderado;
+import pe.edu.upc.sysadap.spring.security.model.Persona;
+import pe.edu.upc.sysadap.spring.security.model.Profesor;
+import pe.edu.upc.sysadap.spring.security.repository.ApoderadoRepository;
+import pe.edu.upc.sysadap.spring.security.repository.ProfesorRepository;
+import pe.edu.upc.sysadap.spring.security.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private ProfesorRepository profesorRepository;
+    
+    @Autowired
+    private ApoderadoRepository apoderadoRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -34,10 +42,19 @@ public class UserServiceImpl implements UserService {
         Persona persona = new Persona();
         persona.setEmail(registration.getEmail());
         persona.setUsername(registration.getEmail());
-        persona.setRole(Persona.Role.ROLE_USER);
+        persona.setRole(registration.getRole());
+        if(registration.getRole().equals(Persona.Role.ROLE_USER)) {
+        	Profesor profesor = profesorRepository.save(new Profesor());
+        	persona.setProfesor(profesor);
+        }else if(registration.getRole().equals(Persona.Role.ROLE_APODE)) {
+        	Apoderado apoderado = apoderadoRepository.save(new Apoderado());
+        	persona.setApoderado(apoderado);
+        }
+        	
         persona.setName(registration.getName());
         persona.setTelefono(registration.getTelefono());
         persona.setDocumento(registration.getDocumento());
+        persona.setTerms(registration.getTerms());
         persona.setPassword(passwordEncoder.encode(registration.getPassword()));
         return userRepository.save(persona);
     }

@@ -5,8 +5,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class PasswordForgotDto {
 
-    @Email
-    @NotEmpty
+    @Email(message = "Debe ingresar un Email válido")
+    @NotEmpty(message = "Debe ingresar un Email")
     private String email;
 
     public String getEmail() {

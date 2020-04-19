@@ -181,6 +181,9 @@
 					<div class="panel-body">
 						<div class="text-center">
 							<h3>
+								<div th:if="${session.containsKey('persona')}" th:text="${'Bienvenido: '+session.persona.name}"></div>
+							</h3>
+							<h3>
 								<i class="glyphicon glyphicon-user" style="font-size: 2em;"></i>
 							</h3>
 							<h2 class="text-center">Registro de Clase</h2>
@@ -192,12 +195,17 @@
 
 								<form id="frmClase" method="post">
 
-									<!-- 
-									<div class="form-group">
-										<h2>Bienvenido</h2>
-										<div sec:authentication="name"></div>
-									</div>
-									 -->
+									 
+<!-- 									<div class="form-group"> -->
+<!-- 										<h2>Bienvenido</h2> -->
+<!-- 										<div sec:authentication="name"></div> -->
+<!-- 									</div> -->
+<!-- 									<div sec:authorize="hasRole('ROLE_ADMIN')"> -->
+<!-- 									  This content is only shown to administrators. -->
+<!-- 									</div> -->
+<!-- 									<div sec:authorize="hasRole('ROLE_USER')"> -->
+<!-- 									  This content is only shown to users. -->
+<!-- 									</div>  -->
 									<div class="form-group col-sm-5">
 										<label class="form-control">Fecha de clase</label> <input
 											id="fechaConsulta" data-date-format="yyyy-mm-dd"
@@ -344,7 +352,7 @@
 	/*<![CDATA[*/
 	    var table;
 		var urlsys = 'http://34.195.249.193';
-// 		var urlsys = 'http://localhost';
+// 		var urlsys = 'http://localhost:8080';
 	    $(document).ready( function () {
 	//    	 $('#fechaConsulta').datepicker();
 	
@@ -667,6 +675,7 @@
 	
 			if($.trim($('#fechaConsulta').val()) == '' ){
 				alert('Debe ingresar una fecha para la consulta');
+				return;
 			}
 			var ff = $('#fechaConsulta').val().split('/');
 			var formattedDate = new Date(ff[2]+'/'+ff[1]+'/'+ff[0]);

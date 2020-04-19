@@ -15,12 +15,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
+import pe.edu.upc.sysadap.spring.security.constraint.FieldMatch;
 
 /**
  * Classe que representa o usuario do sistema
@@ -41,7 +46,6 @@ public class Persona implements Serializable {
 	private Long id;
 
 	@Column(unique = true)
-	@NotEmpty
 	@Size(max = 50)
 	private String username;
 
@@ -70,19 +74,24 @@ public class Persona implements Serializable {
 	private String confirmEmail;
 	
 	@Column
+	@NotEmpty
+	@Digits(integer=9,fraction=0,message = "Debe ingresar un Número Celular Válido")
 	private String telefono;
 	
 	@Column
+	@NotEmpty
+	@Digits(integer=8,fraction=0)
+	@Length(min=8, max=8,message = "Cantidad de dígitos no válida")
 	private String documento;
 	
 	@Column
 	private String direccion;
 	
-	@AssertTrue
+	@AssertTrue(message = "Tiene que aceptar los términos y condiciones")
     private Boolean terms;
 
 	@Column
-	@NotNull
+	@NotNull(message = "Seleccione un rol")
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
@@ -224,5 +233,28 @@ public class Persona implements Serializable {
 	public void setTerms(Boolean terms) {
 		this.terms = terms;
 	}
-	
+
+	public Profesor getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
+
+	public Alumno getAlumno() {
+		return alumno;
+	}
+
+	public void setAlumno(Alumno alumno) {
+		this.alumno = alumno;
+	}
+
+	public Apoderado getApoderado() {
+		return apoderado;
+	}
+
+	public void setApoderado(Apoderado apoderado) {
+		this.apoderado = apoderado;
+	}
 }

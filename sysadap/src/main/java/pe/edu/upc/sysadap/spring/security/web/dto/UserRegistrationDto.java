@@ -6,8 +6,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.AssertTrue;
 
 @FieldMatch.List({
-        @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
-        @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
+        @FieldMatch(first = "password", second = "confirmPassword", message = "Las contraseñas no coinciden"),
+        @FieldMatch(first = "email", second = "confirmEmail", message = "Los correos no coinciden")
 })
 public class UserRegistrationDto {
 

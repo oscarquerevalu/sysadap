@@ -167,6 +167,9 @@
 					<div class="panel-body">
 						<div class="text-center">
 							<h3>
+								<div th:if="${session.containsKey('persona')}" th:text="${'Bienvenido: '+session.persona.name}"></div>
+							</h3>
+							<h3>
 								<i class="glyphicon glyphicon-user" style="font-size: 2em;"></i>
 							</h3>
 							<h2 class="text-center">Consulta de Alumnos</h2>
@@ -217,7 +220,7 @@
 	/*<![CDATA[*/
 	    var table;
 		var urlsys = 'http://34.195.249.193';
-// 		var urlsys = 'http://localhost';
+// 		var urlsys = 'http://localhost:8080';
 	    $(document).ready( function () {
 	   		$("#fechaIni").datepicker({format: 'dd/mm/yyyy'});
 	   		$("#fechaFin").datepicker({format: 'dd/mm/yyyy'});
