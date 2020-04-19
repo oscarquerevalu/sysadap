@@ -27,7 +27,7 @@ public class AlumnoControllerTest extends SpringBootHelloWorldTests{
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
-	
+
 	@Test
 	public void testGetClaseAlumnos() throws Exception {
 		HashMap<String, String> obj = new HashMap<>();
@@ -52,4 +52,5 @@ public class AlumnoControllerTest extends SpringBootHelloWorldTests{
 				.andExpect(content().contentType("application/json;charset=UTF-8"));
 
 	}
+
 }
