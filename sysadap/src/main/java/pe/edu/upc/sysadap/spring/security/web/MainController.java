@@ -31,6 +31,11 @@ public class MainController {
         return "login";
     }
     
+    @GetMapping("/accessdenied")
+    public String accessdenied(Model model) {
+        return "accessdenied";
+    }
+    
     @GetMapping("/viewAlumnos")
     public String viewAlumnos(Model model, HttpSession session) {
     	setDatosSession(session);

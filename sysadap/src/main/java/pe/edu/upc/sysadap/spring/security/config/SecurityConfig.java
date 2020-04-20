@@ -16,6 +16,7 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
+import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.service.UserService;
 
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -41,13 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
     
-    private static final String[] AUTH_WHITELIST = {
-            "/swagger-resources/**",
-            "/swagger-ui.html",
-            "/v2/api-docs",
-            "/webjars/**"
-    };
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -55,9 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(
                             "/registration**",
                             "/forgot-password**",
-                            "/clase**",
-                            "/estiloAlumno**",
-                            "/alumno**",
+//                            "/clase**",
+//                            "/estiloAlumno**",
+//                            "/alumno**",
                             "/swagger-resources/**",
                             "/swagger-ui.html",
                             "/v2/api-docs",
@@ -67,6 +61,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/css/**",
                             "/img/**",
                             "/webjars/**").permitAll()
+                    .antMatchers(
+                            "/clase**",
+                            "/estiloAlumno**",
+                            "/alumno**",
+                            "/viewEA",
+                            "/").hasRole("USER")
+                    .antMatchers(
+                    		"/alumno**",
+                            "/viewAlumnos").hasRole("APODE")
                     .anyRequest().authenticated().and().httpBasic()
                 .and()
                     .formLogin()
@@ -79,7 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .clearAuthentication(true)
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/accessdenied");;
         http.sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
     }

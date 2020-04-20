@@ -59,6 +59,7 @@ public class AlumnoController {
     	
     	List<Clase> lista = new ArrayList<Clase>();
     	List<Alumno> listaAlumnos = new ArrayList<Alumno>();
+    	System.out.println("listAlumnos");
     	try {
     		listaAlumnos = alumnoService.findByAll();
     		for (Alumno alumno : listaAlumnos) {
@@ -93,6 +94,7 @@ public class AlumnoController {
     			alumno.setClases(null);
     			alumno.setApoderados(null);
     			alumno.setPersona(personaService.findByIdAlumno(alumno.getId()));
+    			alumno.getPersona().setAlumno(null);
     			System.out.println("fecha: "+fecha);
     			
     			//Buscar si se encuentra calificado

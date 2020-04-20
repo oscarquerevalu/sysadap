@@ -156,7 +156,7 @@
 			      </ul>
 			      <ul class="nav navbar-nav navbar-right">
 			        <li class="dropdown">
-			          <a href="/login" class="btn btn-default">Cerrar Sesión</a>
+			          <a href="/logout" class="btn btn-default">Cerrar Sesión</a>
 			        </li>
 			      </ul>
 			    </div><!-- /.navbar-collapse -->
@@ -205,7 +205,6 @@
 											class="btn btn-success btn-block btn-load">Consultar</button>
 									</div>
 									<div id="dvGrafico">
-										<canvas id="speedChart" width="250" height="150"></canvas>
 									</div>
 								</form>
 							</div>
@@ -264,7 +263,8 @@
 	    		url: urlsys+'/estiloAlumno/getEstilos/'+fechaIni+'/'+fechaFin+'/'+$('#cboAlumno').val(),
 	    		type:"GET",
 	    		success: function(respuesta) {
-	    			var speedCanvas = document.getElementById("speedChart");
+	    			$('#dvGrafico').html('<canvas id="speedChart'+fechaIni+fechaFin+$('#cboAlumno').val()+'" width="250" height="100"></canvas>');
+	    			var speedCanvas = document.getElementById("speedChart"+fechaIni+fechaFin+$('#cboAlumno').val());
 	    			
 	    			const context = speedCanvas.getContext('2d');
 	    			context.beginPath();	    			

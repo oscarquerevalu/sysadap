@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+<title>Acceso denegado</title>
+</head>
+<body>
+<h2> <p th:if="${session.containsKey('persona')}" th:text="'Disculpa '+${session.persona.name}+', no tienes permiso para esta página.'"></p></h2>
+ 
+Click <a href="/login">Aquí</a>
+para regresar al login.
+</body>
+</html>
