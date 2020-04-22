@@ -357,6 +357,7 @@ public class AlumnoController {
     		Long id_recurso = 0L;
     		Double sum = new Double(0);
     		int cant = 0;
+    		boolean reinicio = false;
     		for (ClaseAlumnoActividades actividad : claseAlumnoActividades) {
     			
     			if(id_recurso.equals(0L)) {
@@ -366,6 +367,7 @@ public class AlumnoController {
     			if(id_recurso.compareTo(actividad.getId_recurso()) == 0) {
     				cant++;
     				sum += actividad.getValor()!=null?actividad.getValor():new Double(0);
+    				reinicio = true;
     			}else {
     				Double prom = !sum.equals(new Double(0)) && cant != 0? sum/cant:0;
     				promedio = new HashMap<String, Object>();
@@ -374,12 +376,14 @@ public class AlumnoController {
     				listReturn.add(promedio);
     				id_recurso = actividad.getId_recurso();
     				cant=1;
+    				reinicio = false;
     				sum = actividad.getValor()!=null?actividad.getValor():new Double(0);
     			}
 			} 
     		
-    		if(cant==1) {
+    		if(reinicio) {
     			Double prom = !sum.equals(new Double(0)) && cant != 0? sum/cant:0;
+    			promedio = new HashMap<String, Object>();
 				promedio.put("index", id_recurso);
 				promedio.put("value", prom);
 				listReturn.add(promedio);
