@@ -34,7 +34,7 @@
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"
 	rel="stylesheet" type="text/css" />
 <!-- 	<script src="/js/datatable.js"></script> -->
-<title>Consulta de Alumnos</title>
+<title>Sistema Adaptativo Predictivo</title>
 <style>
 .slidecontainer {
 	width: 100%;
@@ -134,7 +134,7 @@
 <body>
 
 
-	<div class="container animate-bottom" style="display:none;" id="myDiv" >
+	<div class="container" id="myDiv" >
 		<div class="row">
 			<nav class="navbar navbar-default">
 			  <div class="container-fluid">
@@ -146,13 +146,16 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="#">Sistema Adaptativo Predictivo</a>
+			      <a class="navbar-brand" href="/viewAdmin">Sistema Adaptativo Predictivo</a>
 			    </div>
 			
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
-			        <li class="active"><a href="#">Consulta de Alumnos<span class="sr-only">(current)</span></a></li>
+			        <li><a href="/mantProf">Mant. Profesores<span class="sr-only">(current)</span></a></li>
+			        <li><a href="/mantAlumno">Mant. Alumnos<span class="sr-only">(current)</span></a></li>
+			        <li><a href="/mantAulSec">Mant. Aulas y Secciones<span class="sr-only">(current)</span></a></li>
+			        <li class="active"><a href="#">Mant. Competencias<span class="sr-only">(current)</span></a></li>
 			      </ul>
 			      <ul class="nav navbar-nav navbar-right">
 			        <li class="dropdown">
@@ -170,44 +173,9 @@
 								<div th:if="${session.containsKey('persona')}" th:text="${'Bienvenido: '+session.persona.name}"></div>
 							</h3>
 							<h3>
-								<i class="glyphicon glyphicon-user" style="font-size: 2em;"></i>
+								<i class="glyphicon glyphicon-cog" style="font-size: 2em;"></i>
 							</h3>
-							<h2 class="text-center">Consulta de Alumnos</h2>
-							<div class="panel-body">
-								<div th:if="${param.success}">
-									<div class="alert alert-info">!Se registro la clase
-										satisfactoriamente!</div>
-								</div>
-
-								<form id="frmClase" method="post">
-									<div class="form-group">
-										<label class="form-control">Fecha de Inicio</label> <input
-											id="fechaIni" data-date-format="yyyy-mm-dd"
-											class="form-control" width="276"
-											placeholder="Confirmar fecha" />
-									</div>
-									
-									<div class="form-group">
-										<label class="form-control">Fecha de Fin</label> <input
-											id="fechaFin" data-date-format="yyyy-mm-dd"
-											class="form-control" width="276"
-											placeholder="Confirmar fecha" />
-									</div>
-									<div class="form-group">
-										<label class="form-control">Alumno</label> <select id="cboAlumno"
-											name="cboAlumno">
-											<option value="1">Oscar Querevalu Pingo</option>
-											<option value="3">Pablo Querevalu Pingo</option>
-										</select>
-									</div>
-									<div class="form-group col-sm-2">
-										<button type="button" onclick="consultar()"
-											class="btn btn-success btn-block btn-load">Consultar</button>
-									</div>
-									<div id="dvGrafico">
-									</div>
-								</form>
-							</div>
+							<h2 class="text-center">Mantenimiento de Competencias</h2>
 						</div>
 					</div>
 				</div>
@@ -217,100 +185,9 @@
 
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-	    var table;
-// 		var urlsys = 'http://34.195.249.193';
-		var urlsys = 'http://localhost:8080';
 	    $(document).ready( function () {
-	   		$("#fechaIni").datepicker({format: 'dd/mm/yyyy'});
-	   		$("#fechaFin").datepicker({format: 'dd/mm/yyyy'});
-	   		$(".loader").css("visibility", "hidden");
-			$(".loader2").css("visibility", "hidden");
-	    	  
 			document.getElementById("myDiv").style.display = "block";
-			//iniciar();
-// 			iniciar();
 	   });
-	    $(document)
-	    .ajaxStart(function () {
-	      $('.btn-load').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Buscando...').addClass('disabled');
-	      $('.btn-table').addClass('disabled');
-	    })
-	    .ajaxStop(function () {
-	    	$('.btn-load').html('Consultar').removeClass('disabled');
-	    	$('.btn-table').removeClass('disabled');
-	    });
-	    
-	    function consultar(){
-	
-	    	var ff = $('#fechaIni').val().split('/');
-			var formattedDate = new Date(ff[2]+'/'+ff[1]+'/'+ff[0]);
-			var d = formattedDate.getDate();
-			var m =  formattedDate.getMonth();
-			m += 1;  // JavaScript months are 0-11
-			var y = formattedDate.getFullYear();
-			
-			var fechaIni = "" + pad(d, 2) + pad(m, 2) + y;
-			
-			ff = $('#fechaFin').val().split('/');
-			formattedDate = new Date(ff[2]+'/'+ff[1]+'/'+ff[0]);
-			d = formattedDate.getDate();
-			m =  formattedDate.getMonth();
-			m += 1;  // JavaScript months are 0-11
-			y = formattedDate.getFullYear();
-			
-			var fechaFin = "" + pad(d, 2) + pad(m, 2) + y;
-			$.ajax({
-	    		url: urlsys+'/estiloAlumno/getEstilos/'+fechaIni+'/'+fechaFin+'/'+$('#cboAlumno').val(),
-	    		type:"GET",
-	    		success: function(respuesta) {
-	    			$('#dvGrafico').html('<canvas id="speedChart'+fechaIni+fechaFin+$('#cboAlumno').val()+'" width="250" height="100"></canvas>');
-	    			var speedCanvas = document.getElementById("speedChart"+fechaIni+fechaFin+$('#cboAlumno').val());
-	    			
-	    			const context = speedCanvas.getContext('2d');
-	    			context.beginPath();	    			
-
-	    			Chart.defaults.global.defaultFontFamily = "Lato";
-	    			Chart.defaults.global.defaultFontSize = 12;
-
-	    			var speedData = {
-	    			  labels: ["LINGÜÍSTICO- VERBAL", "LÓGICA MATEMÁTICA", "ESPACIAL", "CORPORAL KINESTÉSICA", "MUSICAL", "INTERPERSONAL", "INTRAPERSONAL", "NATURALISTA"],
-	    			  datasets: respuesta
-	    			};
-
-	    			var chartOptions = {
-	    			  legend: {
-	    			    display: true,
-	    			    position: 'top',
-	    			    labels: {
-	    			      boxWidth: 80,
-	    			      fontColor: 'black'
-	    			    }
-	    			  }
-	    			};
-
-	    			var lineChart = new Chart(speedCanvas, {
-	    			  type: 'bar',
-	    			  data: speedData,
-	    			  options: chartOptions,
-	    			  responsive: true
-	    			});
-			    },
-				error: function() {
-			        console.log("No se ha podido obtener la información");
-			        //tfvis.show.modelSummary({name: 'Modelo de Predicción'}, model);
-			    }
-			});
-	    }
-	    
-	    function pad (str, max) {
-	    	  str = str.toString();
-	    	  var length_str = str.length;
-	    	  var var_mx = parseInt(max); 
-	    	  if(length_str < var_mx){
-	    		  return pad("0" + str, max);  
-	    	  }else
-	    		  return str;
-	    	}
 	    
 	    	/*]]>*/
     </script>

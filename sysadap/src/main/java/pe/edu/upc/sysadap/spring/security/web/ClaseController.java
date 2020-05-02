@@ -31,6 +31,7 @@ public class ClaseController {
     		listaAlumnos = lista.get(0).getAlumnos();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
     	
         return listaAlumnos;

@@ -49,9 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(
                             "/registration**",
                             "/forgot-password**",
-//                            "/clase**",
-//                            "/estiloAlumno**",
-//                            "/alumno**",
                             "/swagger-resources/**",
                             "/swagger-ui.html",
                             "/v2/api-docs",
@@ -67,6 +64,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/alumno**",
                             "/viewEA",
                             "/").hasRole("USER")
+                    .antMatchers(
+                            "/clase**",
+                            "/estiloAlumno**",
+                            "/alumno**",
+                            "/profesor**",
+                            "/admin**",
+                            "/viewAdmin",
+                            "/mantProf",
+                            "/mantAlumno",
+                            "/mantAulSec",
+                            "/mantComp").hasRole("ADMIN")
                     .antMatchers(
                     		"/alumno**",
                             "/viewAlumnos").hasRole("APODE")

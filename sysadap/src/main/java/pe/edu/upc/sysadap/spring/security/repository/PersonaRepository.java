@@ -14,4 +14,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 //
     @Query("Select u from Persona u where u.alumno.id = :id")
     Persona findByIdAlumno(@Param("id") Long id);
+    
+    @Query("Select u from Persona u where u.profesor.id = :id")
+    Persona findByIdProfesor(@Param("id") Long id);
 }

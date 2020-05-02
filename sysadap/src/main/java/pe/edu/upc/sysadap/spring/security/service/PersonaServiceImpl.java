@@ -33,7 +33,12 @@ public class PersonaServiceImpl implements PersonaService {
 		// TODO Auto-generated method stub
 		return personaRepository.findByIdAlumno(id);
 	}
-
+	
+	@Override
+	public Persona findByIdProfesor(Long id) {
+		// TODO Auto-generated method stub
+		return personaRepository.findByIdProfesor(id);
+	}
 
 	@Override
 	public void guardarPersona(Persona p) {

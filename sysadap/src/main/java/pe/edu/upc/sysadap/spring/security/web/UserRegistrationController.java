@@ -1,9 +1,7 @@
 package pe.edu.upc.sysadap.spring.security.web;
 
-import pe.edu.upc.sysadap.spring.security.constraint.FieldMatch;
-import pe.edu.upc.sysadap.spring.security.model.Persona;
-import pe.edu.upc.sysadap.spring.security.service.UserService;
-import pe.edu.upc.sysadap.spring.security.web.dto.UserRegistrationDto;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import javax.validation.Valid;
+
+import pe.edu.upc.sysadap.spring.security.model.Persona;
+import pe.edu.upc.sysadap.spring.security.service.UserService;
 
 @Controller
 @RequestMapping("/registration")

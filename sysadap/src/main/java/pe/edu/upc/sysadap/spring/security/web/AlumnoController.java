@@ -2,14 +2,17 @@ package pe.edu.upc.sysadap.spring.security.web;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,13 +70,17 @@ public class AlumnoController {
     			alumno.setClases(null);
     			alumno.setApoderados(null);
     			alumno.setPersona(personaService.findByIdAlumno(alumno.getId()));
-    			
-//    			alumno.getPersona().setName("ABC");
-//    			personaService.guardarPersona(alumno.getPersona());
+    			alumno.setPersonas(null);
+    			alumno.getPersona().setAlumno(null);
+    			if(alumno.getPersona()!=null) {
+    				alumno.getPersona().setAlumno(null);
+    				alumno.getPersona().setProfesor(null);
+    			}
 			} 
-//    		listaAlumnos = lista.get(0).getAlumnos();
+    		listaAlumnos = listaAlumnos.stream().filter(profesor -> profesor.getPersona()!=null).collect(Collectors.toList());
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
     	
         return listaAlumnos;
@@ -110,6 +117,19 @@ public class AlumnoController {
 			// TODO: handle exception
 		}
 		return listaAlumnos;
+    }
+    
+    @GetMapping(value = "/getAlumno/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Obtener Alumno")
+    public Map<String, Object> getProfesor(@ApiParam(value = "Id persona", required = true) @PathVariable Long id) {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	Persona persona = personaService.findById(id);
+    	map.put("id", id);
+    	map.put("nombre", persona.getName());
+    	map.put("telefono", persona.getTelefono());
+    	map.put("documento", persona.getDocumento());
+    	map.put("direccion", persona.getDireccion());
+    	return map;
     }
     
     @GetMapping(value = "/getalumno/{fecha}/{clase}/{alumno}", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -395,5 +415,4 @@ public class AlumnoController {
         return listReturn;
     }
     
-	
 }

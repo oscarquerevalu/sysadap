@@ -57,3 +57,5 @@ INSERT INTO `db_eduini`.`persona` (`confirm_email`, `direccion`, `documento`, `e
 
 select * from clase_alumno_actividades
 select * from estilo_alumno
+
+INSERT INTO `db_eduini`.`persona` (`confirm_email`, `direccion`, `documento`, `email`, `name`, `telefono`, `terms`, `username`, `password`, `role`) VALUES ('admin', 'metro de av. Tomas Valle', '1111111', 'admin', 'Jarvis', '44444444', true, 'Jarvis','$2a$10$InNhEXWztd5qf2WAa/iTQOblQb3oW.VhOGZOApOWCy4//k/JUhMBa','ROLE_ADMIN');

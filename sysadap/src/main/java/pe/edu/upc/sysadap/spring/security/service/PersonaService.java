@@ -17,6 +17,8 @@ public interface PersonaService {
     
     Persona findByIdAlumno(Long id);
     
+    Persona findByIdProfesor(Long id);
+    
     void guardarPersona(Persona p);
 
 }

@@ -10,8 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import pe.edu.upc.sysadap.spring.security.model.Persona;
+import pe.edu.upc.sysadap.spring.security.model.Profesor;
 import pe.edu.upc.sysadap.spring.security.repository.UserRepository;
 import pe.edu.upc.sysadap.spring.security.service.UserService;
+import pe.edu.upc.sysadap.spring.security.web.dto.AlumnoDto;
+import pe.edu.upc.sysadap.spring.security.web.dto.ProfesorDto;
 
 @Controller
 public class MainController {
@@ -40,6 +43,38 @@ public class MainController {
     public String viewAlumnos(Model model, HttpSession session) {
     	setDatosSession(session);
         return "indexApoderado";
+    }
+    
+    @GetMapping("/viewAdmin")
+    public String viewAdmin(Model model, HttpSession session) {
+    	setDatosSession(session);
+        return "admin/indexAdmin";
+    }
+    
+    @GetMapping("/mantProf")
+    public String viewProf(Model model, HttpSession session) {
+    	setDatosSession(session);
+    	model.addAttribute("profesor", new ProfesorDto());
+        return "admin/mantProfesor";
+    }
+    
+    @GetMapping("/mantAlumno")
+    public String mantAlumno(Model model, HttpSession session) {
+    	setDatosSession(session);
+    	model.addAttribute("alumno", new AlumnoDto());
+        return "admin/mantAlumno";
+    }
+    
+    @GetMapping("/mantAulSec")
+    public String mantAulSec(Model model, HttpSession session) {
+    	setDatosSession(session);
+        return "admin/mantAulSec";
+    }
+    
+    @GetMapping("/mantComp")
+    public String mantComp(Model model, HttpSession session) {
+    	setDatosSession(session);
+        return "admin/mantComp";
     }
     
     @GetMapping("/viewEA")

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,6 +39,9 @@ public class Profesor implements Serializable {
 	
 	@OneToMany(mappedBy="profesor")
     private List<Clase> clase;
+	
+	@Transient
+	private Persona persona;
 
 	public Profesor() {
 	}
@@ -71,4 +75,13 @@ public class Profesor implements Serializable {
 	public void setClase(List<Clase> clase) {
 		this.clase = clase;
 	}
+
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+	
 }
