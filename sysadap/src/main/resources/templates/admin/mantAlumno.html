@@ -335,17 +335,21 @@
 
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-				var urlsys = 'http://34.195.249.193';
-// 		var urlsys = 'http://localhost:8080';
+		var urlsys = '';
+		var clases = '';
+		var idSelClase = '';
 		
 		var frmClear = "";
 	    $(document).ready( function () {
+	    	urlsys = [[${session.urlCntx}]];
+	    	clases = [[${clases}]];
 			document.getElementById("myDiv").style.display = "block";
 			buscar();
 			frmClear = $("#alumno-form").html()+"";
 			var $form = $('#alumnoInfo');
 		     $form.on('submit', function(e) {
 		       e.preventDefault();
+		       idSelClase = $('#clase').val();
 		       $.ajax({
 		         url: $form.attr('action'),
 		         type: 'post',
@@ -357,6 +361,14 @@
 		             $("#alumno-form").html(response);
 		             $form = $('#alumnoInfo');
 		             beSubmit($form);
+		             $('#clase').empty();
+		    			$.each(clases, function(key, value) {
+		    			     $('#clase')
+		    			         .append($("<option></option>")
+		    			                    .attr("value",value.id)
+		    			                    .text(value.nombre)); 
+		    			});
+		    		$('#clase').val(idSelClase);
 		           } else {
 		        	   window.location.href='mantAlumno?success';
 		           }
@@ -368,6 +380,7 @@
 	    function beSubmit($form){
 	    	$form.on('submit', function(e) {
 			       e.preventDefault();
+			       idSelClase = $('#clase').val();
 			       $.ajax({
 			         url: $form.attr('action'),
 			         type: 'post',
@@ -379,6 +392,14 @@
 			             $("#alumno-form").html(response);
 			             $form = $('#alumnoInfo');
 			             beSubmit($form);
+			             $('#clase').empty();
+			    			$.each(clases, function(key, value) {
+			    			     $('#clase')
+			    			         .append($("<option></option>")
+			    			                    .attr("value",value.id)
+			    			                    .text(value.nombre)); 
+			    			});
+			    			$('#clase').val(idSelClase);
 			           } else {
 			        	   window.location.href='mantAlumno?success';
 			           }

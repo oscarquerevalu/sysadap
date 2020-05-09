@@ -189,9 +189,9 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	    var table;
-		var urlsys = 'http://34.195.249.193';
-// 		var urlsys = 'http://localhost:8080';
+		var urlsys = '';
 	    $(document).ready( function () {
+	    	urlsys = [[${session.urlCntx}]];
 	   		$("#fechaConsulta").datepicker({format: 'dd/mm/yyyy'});
 	   		$('#rang1').on('input change', function () {
 		        $('#rangeText1').text("Valor: "+$(this).val());

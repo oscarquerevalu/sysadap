@@ -309,14 +309,14 @@
 
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-				var urlsys = 'http://34.195.249.193';
-// 		var urlsys = 'http://localhost:8080';
+				var urlsys = '';
 		
 		var frmClear = "";
 		
 	    $(document).ready( function () {
 			document.getElementById("myDiv").style.display = "block";
 			buscar();
+			urlsys = [[${session.urlCntx}]];
 			frmClear = $("#profesor-form").html()+"";
 			var $form = $('#profesorInfo');
 		     $form.on('submit', function(e) {

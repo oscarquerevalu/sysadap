@@ -18,7 +18,7 @@ public class EmailSendingTasklet implements Tasklet, InitializingBean {
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 		System.out.println("Inicio envío de mensaje:"+ new Date());
-//		emailService.sendEmail();
+		emailService.sendEmail();
 		System.out.println("Fin envío de mensaje");
 		return RepeatStatus.FINISHED;
 	}

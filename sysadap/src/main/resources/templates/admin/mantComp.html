@@ -260,12 +260,12 @@
 
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-	    		var urlsys = 'http://34.195.249.193';
-// 		var urlsys = 'http://localhost:8080';
+	    		var urlsys = '';
 
 		var frmClear = "";
 
 		$(document).ready(function() {
+			urlsys = [[${session.urlCntx}]];
 			document.getElementById("myDiv").style.display = "block";
 			buscar();
 			frmClear = $("#competencia-form").html() + "";

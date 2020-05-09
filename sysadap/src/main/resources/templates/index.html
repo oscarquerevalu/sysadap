@@ -345,13 +345,13 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	    var table;
-		var urlsys = 'http://34.195.249.193';
-// 		var urlsys = 'http://localhost:8080';
+		var urlsys = '';
 	    $(document).ready( function () {
 	//    	 $('#fechaConsulta').datepicker();
 	
 // 	   		$("#fechaConsulta").datepicker({ dateFormat: 'yy-mm-dd' });
 	   		$("#fechaConsulta").datepicker({format: 'dd/mm/yyyy'});
+	   		urlsys = [[${session.urlCntx}]];
 	//    	var table = $('#alumnosTable').DataTable( {
 	//    	    paging: false
 	//    	} );

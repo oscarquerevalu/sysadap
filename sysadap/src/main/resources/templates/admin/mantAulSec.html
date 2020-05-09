@@ -358,9 +358,7 @@ to {
 
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-				var urlsys = 'http://34.195.249.193';
-// 		var urlsys = 'http://localhost:8080';
-		
+				var urlsys = '';
 
 		var frmClear = "";
 		var competencias = [];
@@ -369,6 +367,7 @@ to {
 		$(document).ready(function() {
 			document.getElementById("myDiv").style.display = "block";
 			buscar();
+			urlsys = [[${session.urlCntx}]];
 			frmClear = $("#clase-form").html() + "";
 			var $form = $('#claseInfo');
 			$form.on('submit', function(e) {

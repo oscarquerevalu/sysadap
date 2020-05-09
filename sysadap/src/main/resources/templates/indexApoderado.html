@@ -218,9 +218,9 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	    var table;
-		var urlsys = 'http://34.195.249.193';
-// 		var urlsys = 'http://localhost:8080';
+		var urlsys = '';
 	    $(document).ready( function () {
+	    	urlsys = [[${session.urlCntx}]];
 	   		$("#fechaIni").datepicker({format: 'dd/mm/yyyy'});
 	   		$("#fechaFin").datepicker({format: 'dd/mm/yyyy'});
 	   		$(".loader").css("visibility", "hidden");

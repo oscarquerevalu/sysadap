@@ -1,5 +1,7 @@
 package pe.edu.upc.sysadap.spring.security.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,12 @@ public class ApoderadoServiceImpl implements ApoderadoService {
 	public Apoderado findById(Long id) {
 		// TODO Auto-generated method stub
 		return apoderadoRepository.findOne(id);
+	}
+
+
+	@Override
+	public List<Apoderado> findAll() {
+		// TODO Auto-generated method stub
+		return apoderadoRepository.findAll();
 	}
 }

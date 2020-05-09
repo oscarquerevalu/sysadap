@@ -32,6 +32,9 @@ public class MainController {
     private ClaseRepository claseRepository;
 	@Autowired
     private CompetenciaRepository competenciasRepository;
+	
+//	private final static String urlCntx = "http://34.195.249.193";
+	private final static String urlCntx = "http://localhost:8080";
 
     @GetMapping("/")
     public String root(Model model, HttpSession session) {
@@ -75,6 +78,12 @@ public class MainController {
     public String mantAlumno(Model model, HttpSession session) {
     	setDatosSession(session);
     	List<Clase> clases = claseRepository.findAll();
+    	for (Clase clase : clases) {
+			clase.setAlumnos(null);
+			clase.setCompetencias(null);
+			clase.setProfesor(null);
+			clase.setRecursos(null);
+		}
     	model.addAttribute("alumno", new AlumnoDto());
     	model.addAttribute("clases", clases);
         return "admin/mantAlumno";
@@ -114,5 +123,6 @@ public class MainController {
     	System.out.println("currentPrincipalName: "+currentPrincipalName);
     	Persona persona = userRepository.findByEmail(currentPrincipalName);
     	session.setAttribute("persona", persona);
+    	session.setAttribute("urlCntx", urlCntx);
     }
 }
