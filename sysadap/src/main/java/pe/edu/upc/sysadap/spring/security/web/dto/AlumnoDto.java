@@ -3,6 +3,7 @@ package pe.edu.upc.sysadap.spring.security.web.dto;
 import javax.persistence.Column;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -27,6 +28,15 @@ public class AlumnoDto {
 	
 	@Column
 	private String direccion;
+	
+	private Long codApoderado;
+	
+	private String nombreApoderado;
+	
+	private Long docApoderado;
+	
+	@NotNull
+    private Long idClase;
 	
 	@Transient
 	private boolean edit = false;
@@ -77,5 +87,37 @@ public class AlumnoDto {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getCodApoderado() {
+		return codApoderado;
+	}
+
+	public void setCodApoderado(Long codApoderado) {
+		this.codApoderado = codApoderado;
+	}
+
+	public Long getDocApoderado() {
+		return docApoderado;
+	}
+
+	public void setDocApoderado(Long docApoderado) {
+		this.docApoderado = docApoderado;
+	}
+
+	public String getNombreApoderado() {
+		return nombreApoderado;
+	}
+
+	public void setNombreApoderado(String nombreApoderado) {
+		this.nombreApoderado = nombreApoderado;
+	}
+
+	public Long getIdClase() {
+		return idClase;
+	}
+
+	public void setIdClase(Long idClase) {
+		this.idClase = idClase;
 	}
 }

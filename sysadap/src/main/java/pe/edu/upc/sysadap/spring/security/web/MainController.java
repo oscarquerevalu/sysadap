@@ -1,5 +1,7 @@
 package pe.edu.upc.sysadap.spring.security.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import pe.edu.upc.sysadap.spring.security.model.Clase;
+import pe.edu.upc.sysadap.spring.security.model.Competencia;
 import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.model.Profesor;
+import pe.edu.upc.sysadap.spring.security.repository.ClaseRepository;
+import pe.edu.upc.sysadap.spring.security.repository.CompetenciaRepository;
 import pe.edu.upc.sysadap.spring.security.repository.UserRepository;
 import pe.edu.upc.sysadap.spring.security.service.UserService;
 import pe.edu.upc.sysadap.spring.security.web.dto.AlumnoDto;
+import pe.edu.upc.sysadap.spring.security.web.dto.ClaseDto;
 import pe.edu.upc.sysadap.spring.security.web.dto.ProfesorDto;
 
 @Controller
@@ -21,11 +28,17 @@ public class MainController {
 	
 	@Autowired
     private UserRepository userRepository;
+	@Autowired
+    private ClaseRepository claseRepository;
+	@Autowired
+    private CompetenciaRepository competenciasRepository;
 
     @GetMapping("/")
-    public String root(HttpSession session) {
+    public String root(Model model, HttpSession session) {
     	System.out.println("--------------------INDEX");
     	setDatosSession(session);
+    	Persona persona = (Persona) session.getAttribute("persona");
+    	model.addAttribute("aulas", persona.getProfesor().getClase());
         return "index";
     }
 
@@ -61,19 +74,25 @@ public class MainController {
     @GetMapping("/mantAlumno")
     public String mantAlumno(Model model, HttpSession session) {
     	setDatosSession(session);
+    	List<Clase> clases = claseRepository.findAll();
     	model.addAttribute("alumno", new AlumnoDto());
+    	model.addAttribute("clases", clases);
         return "admin/mantAlumno";
     }
     
     @GetMapping("/mantAulSec")
     public String mantAulSec(Model model, HttpSession session) {
     	setDatosSession(session);
+    	model.addAttribute("clase", new ClaseDto());
+    	List<Competencia> competencias = competenciasRepository.findAll();
+    	model.addAttribute("competencias", competencias);
         return "admin/mantAulSec";
     }
     
     @GetMapping("/mantComp")
     public String mantComp(Model model, HttpSession session) {
     	setDatosSession(session);
+    	model.addAttribute("competencia", new Competencia());
         return "admin/mantComp";
     }
     

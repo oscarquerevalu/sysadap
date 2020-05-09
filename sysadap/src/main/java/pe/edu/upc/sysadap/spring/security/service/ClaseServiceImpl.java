@@ -20,4 +20,18 @@ public class ClaseServiceImpl implements ClaseService {
 		// TODO Auto-generated method stub
 		return claseRepository.findAll();
 	}
+
+
+	@Override
+	public Clase findById(Long id) {
+		// TODO Auto-generated method stub
+		return claseRepository.findOne(id);
+	}
+
+
+	@Override
+	public Clase guardarClase(Clase clase) {
+		// TODO Auto-generated method stub
+		return claseRepository.saveAndFlush(clase);
+	}
 }

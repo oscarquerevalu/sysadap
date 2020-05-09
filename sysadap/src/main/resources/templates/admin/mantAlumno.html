@@ -288,6 +288,37 @@
                                        th:text="${error}">Validation error</p>
                                 </div>
                                 <div class="form-group">
+                                	<div class="input-group">
+                                	 <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-paperclip color-blue"></i>
+                                        </span>
+                                        <input type="text" class="form-control" th:field="*{docApoderado}" placeholder="Documento Apoderado" name="docApod" id="docApod"></input>
+                                        <span class="input-group-btn">
+                                            <button type="button" onclick="buscarApoderado()"
+											class="btn btn-default">Buscar</button>
+                                        </span>
+                                	</div>
+                                </div>
+                                <div class="form-group">
+	                                <input type="hidden" name="codApod" id="codApod" th:field="*{codApoderado}"></input>
+	                                <div class="input-group">
+	                                	<span class="input-group-addon">
+	                                            <i class="glyphicon glyphicon-user color-blue"></i>
+	                                        </span>
+	                                	<input type="text" class="form-control" name="nomApod" readonly="readonly" id="nomApod" placeholder="Nombre Apoderado" th:field="*{nombreApoderado}"></input>
+	                                </div>
+                                </div>
+                                <div class="form-group">
+                                	<div class="input-group">
+                                	 <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-paperclip color-blue"></i>
+                                        </span>
+                                        <select class="form-control" name="clase" id="clase" th:field="*{idClase}">
+						                    <option th:each="clase : ${clases}" th:value="${clase.id}" th:text="${clase.nombre}"/>
+						                </select>
+                                	</div>
+                                </div>
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-success btn-block">Actualizar</button>
                                 </div>
                             </form>
@@ -304,8 +335,8 @@
 
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-		// 		var urlsys = 'http://34.195.249.193';
-		var urlsys = 'http://localhost:8080';
+				var urlsys = 'http://34.195.249.193';
+// 		var urlsys = 'http://localhost:8080';
 		
 		var frmClear = "";
 	    $(document).ready( function () {
@@ -370,7 +401,31 @@
 		    	    	$('#telefono').val(respuesta.telefono);
 		    	    	$('#documento').val(respuesta.documento);
 		    	    	$('#direccion').val(respuesta.direccion);
+		    	    	$('#codApod').val(respuesta.codApoderado);
+		    	    	$('#nomApod').val(respuesta.nombreApoderado);
+		    	    	$('#docApod').val(respuesta.documentoApoderado);
+		    	    	$('#clase').val(respuesta.idClase);
 			    		$('#mdAlumno').modal('show');
+		    		},
+		    		error: function() {
+		    	        console.log("No se ha podido obtener la información");
+		    	    }
+		    	});
+	     }
+	     
+	     function buscarApoderado() {
+	    	 $.ajax({
+		    		url: urlsys+'/alumno/getApoderado/'+$('#docApod').val(),
+		    		type:"GET",
+		    		success: function(respuesta) {
+		    			
+		    			if(respuesta.error){
+		    				alert('No existe Apoderado');
+		    				return;
+		    			}
+		    	    	$('#docApod').val(respuesta.documento);
+		    	    	$('#nomApod').val(respuesta.nombre);
+		    	    	$('#codApod').val(respuesta.id);
 		    		},
 		    		error: function() {
 		    	        console.log("No se ha podido obtener la información");

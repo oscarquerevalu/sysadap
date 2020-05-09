@@ -12,5 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface AlumnoService {
 
     List<Alumno> findByAll();
+    List<Alumno> findByIdClase(Long id);
+    Alumno save(Alumno alumno);
 
 }

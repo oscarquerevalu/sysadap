@@ -3,7 +3,9 @@ package pe.edu.upc.sysadap.spring.security.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +16,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.AssertTrue;
@@ -42,11 +46,20 @@ public class Alumno implements Serializable {
 	@OneToMany(mappedBy="alumno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Persona> personas;
 	
-	@ManyToMany(mappedBy="alumnos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Apoderado> apoderados = new ArrayList<Apoderado>();
+//	@ManyToMany(mappedBy="alumnos", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+//	@ManyToOne
+//	@JoinColumn(name="id", nullable=false)
+	@ManyToOne(optional=true,fetch = FetchType.LAZY)
+    @JoinColumn(name="id_apoderado", referencedColumnName="id")
+	private Apoderado apoderado;
+//    private List<Apoderado> apoderados = new ArrayList<Apoderado>();
 	
-	@ManyToMany(mappedBy="alumnos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Clase> clases = new ArrayList<Clase>();
+//	@ManyToMany(mappedBy="alumnos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Clase> clases = new ArrayList<Clase>();
+	
+	@ManyToOne(optional=true,fetch = FetchType.LAZY)
+    @JoinColumn(name="id_clase", referencedColumnName="id")
+	private Clase clase;
 	
 	@Transient
 	private Persona persona;
@@ -72,23 +85,15 @@ public class Alumno implements Serializable {
 	public void setPersonas(List<Persona> personas) {
 		this.personas = personas;
 	}
-
-	public List<Apoderado> getApoderados() {
-		return apoderados;
-	}
-
-	public void setApoderados(List<Apoderado> apoderados) {
-		this.apoderados = apoderados;
-	}
-
-	public List<Clase> getClases() {
-		return clases;
-	}
-
-	public void setClases(List<Clase> clases) {
-		this.clases = clases;
-	}
 	
+	public Clase getClase() {
+		return clase;
+	}
+
+	public void setClase(Clase clase) {
+		this.clase = clase;
+	}
+
 	@Transient
 	public Persona getPersona() {
 		return persona;
@@ -107,6 +112,12 @@ public class Alumno implements Serializable {
 		this.calificado = calificado;
 	}
 
-	
+	public Apoderado getApoderado() {
+		return apoderado;
+	}
+
+	public void setApoderado(Apoderado apoderado) {
+		this.apoderado = apoderado;
+	}
 	
 }

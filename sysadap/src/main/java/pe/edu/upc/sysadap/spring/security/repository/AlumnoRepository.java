@@ -18,6 +18,9 @@ public interface AlumnoRepository extends JpaRepository<Alumno, Long> {
 
 	@Query(value = FIND_PROJECTS, nativeQuery = true)
     public List<SoloId> findAlumnos();
+	
+	@Query("Select u from Alumno u where u.clase.id = :id")
+    List<Alumno> findByIdClase(@Param("id") Long id);
 
 //    Persona findByEmail(String email);
 //

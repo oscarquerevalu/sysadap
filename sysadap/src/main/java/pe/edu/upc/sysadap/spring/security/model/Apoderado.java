@@ -3,7 +3,9 @@ package pe.edu.upc.sysadap.spring.security.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,15 +45,17 @@ public class Apoderado implements Serializable {
     private List<Persona> personas;
 	
 	
-	@ManyToMany(cascade = {
-	        CascadeType.PERSIST,
-	        CascadeType.MERGE
-	    })
-	@JoinTable(name = "alumno_apoderado",
-	    joinColumns = @JoinColumn(name = "id_apoderado"),
-	    inverseJoinColumns = @JoinColumn(name = "id_alumno")
-	)
-	private List<Alumno> alumnos = new ArrayList<Alumno>();
+//	@ManyToMany(cascade = {
+//	        CascadeType.PERSIST,
+//	        CascadeType.MERGE
+//	    })
+//	@JoinTable(name = "alumno_apoderado",
+//	    joinColumns = @JoinColumn(name = "id_apoderado"),
+//	    inverseJoinColumns = @JoinColumn(name = "id_alumno")
+//	)
+//	private List<Alumno> alumnos = new ArrayList<Alumno>();
+	@OneToMany(mappedBy="apoderado")
+	private Set<Alumno> alumnos = new HashSet<>();
 
 	public Apoderado() {
 	}
@@ -72,12 +76,14 @@ public class Apoderado implements Serializable {
 		this.personas = personas;
 	}
 
-	public List<Alumno> getAlumnos() {
+	public Set<Alumno> getAlumnos() {
 		return alumnos;
 	}
 
-	public void setAlumnos(List<Alumno> alumnos) {
+	public void setAlumnos(Set<Alumno> alumnos) {
 		this.alumnos = alumnos;
 	}
+
+	
 	
 }

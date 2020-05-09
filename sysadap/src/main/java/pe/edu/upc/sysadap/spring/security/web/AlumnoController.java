@@ -67,8 +67,8 @@ public class AlumnoController {
     		listaAlumnos = alumnoService.findByAll();
     		for (Alumno alumno : listaAlumnos) {
     			alumno.setPersonas(null);
-    			alumno.setClases(null);
-    			alumno.setApoderados(null);
+    			alumno.setClase(null);
+    			alumno.setApoderado(null);
     			alumno.setPersona(personaService.findByIdAlumno(alumno.getId()));
     			alumno.setPersonas(null);
     			alumno.getPersona().setAlumno(null);
@@ -87,19 +87,20 @@ public class AlumnoController {
     }
     
     
-    @GetMapping(value = "/listalumnos/{fecha}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/listalumnos/{clase}/{fecha}", produces=MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Ver los alumnos por fecha de clase")
-    public List<Alumno> listalumnosxFecna( @ApiParam(value = "Fecha de clase", required = true) @PathVariable String fecha) {
+    public List<Alumno> listalumnosxFecna( @ApiParam(value = "Fecha de clase", required = true) @PathVariable String fecha,
+    									   @ApiParam(value = "Id Clase", required = true) @PathVariable Long clase) {
 
     	List<Alumno> listaAlumnos = new ArrayList<Alumno>();
     	List<ClaseAlumno> listaClaseAlumno = new ArrayList<ClaseAlumno>();
     	
     	try {
-    		listaAlumnos = alumnoService.findByAll();
+    		listaAlumnos = alumnoService.findByIdClase(clase);
     		for (Alumno alumno : listaAlumnos) {
     			alumno.setPersonas(null);
-    			alumno.setClases(null);
-    			alumno.setApoderados(null);
+    			alumno.setClase(null);
+    			alumno.setApoderado(null);
     			alumno.setPersona(personaService.findByIdAlumno(alumno.getId()));
     			alumno.getPersona().setAlumno(null);
     			System.out.println("fecha: "+fecha);
@@ -129,6 +130,36 @@ public class AlumnoController {
     	map.put("telefono", persona.getTelefono());
     	map.put("documento", persona.getDocumento());
     	map.put("direccion", persona.getDireccion());
+    	
+    	if(persona.getAlumno()!=null && persona.getAlumno().getApoderado()!=null) {
+    		map.put("codApoderado", persona.getAlumno().getApoderado().getId());
+        	map.put("nombreApoderado", persona.getAlumno().getApoderado().getPersonas().get(0).getName());
+        	map.put("documentoApoderado", persona.getAlumno().getApoderado().getPersonas().get(0).getDocumento());
+    	}
+    	
+    	if(persona.getAlumno()!=null && persona.getAlumno().getClase()!=null) {
+    		map.put("idClase", persona.getAlumno().getClase().getId());
+    	}
+    	
+    	return map;
+    }
+    
+    @GetMapping(value = "/getApoderado/{documento}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Obtener Apoderado")
+    public Map<String, Object> getApoderado(@ApiParam(value = "Documento apoderado", required = true) @PathVariable String documento) {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	List<Persona> personas = personaService.findByIdApoderado(documento);
+    	
+    	if(personas.isEmpty()) {
+    		map.put("error", true);
+    		return map;
+    	}
+    	
+    	for (Persona apoderado : personas) {
+    		map.put("id", apoderado.getApoderado().getId());
+        	map.put("nombre", apoderado.getName());
+        	map.put("documento", apoderado.getDocumento());
+		}
     	return map;
     }
     

@@ -37,7 +37,7 @@ public class ClaseControllerTest {
 		Alumno alumno = new Alumno();
 		alumno.setCalificado("20");
 		listAlumno.add(alumno);
-		clase.setAlumnos(listAlumno);
+//		clase.setAlumnos(listAlumno);
 		listClase.add(clase);
 		when(claseService.findByAll()).thenReturn(listClase);
 	}

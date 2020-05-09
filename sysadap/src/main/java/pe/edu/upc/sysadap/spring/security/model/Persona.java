@@ -96,7 +96,7 @@ public class Persona implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@ManyToOne(optional=true,fetch = FetchType.LAZY)
+	@ManyToOne(optional=true,fetch = FetchType.EAGER)
     @JoinColumn(name="id_profesor", referencedColumnName="id")
 	private Profesor profesor;
 	

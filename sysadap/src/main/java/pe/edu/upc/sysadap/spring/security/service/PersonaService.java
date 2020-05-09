@@ -7,6 +7,7 @@ import pe.edu.upc.sysadap.spring.security.web.dto.UserRegistrationDto;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface PersonaService {
@@ -19,6 +20,8 @@ public interface PersonaService {
     
     Persona findByIdProfesor(Long id);
     
-    void guardarPersona(Persona p);
+    List<Persona> findByIdApoderado(String documento);
+    
+    Persona guardarPersona(Persona p);
 
 }

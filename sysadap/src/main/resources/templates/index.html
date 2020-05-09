@@ -213,10 +213,10 @@
 											placeholder="Confirmar fecha" />
 									</div>
 									<div class="form-group col-sm-5">
-										<label class="form-control">Sección</label> <select
-											disabled="disabled">
-											<option id="1">3 años A</option>
-										</select>
+										<label class="form-control">Aulas</label> 
+										<select class="form-control" name="clase" id="clase">
+						                    <option th:each="aula : ${aulas}" th:value="${aula.id}" th:text="${aula.nombre}"/>
+						                </select>
 									</div>
 									<div class="form-group col-sm-2">
 										<button type="button" onclick="consultar()"
@@ -284,10 +284,6 @@
 					<div class="form-group">
 						<label class="form-control">Actividad</label> <select
 							id="selActividad" name="selActividad">
-							<option value="">---Seleccione---</option>
-							<option value="1">Actidad 1</option>
-							<option value="2">Actidad 2</option>
-							<option value="3">Actidad 3</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -349,8 +345,8 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	    var table;
-// 		var urlsys = 'http://34.195.249.193';
-		var urlsys = 'http://localhost:8080';
+		var urlsys = 'http://34.195.249.193';
+// 		var urlsys = 'http://localhost:8080';
 	    $(document).ready( function () {
 	//    	 $('#fechaConsulta').datepicker();
 	
@@ -724,52 +720,72 @@
 			var m =  formattedDate.getMonth();
 			m += 1;  // JavaScript months are 0-11
 			var y = formattedDate.getFullYear();
+			var idClase = $('#clase').val();
 			
 			var fecha = "" + pad(d, 2) + pad(m, 2) + y;
-	    	var table = $('#alumnosTable').DataTable({
-	   			"sAjaxSource": "/alumno/listalumnos/"+fecha,
-	   			"sAjaxDataProp": "",
-	   			"order": [[ 0, "asc" ]],
-	   			"paging": false,
-	   			"bDestroy": true,
-	   			"aoColumns": [
-	   			    { "mData": "id"},
-	   			 	{ "mData": "persona.documento" },
-	   			 	{ "mData": "persona.name" },   				  
-	   				{ "mData": "persona.email" },
-	   				{ "mData": "persona.telefono" },
-	   				{ "mData": "calificado" },
-	   	            {"mRender": function (data, type, full) {
-	   	            	if(full.calificado == 'NO'){
-	   	            		return '<a href="#" onclick="abrirCalificacion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary btn-table">Calificar</a>'
-	   	         		}else{
-	   	         			return 'Calificado';		
-	   	         		}
-// 	                 return '<a href="#" onclick="abrirCalificacion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary ImprimirTicket">Calificar</a>'
-	                 }
-	   	            },
-	   	         	{"mRender": function (data, type, full) {
-	   	         		
-	   	         		if(full.calificado == 'NO'){
-	   	         			return 'NO';
-	   	         		}else{
-	   	         			return '<a href="#" onclick="abrirPrediccion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary btn-table">Predecir</a>'		
-	   	         		}
-	                 
-	                 }
-	   	            }
-	   			],
-	   			"language": {
-	   	            "lengthMenu": "Mostrar _MENU_ filas por página",
-	   	            "zeroRecords": "Ninguna fila",
-	   	            "info": "Mostrando página _PAGE_ de _PAGES_",
-	   	            "infoEmpty": "Ninguna fila disponible",
-	   	            "infoFiltered": "(Filtrado de _MAX_ total filas)",
-	   	         	"search": "Buscar:"
-	   	        }
-	   			
-	   	 })
-	   	document.getElementById("alumnosTable").style.display = "block";
+			
+			$.ajax({
+	    		url: urlsys+'/clase/getClase/'+idClase,
+	    		type:"GET",
+	    		success: function(respuesta) {
+	    			$('#selActividad')
+    			    .empty();
+	    			$.each(respuesta.competencias, function(key, value) {
+	    			     $('#selActividad')
+	    			         .append($("<option></option>")
+	    			                    .attr("value",value.id)
+	    			                    .text(value.nombre)); 
+	    			});
+	    			
+	    			var table = $('#alumnosTable').DataTable({
+	    	   			"sAjaxSource": "/alumno/listalumnos/"+idClase+"/"+fecha,
+	    	   			"sAjaxDataProp": "",
+	    	   			"order": [[ 0, "asc" ]],
+	    	   			"paging": false,
+	    	   			"bDestroy": true,
+	    	   			"aoColumns": [
+	    	   			    { "mData": "id"},
+	    	   			 	{ "mData": "persona.documento" },
+	    	   			 	{ "mData": "persona.name" },   				  
+	    	   				{ "mData": "persona.email" },
+	    	   				{ "mData": "persona.telefono" },
+	    	   				{ "mData": "calificado" },
+	    	   	            {"mRender": function (data, type, full) {
+	    	   	            	if(full.calificado == 'NO'){
+	    	   	            		return '<a href="#" onclick="abrirCalificacion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary btn-table">Calificar</a>'
+	    	   	         		}else{
+	    	   	         			return 'Calificado';		
+	    	   	         		}
+//	     	                 return '<a href="#" onclick="abrirCalificacion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary ImprimirTicket">Calificar</a>'
+	    	                 }
+	    	   	            },
+	    	   	         	{"mRender": function (data, type, full) {
+	    	   	         		
+	    	   	         		if(full.calificado == 'NO'){
+	    	   	         			return 'NO';
+	    	   	         		}else{
+	    	   	         			return '<a href="#" onclick="abrirPrediccion('+full.id+',\''+full.persona.name+'\','+full.persona.documento+')" class="btn btn-primary btn-table">Predecir</a>'		
+	    	   	         		}
+	    	                 
+	    	                 }
+	    	   	            }
+	    	   			],
+	    	   			"language": {
+	    	   	            "lengthMenu": "Mostrar _MENU_ filas por página",
+	    	   	            "zeroRecords": "Ninguna fila",
+	    	   	            "info": "Mostrando página _PAGE_ de _PAGES_",
+	    	   	            "infoEmpty": "Ninguna fila disponible",
+	    	   	            "infoFiltered": "(Filtrado de _MAX_ total filas)",
+	    	   	         	"search": "Buscar:"
+	    	   	        }
+	    	   			
+	    	   	 });
+	    			document.getElementById("alumnosTable").style.display = "block";
+	    		},
+	    		error: function() {
+	    	        console.log("No se ha podido obtener la información");
+	    	    }
+	    	});
 	    }
 	    
 	    function pad (str, max) {

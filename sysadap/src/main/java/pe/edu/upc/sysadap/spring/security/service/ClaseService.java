@@ -11,5 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface ClaseService {
 
     List<Clase> findByAll();
+    
+    Clase findById(Long id);
+    
+    Clase guardarClase(Clase clase);
 
 }

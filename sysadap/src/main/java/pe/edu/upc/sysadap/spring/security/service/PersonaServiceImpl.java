@@ -20,6 +20,10 @@ public class PersonaServiceImpl implements PersonaService {
 		// TODO Auto-generated method stub
 		return personaRepository.findAll();
 	}
+	
+	public List<Persona> findByIdApoderado(String documento){
+		return personaRepository.findByIdApoderado(documento);
+	}
 
 
 	@Override
@@ -41,8 +45,8 @@ public class PersonaServiceImpl implements PersonaService {
 	}
 
 	@Override
-	public void guardarPersona(Persona p) {
+	public Persona guardarPersona(Persona p) {
 		// TODO Auto-generated method stub
-		personaRepository.saveAndFlush(p);
+		return personaRepository.saveAndFlush(p);
 	}
 }
