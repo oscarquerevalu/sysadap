@@ -282,7 +282,7 @@
 							id="nombreAlumno" name="nombreAlumno" readonly="readonly" />
 					</div>
 					<div class="form-group">
-						<label class="form-control">Actividad</label> <select
+						<label class="form-control">Competencia</label> <select
 							id="selActividad" name="selActividad">
 						</select>
 					</div>
@@ -329,10 +329,132 @@
 							id="nombreAlumnoPred" name="nombreAlumnoPred" readonly="readonly" />
 					</div>
 					<div class="form-group">
-						<label class="form-control">Nombre del Alumno</label>
+						<label class="form-control">Recursos Didácticos</label>
+						<div class="row">
+									        <div class="col-xs-4">
+									            <label value="1"> *Cuaderno de Dibujo</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel1">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="2"> *Reproductor de sonido</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel2">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="3"> *Telefono</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel3">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="4"> *Pelota</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel4">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="5"> *Puzzle</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel5">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="6"> *Flores</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel6">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="7"> *Libro de animaciones</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel7">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="8"> *Castillo</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel8">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="9"> *Plastilina</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel9">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="10"> *Cubos</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel10">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="11"> *Papel de seda</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel11">Valor: 0</label>
+									        </div>
+									    </div>
+									    
+									    
+									    <div class="row">
+									        <div class="col-xs-4">
+									            <label value="12"> *Tambor</label>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-10 text-right" id="rangeLabel12">Valor: 0</label>
+									        </div>
+									    </div>
 					</div>
-					<div id="dvEstilo"></div>
-					<div id="dvGrafico"></div>
+<!-- 						<div id="dvRecursoDid"></div> -->
+					<div class="form-group">
+						<label class="form-control">Estilo de Aprendizaje</label>
+					</div>
+						<div id="dvEstilo"></div>
+						<div id="dvGrafico"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -386,6 +508,68 @@
 	    	$('#nombreAlumno').val(nombre);
 	    	$('#docAlumno').val(doc);
 	    	$('#idAlumno').val(id);
+	    	$('#dvRecurso').empty();
+	    	var check1 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="1"> Cuaderno de Dibujo</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang1"></input><label id="rangeText1">Valor: 0</label></div>');
+			var check2 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="2"> Reproductor de sonido</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang2"></input><label id="rangeText2">Valor: 0</label></div>');
+			var check3 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="3"> Telefono</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang3"></input><label id="rangeText3">Valor: 0</label></div>');
+			var check4 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="4"> Pelota</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang4"></input><label id="rangeText4">Valor: 0</label></div>');
+			var check5 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="5"> Puzzle</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang5"></input><label id="rangeText5">Valor: 0</label></div>');
+			var check6 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="6"> Flores</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang6"></input><label id="rangeText6">Valor: 0</label></div>');
+			var check7 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="7"> Libro de animaciones</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang7"></input><label id="rangeText7">Valor: 0</label></div>');
+			var check8 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="8"> Castillo</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang8"></input><label id="rangeText8">Valor: 0</label></div>');
+			var check9 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="9"> Plastilina</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang9"></input><label id="rangeText9">Valor: 0</label></div>');
+			var check10 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="10"> Cubos</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang10"> </input><label id="rangeText10">Valor: 0</label></div>');
+			var check11 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="11"> Papel de seda</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang11"> </input><label id="rangeText11">Valor: 0</label></div>');
+			var check12 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="12"> Tambor</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang12"> </input><label id="rangeText12">Valor: 0</label></div>');
+			check1.appendTo('#dvRecurso');
+			check2.appendTo('#dvRecurso');
+			check3.appendTo('#dvRecurso');
+			check4.appendTo('#dvRecurso');
+			check5.appendTo('#dvRecurso');
+			check6.appendTo('#dvRecurso');
+			check7.appendTo('#dvRecurso');
+			check8.appendTo('#dvRecurso');
+			check9.appendTo('#dvRecurso');
+			check10.appendTo('#dvRecurso');
+			check11.appendTo('#dvRecurso');
+			check12.appendTo('#dvRecurso');
+			
+			$('#rang1').on('input change', function () {
+		        $('#rangeText1').text("Valor: "+$(this).val());
+		    });
+			$('#rang2').on('input change', function () {
+		        $('#rangeText2').text("Valor: "+$(this).val());
+		    });
+			$('#rang3').on('input change', function () {
+		        $('#rangeText3').text("Valor: "+$(this).val());
+		    });
+			$('#rang4').on('input change', function () {
+		        $('#rangeText4').text("Valor: "+$(this).val());
+		    });
+			$('#rang5').on('input change', function () {
+		        $('#rangeText5').text("Valor: "+$(this).val());
+		    });
+			$('#rang6').on('input change', function () {
+		        $('#rangeText6').text("Valor: "+$(this).val());
+		    });
+			$('#rang7').on('input change', function () {
+		        $('#rangeText7').text("Valor: "+$(this).val());
+		    });
+			$('#rang8').on('input change', function () {
+		        $('#rangeText8').text("Valor: "+$(this).val());
+		    });
+			$('#rang9').on('input change', function () {
+		        $('#rangeText9').text("Valor: "+$(this).val());
+		    });
+			$('#rang10').on('input change', function () {
+		        $('#rangeText10').text("Valor: "+$(this).val());
+		    });
+			$('#rang11').on('input change', function () {
+		        $('#rangeText11').text("Valor: "+$(this).val());
+		    });
+			$('#rang12').on('input change', function () {
+		        $('#rangeText12').text("Valor: "+$(this).val());
+		    });
 	    	
 	    	$('#mdCalificacion').modal('show');
 	    }
@@ -413,6 +597,8 @@
 	    	    	$('#docAlumnoPred').val(doc);
 	    	    	$('#idAlumnoPred').val(id);
 	    	    	$('#dvEstilo').empty();
+// 	    	    	$('#dvRecursoDid').empty();
+	    	    	
 	    			
 	    			var val1 = respuesta.val1;
 	    			var val2 = respuesta.val2;
@@ -428,113 +614,138 @@
 	    			var val12 = respuesta.val12;
 	    			
 	    			// 80% data para entrenamiento y 20% para pruebas
-						var arry = [val1, val2, val3, val4, val5, val6, val7, val8, val9, val10, val11, val12];
-						console.log('arry', arry);
-						const input = tf.tensor2d(arry, [1, 12]);
-						const prediccion = model.predict(input).dataSync();
-						console.log('Prediccion', prediccion);
-						 
-						const data = [
-						  {index: 0, value: (prediccion[0] * 100).toFixed(2)},
-						  {index: 1, value: (prediccion[1] * 100).toFixed(2)},
-						  {index: 2, value: (prediccion[2] * 100).toFixed(2)},
-						  {index: 3, value: (prediccion[3] * 100).toFixed(2)},
-						  {index: 4, value: (prediccion[4] * 100).toFixed(2)},
-						  {index: 5, value: (prediccion[5] * 100).toFixed(2)},
-						  {index: 6, value: (prediccion[6] * 100).toFixed(2)},
-						  {index: 7, value: (prediccion[7] * 100).toFixed(2)}
-						];
+// 						var arry = [val1, val2, val3, val4, val5, val6, val7, val8, val9, val10, val11, val12];
+// 						console.log('arry', arry);
+// 						const input = tf.tensor2d(arry, [1, 12]);
+// 						const prediccion = model.predict(input).dataSync();
+// 						console.log('Prediccion', prediccion);
 						
-						// Render to visor
-						const surface = { name: 'Bar chart', tab: 'Resultados' };
-						tfvis.render.barchart(surface, data);
-						
-						//Chart
-						$('#dvGrafico').html('<canvas id="speedChart'+id+'" width="250" height="100"></canvas>');
-						var speedCanvas = document.getElementById("speedChart"+id);
-			    			
-			    			const context = speedCanvas.getContext('2d');
-			    			context.beginPath();	    			
+						$.ajax({
+				    		url: urlsys+'/estiloAlumno/getEstilos/'+fecha+'/'+fecha+'/'+id,
+				    		type:"GET",
+				    		success: function(respuesta) {
+				    			prediccion = respuesta[0].data;
+				    			const data = [
+									  {index: 0, value: (prediccion[0]).toFixed(2)},
+									  {index: 1, value: (prediccion[1]).toFixed(2)},
+									  {index: 2, value: (prediccion[2]).toFixed(2)},
+									  {index: 3, value: (prediccion[3]).toFixed(2)},
+									  {index: 4, value: (prediccion[4]).toFixed(2)},
+									  {index: 5, value: (prediccion[5]).toFixed(2)},
+									  {index: 6, value: (prediccion[6]).toFixed(2)},
+									  {index: 7, value: (prediccion[7]).toFixed(2)}
+									];
+									
+									// Render to visor
+									const surface = { name: 'Bar chart', tab: 'Resultados' };
+									tfvis.render.barchart(surface, data);
+									
+									//Chart
+									$('#dvGrafico').html('<canvas id="speedChart'+id+'" width="250" height="100"></canvas>');
+									var speedCanvas = document.getElementById("speedChart"+id);
+						    			
+						    			const context = speedCanvas.getContext('2d');
+						    			context.beginPath();	    			
 
-			    			Chart.defaults.global.defaultFontFamily = "Lato";
-			    			Chart.defaults.global.defaultFontSize = 12;
+						    			Chart.defaults.global.defaultFontFamily = "Lato";
+						    			Chart.defaults.global.defaultFontSize = 12;
 
-			    			var speedData = {
-			    			  labels: ["LINGÜÍSTICO- VERBAL", "LÓGICA MATEMÁTICA", "ESPACIAL", "CORPORAL KINESTÉSICA", "MUSICAL", "INTERPERSONAL", "INTRAPERSONAL", "NATURALISTA"],
-			    			  datasets: [{
-			    				    label: nombre,
-			    				    data: [	(prediccion[0] * 100).toFixed(2),
-			    				    		(prediccion[1] * 100).toFixed(2),
-			    				    		(prediccion[2] * 100).toFixed(2),
-			    				    		(prediccion[3] * 100).toFixed(2),
-			    				    		(prediccion[4] * 100).toFixed(2),
-			    				    		(prediccion[5] * 100).toFixed(2),
-			    				    		(prediccion[6] * 100).toFixed(2),
-			    				    		(prediccion[7] * 100).toFixed(2)],
-			    				  }]
-			    			};
+						    			var speedData = {
+						    			  labels: ["LINGÜÍSTICO- VERBAL", "LÓGICA MATEMÁTICA", "ESPACIAL", "CORPORAL KINESTÉSICA", "MUSICAL", "INTERPERSONAL", "INTRAPERSONAL", "NATURALISTA"],
+						    			  datasets: [{
+						    				    label: nombre,
+						    				    data: [	(prediccion[0]).toFixed(2),
+						    				    		(prediccion[1]).toFixed(2),
+						    				    		(prediccion[2]).toFixed(2),
+						    				    		(prediccion[3]).toFixed(2),
+						    				    		(prediccion[4]).toFixed(2),
+						    				    		(prediccion[5]).toFixed(2),
+						    				    		(prediccion[6]).toFixed(2),
+						    				    		(prediccion[7]).toFixed(2)],
+						    				  }]
+						    			};
 
-			    			var chartOptions = {
-			    			  legend: {
-			    			    display: true,
-			    			    position: 'top',
-			    			    labels: {
-			    			      boxWidth: 80,
-			    			      fontColor: 'black'
-			    			    }
-			    			  }
-			    			};
+						    			var chartOptions = {
+						    			  legend: {
+						    			    display: true,
+						    			    position: 'top',
+						    			    labels: {
+						    			      boxWidth: 80,
+						    			      fontColor: 'black'
+						    			    }
+						    			  }
+						    			};
 
-			    			var lineChart = new Chart(speedCanvas, {
-			    			  type: 'bar',
-			    			  data: speedData,
-			    			  options: chartOptions,
-			    			  responsive: true
-			    			});
-						
-						const data2 = {
-						  values: [[(prediccion[0] * 100).toFixed(2), (prediccion[1] * 100).toFixed(2), (prediccion[2] * 100).toFixed(2)],
-						           [(prediccion[3] * 100).toFixed(2), (prediccion[4] * 100).toFixed(2), (prediccion[5] * 100).toFixed(2)], 
-						           [(prediccion[6] * 100).toFixed(2), (prediccion[7] * 100).toFixed(2)]
-						           ]
-						  };        
-						// Render to visor
-						const surface2 = { name: 'Confusion Matrix with Excluded Diagonal', tab: 'Resultados' };
-						
-						tfvis.render.confusionMatrix(surface2, data2, {
-						  shadeDiagonal: true
+						    			var lineChart = new Chart(speedCanvas, {
+						    			  type: 'bar',
+						    			  data: speedData,
+						    			  options: chartOptions,
+						    			  responsive: true
+						    			});
+									
+									const data2 = {
+									  values: [[(prediccion[0] ).toFixed(2), (prediccion[1] ).toFixed(2), (prediccion[2] ).toFixed(2)],
+									           [(prediccion[3] ).toFixed(2), (prediccion[4] ).toFixed(2), (prediccion[5] ).toFixed(2)], 
+									           [(prediccion[6] ).toFixed(2), (prediccion[7] ).toFixed(2)]
+									           ]
+									  };        
+									// Render to visor
+									const surface2 = { name: 'Confusion Matrix with Excluded Diagonal', tab: 'Resultados' };
+									
+									tfvis.render.confusionMatrix(surface2, data2, {
+									  shadeDiagonal: true
+									});
+				    			
+				    			
+					    			const porcEstilo1 = (prediccion[0]).toFixed(2);
+					    			const porcEstilo2 = (prediccion[1]).toFixed(2);
+					    			const porcEstilo3 = (prediccion[2]).toFixed(2);
+					    			const porcEstilo4 = (prediccion[3]).toFixed(2);
+					    			const porcEstilo5 = (prediccion[4]).toFixed(2);
+					    			const porcEstilo6 = (prediccion[5]).toFixed(2);
+					    			const porcEstilo7 = (prediccion[6]).toFixed(2);
+					    			const porcEstilo8 = (prediccion[7]).toFixed(2);
+					    			
+					    			console.log('salida 1:', prediccion[0]);
+					    			console.log('salida 2:', prediccion[1]);
+					    			
+					    			$("#rangeLabel1").html("Valor: %"+((val1*100).toFixed(2)));
+					    			$("#rangeLabel2").html("Valor: %"+((val2*100).toFixed(2)));
+					    			$("#rangeLabel3").html("Valor: %"+((val3*100).toFixed(2)));
+					    			$("#rangeLabel4").html("Valor: %"+((val4*100).toFixed(2)));
+					    			$("#rangeLabel5").html("Valor: %"+((val5*100).toFixed(2)));
+					    			$("#rangeLabel6").html("Valor: %"+((val6*100).toFixed(2)));
+					    			$("#rangeLabel7").html("Valor: %"+((val7*100).toFixed(2)));
+					    			$("#rangeLabel8").html("Valor: %"+((val8*100).toFixed(2)));
+					    			$("#rangeLabel9").html("Valor: %"+((val9*100).toFixed(2)));
+					    			$("#rangeLabel10").html("Valor: %"+((val10*100).toFixed(2)));
+					    			$("#rangeLabel11").html("Valor: %"+((val11*100).toFixed(2)));
+					    			$("#rangeLabel12").html("Valor: %"+((val12*100).toFixed(2)));
+					    			
+					    			const estilo1 = $('<div><label>LINGÜÍSTICO- VERBAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo1+'" class="slider" id="estilo1" disabled="disabled"></input><label id="rangeText1">Valor: %'+porcEstilo1+'</label></div>');
+					    			const estilo2 = $('<div><label>LÓGICA MATEMÁTICA:</label> <input type="range" min="0" max="100" value="'+porcEstilo2+'" class="slider" id="estilo2" disabled="disabled"></input><label id="rangeText2">Valor: %'+porcEstilo2+'</label></div>');
+					    			const estilo3 = $('<div><label>ESPACIAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo3+'" class="slider" id="estilo3" disabled="disabled"></input><label id="rangeText3">Valor: %'+porcEstilo3+'</label></div>');
+					    			const estilo4 = $('<div><label>CORPORAL KINESTÉSICA:</label> <input type="range" min="0" max="100" value="'+porcEstilo4+'" class="slider" id="estilo4" disabled="disabled"></input><label id="rangeText4">Valor: %'+porcEstilo4+'</label></div>');
+					    			const estilo5 = $('<div><label>MUSICAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo5+'" class="slider" id="estilo5" disabled="disabled"></input><label id="rangeText5">Valor: %'+porcEstilo5+'</label></div>');
+					    			const estilo6 = $('<div><label>INTERPERSONAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo6+'" class="slider" id="estilo6" disabled="disabled"></input><label id="rangeText6">Valor: %'+porcEstilo6+'</label></div>');
+					    			const estilo7 = $('<div><label>INTRAPERSONAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo7+'" class="slider" id="estilo7" disabled="disabled"></input><label id="rangeText7">Valor: %'+porcEstilo7+'</label></div>');
+					    			const estilo8 = $('<div><label>NATURALISTA:</label> <input type="range" min="0" max="100" value="'+porcEstilo8+'" class="slider" id="estilo8" disabled="disabled"></input><label id="rangeText8">Valor: %'+porcEstilo8+'</label></div>');
+					    			estilo1.appendTo('#dvEstilo');
+					    			estilo2.appendTo('#dvEstilo');
+					    			estilo3.appendTo('#dvEstilo');
+					    			estilo4.appendTo('#dvEstilo');
+					    			estilo5.appendTo('#dvEstilo');
+					    			estilo6.appendTo('#dvEstilo');
+					    			estilo7.appendTo('#dvEstilo');
+					    			estilo8.appendTo('#dvEstilo');
+					    			$('#mdPrediccion').modal('show');
+						    },
+							error: function() {
+						        console.log("No se ha podido obtener la información");
+						    }
 						});
-	    			
-	    			
-		    			const porcEstilo1 = (prediccion[0]*100).toFixed(2);
-		    			const porcEstilo2 = (prediccion[1]*100).toFixed(2);
-		    			const porcEstilo3 = (prediccion[2]*100).toFixed(2);
-		    			const porcEstilo4 = (prediccion[3]*100).toFixed(2);
-		    			const porcEstilo5 = (prediccion[4]*100).toFixed(2);
-		    			const porcEstilo6 = (prediccion[5]*100).toFixed(2);
-		    			const porcEstilo7 = (prediccion[6]*100).toFixed(2);
-		    			const porcEstilo8 = (prediccion[7]*100).toFixed(2);
-		    			
-		    			console.log('salida 1:', prediccion[0]);
-		    			console.log('salida 2:', prediccion[1]);
-		    			
-		    			const estilo1 = $('<div><label>LINGÜÍSTICO- VERBAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo1+'" class="slider" id="estilo1" disabled="disabled"></input><label id="rangeText1">Valor: %'+porcEstilo1+'</label></div>');
-		    			const estilo2 = $('<div><label>LÓGICA MATEMÁTICA:</label> <input type="range" min="0" max="100" value="'+porcEstilo2+'" class="slider" id="estilo2" disabled="disabled"></input><label id="rangeText2">Valor: %'+porcEstilo2+'</label></div>');
-		    			const estilo3 = $('<div><label>ESPACIAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo3+'" class="slider" id="estilo3" disabled="disabled"></input><label id="rangeText3">Valor: %'+porcEstilo3+'</label></div>');
-		    			const estilo4 = $('<div><label>CORPORAL KINESTÉSICA:</label> <input type="range" min="0" max="100" value="'+porcEstilo4+'" class="slider" id="estilo4" disabled="disabled"></input><label id="rangeText4">Valor: %'+porcEstilo4+'</label></div>');
-		    			const estilo5 = $('<div><label>MUSICAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo5+'" class="slider" id="estilo5" disabled="disabled"></input><label id="rangeText5">Valor: %'+porcEstilo5+'</label></div>');
-		    			const estilo6 = $('<div><label>INTERPERSONAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo6+'" class="slider" id="estilo6" disabled="disabled"></input><label id="rangeText6">Valor: %'+porcEstilo6+'</label></div>');
-		    			const estilo7 = $('<div><label>INTRAPERSONAL:</label> <input type="range" min="0" max="100" value="'+porcEstilo7+'" class="slider" id="estilo7" disabled="disabled"></input><label id="rangeText7">Valor: %'+porcEstilo7+'</label></div>');
-		    			const estilo8 = $('<div><label>NATURALISTA:</label> <input type="range" min="0" max="100" value="'+porcEstilo8+'" class="slider" id="estilo8" disabled="disabled"></input><label id="rangeText8">Valor: %'+porcEstilo8+'</label></div>');
-		    			estilo1.appendTo('#dvEstilo');
-		    			estilo2.appendTo('#dvEstilo');
-		    			estilo3.appendTo('#dvEstilo');
-		    			estilo4.appendTo('#dvEstilo');
-		    			estilo5.appendTo('#dvEstilo');
-		    			estilo6.appendTo('#dvEstilo');
-		    			estilo7.appendTo('#dvEstilo');
-		    			estilo8.appendTo('#dvEstilo');
-		    			$('#mdPrediccion').modal('show');
+						 
+						
 // 		    			var valores = [porcEstilo1,porcEstilo2,porcEstilo3,porcEstilo4,porcEstilo5,porcEstilo6,porcEstilo7,porcEstilo8];
 // 		    			var recursos = "1,2,3,4,5,6,7,8";
 // 		    			var rsc = "";
@@ -574,69 +785,9 @@
 	    }
 	    
 	    $('#selActividad').on('change', function() {
-	    		$('#dvRecurso').empty();
+	    		
 	// 			if($('#selActividad').val() == '1'){
-					var check1 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="1"> Cuaderno de Dibujo</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang1"></input><label id="rangeText1">Valor: 0</label></div>');
-					var check2 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="2"> Reproductor de sonido</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang2"></input><label id="rangeText2">Valor: 0</label></div>');
-					var check3 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="3"> Telefono</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang3"></input><label id="rangeText3">Valor: 0</label></div>');
-					var check4 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="4"> Pelota</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang4"></input><label id="rangeText4">Valor: 0</label></div>');
-					var check5 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="5"> Puzzle</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang5"></input><label id="rangeText5">Valor: 0</label></div>');
-					var check6 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="6"> Flores</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang6"></input><label id="rangeText6">Valor: 0</label></div>');
-					var check7 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="7"> Libro de animaciones</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang7"></input><label id="rangeText7">Valor: 0</label></div>');
-					var check8 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="8"> Castillo</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang8"></input><label id="rangeText8">Valor: 0</label></div>');
-					var check9 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="9"> Plastilina</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang9"></input><label id="rangeText9">Valor: 0</label></div>');
-					var check10 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="10"> Cubos</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang10"> </input><label id="rangeText10">Valor: 0</label></div>');
-					var check11 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="11"> Papel de seda</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang11"> </input><label id="rangeText11">Valor: 0</label></div>');
-					var check12 = $('<div><input type="checkbox" id="checkRecurso" name="checkRecurso" value="12"> Tambor</input> <input type="range" min="0" max="100" value="0" class="slider" id="rang12"> </input><label id="rangeText12">Valor: 0</label></div>');
-					check1.appendTo('#dvRecurso');
-					check2.appendTo('#dvRecurso');
-					check3.appendTo('#dvRecurso');
-					check4.appendTo('#dvRecurso');
-					check5.appendTo('#dvRecurso');
-					check6.appendTo('#dvRecurso');
-					check7.appendTo('#dvRecurso');
-					check8.appendTo('#dvRecurso');
-					check9.appendTo('#dvRecurso');
-					check10.appendTo('#dvRecurso');
-					check11.appendTo('#dvRecurso');
-					check12.appendTo('#dvRecurso');
 					
-					$('#rang1').on('input change', function () {
-				        $('#rangeText1').text("Valor: "+$(this).val());
-				    });
-					$('#rang2').on('input change', function () {
-				        $('#rangeText2').text("Valor: "+$(this).val());
-				    });
-					$('#rang3').on('input change', function () {
-				        $('#rangeText3').text("Valor: "+$(this).val());
-				    });
-					$('#rang4').on('input change', function () {
-				        $('#rangeText4').text("Valor: "+$(this).val());
-				    });
-					$('#rang5').on('input change', function () {
-				        $('#rangeText5').text("Valor: "+$(this).val());
-				    });
-					$('#rang6').on('input change', function () {
-				        $('#rangeText6').text("Valor: "+$(this).val());
-				    });
-					$('#rang7').on('input change', function () {
-				        $('#rangeText7').text("Valor: "+$(this).val());
-				    });
-					$('#rang8').on('input change', function () {
-				        $('#rangeText8').text("Valor: "+$(this).val());
-				    });
-					$('#rang9').on('input change', function () {
-				        $('#rangeText9').text("Valor: "+$(this).val());
-				    });
-					$('#rang10').on('input change', function () {
-				        $('#rangeText10').text("Valor: "+$(this).val());
-				    });
-					$('#rang11').on('input change', function () {
-				        $('#rangeText11').text("Valor: "+$(this).val());
-				    });
-					$('#rang12').on('input change', function () {
-				        $('#rangeText12').text("Valor: "+$(this).val());
-				    });
 	// 			}else if($('#selActividad').val() == '2'){
 	// 				$('#selRecurso').append('<option value="5">Recurso 2A</option>');
 	// 				$('#selRecurso').append('<option value="6">Recurso 2B</option>');

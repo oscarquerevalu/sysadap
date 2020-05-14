@@ -26,4 +26,10 @@ public class ProfesorServiceImpl implements ProfesorService {
 		// TODO Auto-generated method stub
 		return profesorRepository.findAll();
 	}
+
+	@Override
+	public Profesor findByID(Long id) {
+		// TODO Auto-generated method stub
+		return profesorRepository.findOne(id);
+	}
 }

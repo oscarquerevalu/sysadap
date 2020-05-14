@@ -22,6 +22,8 @@ public class ClaseDto {
     
     private String competencias;
     
+    private Long idProfesor;
+    
 
 	public Long getId() {
 		return id;
@@ -62,4 +64,14 @@ public class ClaseDto {
 	public void setCompetencias(String competencias) {
 		this.competencias = competencias;
 	}
+
+	public Long getIdProfesor() {
+		return idProfesor;
+	}
+
+	public void setIdProfesor(Long idProfesor) {
+		this.idProfesor = idProfesor;
+	}
+	
+	
 }

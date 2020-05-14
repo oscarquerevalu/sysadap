@@ -2,6 +2,8 @@ package pe.edu.upc.sysadap.spring.security.service;
 
 import pe.edu.upc.sysadap.spring.security.model.Alumno;
 import pe.edu.upc.sysadap.spring.security.model.Apoderado;
+import pe.edu.upc.sysadap.spring.security.model.ClaseAlumno;
+import pe.edu.upc.sysadap.spring.security.model.ClaseAlumnoActividades;
 import pe.edu.upc.sysadap.spring.security.model.Mail;
 import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.repository.EstiloAlumnoRepository.PromId;
@@ -35,7 +37,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -54,10 +58,16 @@ public class EmailService {
     private SpringTemplateEngine templateEngine;
     
     @Autowired
-    private ApoderadoServiceImpl apoderadoServiceImpl;
+    private ApoderadoService apoderadoService;
     
     @Autowired
-    private PersonaServiceImpl personaServiceImpl;
+    private PersonaService personaService;
+    
+    @Autowired
+    private ClaseAlumnoService claseAlumnoService;
+    
+    @Autowired
+    private ClaseAlumnoActividadesService claseAlumnoActividadesService;
     
     @Autowired
     private EstiloAlumnoService estiloAlumnoService;
@@ -92,20 +102,147 @@ public class EmailService {
 		calendar.setTime(fecha);
 		int year = calendar.get(Calendar.YEAR);
 		String periodo ="Periodo: "+ StringUtils.leftPad(""+month, 2, "0")+"/"+year;
-    	List<Apoderado> apoderados = apoderadoServiceImpl.findAll();
+    	List<Apoderado> apoderados = apoderadoService.findAll();
         try {
         	for (Apoderado apoderado : apoderados) {
         		Set<Alumno> alumnos = apoderado.getAlumnos();
-        		Persona apoderadoPer =  personaServiceImpl.findByIdAlumno(apoderado.getId());
+        		Persona apoderadoPer =  personaService.findByIdAlumno(apoderado.getId());
         		if(!alumnos.isEmpty()) { 
         			for (Alumno alumno : alumnos) {
-        				Persona alumnoPer =  personaServiceImpl.findByIdAlumno(alumno.getId());
+        				Persona alumnoPer =  personaService.findByIdAlumno(alumno.getId());
         				System.out.println(alumnoPer.getName());
         				
         				System.out.println("month: "+ month);
         				System.out.println("year: "+ year);
         				System.out.println("periodo: "+ periodo);
         				
+        				List<ClaseAlumno> listaClaseAlumno = claseAlumnoService.findByPeriodoIdAlumno(month,year,alumno.getId());
+        				Map<String, Object> promedioClase = new HashMap<String, Object>();
+        				List<Map<String, Object>> listPromedio = new ArrayList<Map<String,Object>>(); 
+        				List<ClaseAlumnoActividades> claseAlumnoActividades = new ArrayList<ClaseAlumnoActividades>();
+        				for (ClaseAlumno claseAlumno : listaClaseAlumno) {
+        					claseAlumnoActividades.addAll(claseAlumnoActividadesService.findByIdClasealumno(claseAlumno.getId()));
+						}
+        				
+        				Collections.sort(claseAlumnoActividades, ClaseAlumnoActividades.claseAlumnoActividadesComparator);
+    					Long id_recurso = 0L;
+    		    		Double sum = new Double(0);
+    		    		int cant = 0;
+    		    		boolean reinicio = false;
+    		    		for (ClaseAlumnoActividades actividad : claseAlumnoActividades) {
+    		    			
+    		    			if(id_recurso.equals(0L)) {
+    		    				id_recurso = actividad.getId_recurso();
+    		    			}
+    		    			
+    		    			if(id_recurso.compareTo(actividad.getId_recurso()) == 0) {
+    		    				cant++;
+    		    				sum += actividad.getValor()!=null?actividad.getValor():new Double(0);
+    		    				reinicio = true;
+    		    			}else {
+    		    				Double prom = !sum.equals(new Double(0)) && cant != 0? sum/cant:0;
+    		    				promedioClase = new HashMap<String, Object>();
+    		    				promedioClase.put("index", id_recurso);
+    		    				switch (id_recurso.intValue()+"") {
+								case "1":
+									promedioClase.put("rec", "Cuaderno de Dibujo");
+									break;
+								case "2":
+									promedioClase.put("rec", "Reproductor de sonido");
+									break;
+								case "3":
+									promedioClase.put("rec", "Telefono");
+									break;
+								case "4":
+									promedioClase.put("rec", "Pelota");
+									break;
+								case "5":
+									promedioClase.put("rec", "Puzzle");
+									break;
+								case "6":
+									promedioClase.put("rec", "Flores");
+									break;
+								case "7":
+									promedioClase.put("rec", "Libro de animaciones");
+									break;
+								case "8":
+									promedioClase.put("rec", "Castillo");
+									break;
+								case "9":
+									promedioClase.put("rec", "Plastilina");
+									break;
+								case "10":
+									promedioClase.put("rec", "Cubos");
+									break;
+								case "11":
+									promedioClase.put("rec", "Papel de seda");
+									break;
+								case "12":
+									promedioClase.put("rec", "Tambor");
+									break;
+								}
+    		    				promedioClase.put("value", round((prom*100), 2));
+    		    				listPromedio.add(promedioClase);
+    		    				id_recurso = actividad.getId_recurso();
+    		    				cant=1;
+    		    				reinicio = false;
+    		    				sum = actividad.getValor()!=null?actividad.getValor():new Double(0);
+    		    			}
+    					} 
+    		    		
+    		    		if(reinicio || cant==1) {
+    		    			Double prom = !sum.equals(new Double(0)) && cant != 0? sum/cant:0;
+    		    			promedioClase = new HashMap<String, Object>();
+    						promedioClase.put("index", id_recurso);
+    						switch (id_recurso.intValue()+"") {
+							case "1":
+								promedioClase.put("rec", "Cuaderno de Dibujo");
+								break;
+							case "2":
+								promedioClase.put("rec", "Reproductor de sonido");
+								break;
+							case "3":
+								promedioClase.put("rec", "Telefono");
+								break;
+							case "4":
+								promedioClase.put("rec", "Pelota");
+								break;
+							case "5":
+								promedioClase.put("rec", "Puzzle");
+								break;
+							case "6":
+								promedioClase.put("rec", "Flores");
+								break;
+							case "7":
+								promedioClase.put("rec", "Libro de animaciones");
+								break;
+							case "8":
+								promedioClase.put("rec", "Castillo");
+								break;
+							case "9":
+								promedioClase.put("rec", "Plastilina");
+								break;
+							case "10":
+								promedioClase.put("rec", "Cubos");
+								break;
+							case "11":
+								promedioClase.put("rec", "Papel de seda");
+								break;
+							case "12":
+								promedioClase.put("rec", "Tambor");
+								break;
+							}
+    						promedioClase.put("value", round((prom*100), 2));
+    						listPromedio.add(promedioClase);
+    		    		}
+    		    		
+    		    		for (Map<String, Object> map : listPromedio) {
+							System.out.println("index "+map.get("index"));
+							System.out.println("rec "+map.get("rec"));
+							System.out.println("value "+map.get("value"));
+						}
+        				
+        				//Promedios de Estilos 
         				List<PromId> promedios = estiloAlumnoService.findByFechasIdByMonth(year, month, alumno.getId());
         				File BarChart = new File( "BarChart.jpeg" ); 
         				if(!promedios.isEmpty()) {
@@ -146,6 +283,7 @@ public class EmailService {
         	            model.put("token", "");
         	            model.put("user", "");
         	            model.put("alumno", alumnoPer.getName());
+        	            model.put("recursos", listPromedio);
         	            model.put("signature", "https://sistemadaptativo.com");
         	            mail.setModel(model);
         	            MimeMessage message = emailSender.createMimeMessage();
@@ -222,6 +360,15 @@ public class EmailService {
         } catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+    
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
     
     private DefaultPieDataset createDataset(Double[] valores) {

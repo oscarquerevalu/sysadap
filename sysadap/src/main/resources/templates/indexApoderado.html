@@ -194,11 +194,15 @@
 											placeholder="Confirmar fecha" />
 									</div>
 									<div class="form-group">
-										<label class="form-control">Alumno</label> <select id="cboAlumno"
-											name="cboAlumno">
-											<option value="1">Oscar Querevalu Pingo</option>
-											<option value="3">Pablo Querevalu Pingo</option>
-										</select>
+										<label class="form-control">Alumno</label> 
+<!-- 										<select id="cboAlumno" -->
+<!-- 											name="cboAlumno"> -->
+<!-- 											<option value="1">Oscar Querevalu Pingo</option> -->
+<!-- 											<option value="3">Pablo Querevalu Pingo</option> -->
+<!-- 										</select> -->
+											<select class="form-control" name="cboAlumno" id="cboAlumno" >
+							                    <option th:each="alumno : ${alumnos}" th:value="${alumno.id}" th:text="${alumno.persona.name}"/>
+							                </select>
 									</div>
 									<div class="form-group col-sm-2">
 										<button type="button" onclick="consultar()"

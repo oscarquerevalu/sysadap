@@ -34,4 +34,10 @@ public class ClaseAlumnoServiceImpl implements ClaseAlumnoService {
 		// TODO Auto-generated method stub
 		return claseAlumnoRepository.saveAndFlush(claseAlumno);
 	}
+
+	@Override
+	public List<ClaseAlumno> findByPeriodoIdAlumno(int mes, int anio, Long idAlumno) {
+		// TODO Auto-generated method stub
+		return claseAlumnoRepository.findByPeriodoIdAlumno(mes, anio, idAlumno);
+	}
 }
