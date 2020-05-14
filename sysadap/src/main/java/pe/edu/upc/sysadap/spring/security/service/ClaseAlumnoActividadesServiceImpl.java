@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import pe.edu.upc.sysadap.spring.security.model.ClaseAlumnoActividades;
 import pe.edu.upc.sysadap.spring.security.repository.ClaseAlumnoActividadesRepository;
+import pe.edu.upc.sysadap.spring.security.repository.ClaseAlumnoActividadesRepository.Actidad;
 
 @Service
 public class ClaseAlumnoActividadesServiceImpl implements ClaseAlumnoActividadesService {
@@ -30,6 +31,12 @@ public class ClaseAlumnoActividadesServiceImpl implements ClaseAlumnoActividades
 	public List<ClaseAlumnoActividades> findByIdClasealumno(Long idClasealumno) {
 		// TODO Auto-generated method stub
 		return claseAlumnoActividadesRepository.findByIdClasealumno(idClasealumno);
+	}
+
+	@Override
+	public List<Actidad> findByIdClasealumnoActividad(Long idClasealumno) {
+		// TODO Auto-generated method stub
+		return claseAlumnoActividadesRepository.findByIdClasealumnoActividad(idClasealumno);
 	}
 
 }

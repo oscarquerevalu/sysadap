@@ -107,7 +107,7 @@ public class AlumnoController {
     			
     			//Buscar si se encuentra calificado
     			listaClaseAlumno = new ArrayList<ClaseAlumno>();
-    			listaClaseAlumno = claseAlumnoService.findByFechaIdAlumno(fecha,alumno.getId());
+    			listaClaseAlumno = claseAlumnoService.findByFechaIdAlumno(fecha,alumno.getId(),clase);
     			if(listaClaseAlumno!=null && listaClaseAlumno.size()>0)
     				alumno.setCalificado("SI");
     			else
@@ -177,7 +177,7 @@ public class AlumnoController {
     	try {
     		
     		listaClaseAlumno = new ArrayList<ClaseAlumno>();
-			listaClaseAlumno = claseAlumnoService.findByFechaIdAlumno(fecha,alumno);
+			listaClaseAlumno = claseAlumnoService.findByFechaIdAlumno(fecha,alumno,clase);
 			
 			Double rec1 = new Double("0");
 			Double rec2 = new Double("0");
@@ -196,6 +196,7 @@ public class AlumnoController {
 				lstClaseAlumnoActividades = claseAlumnoActividadesService.findByIdClasealumno(claseAlumno.getId());
 				
 				for (ClaseAlumnoActividades claseAlumnoActividades : lstClaseAlumnoActividades) {
+					map.put("competencia", claseAlumnoActividades.getId_actividad());
 					if(rec1.equals(new Double("0")) && (new Long(1)).equals(claseAlumnoActividades.getId_recurso())) {
 						rec1 = claseAlumnoActividades.getValor() != null && !claseAlumnoActividades.getValor().equals(new Double("0"))? claseAlumnoActividades.getValor():new Double("0");
 					}else if(rec2.equals(new Double("0")) && (new Long(2)).equals(claseAlumnoActividades.getId_recurso())) {
@@ -349,7 +350,7 @@ public class AlumnoController {
     	ClaseAlumno claseAlumno = new ClaseAlumno();
     	claseAlumno.setFecha(body.get("fecha"));
     	claseAlumno.setId_alumno(new Long(body.get("idAlumno")));
-    	claseAlumno.setId_clase(new Long("1"));
+    	claseAlumno.setId_clase(new Long(body.get("idClase")));
     	ClaseAlumno claseAlumnoResp= claseAlumnoService.guardar(claseAlumno);
     	
     	String[] recursos = body.get("recursos").split(",");
@@ -378,7 +379,7 @@ public class AlumnoController {
     		ClaseAlumno claseAlumno = new ClaseAlumno();
         	claseAlumno.setFecha("01019999");
         	claseAlumno.setId_alumno(new Long("-1"));
-        	claseAlumno.setId_clase(new Long("1"));
+        	claseAlumno.setId_clase(new Long("-1"));
         	claseAlumno.setId_estilo(new Long(body.get("estilo")));
     		ClaseAlumno claseAlumnoResp= claseAlumnoService.guardar(claseAlumno);
     		for (int i = 0; i < recursos.length; i++) {

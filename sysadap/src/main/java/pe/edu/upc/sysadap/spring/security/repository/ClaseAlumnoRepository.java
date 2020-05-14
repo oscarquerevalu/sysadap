@@ -12,8 +12,11 @@ import pe.edu.upc.sysadap.spring.security.model.ClaseAlumno;
 @Repository
 public interface ClaseAlumnoRepository extends JpaRepository<ClaseAlumno, Long> {
 	
-	@Query("select c from ClaseAlumno c where c.fecha = :fecha and c.id_alumno = :idAlumno")
-	List<ClaseAlumno> findByFechaIdAlumno(@Param("fecha") String fecha, @Param("idAlumno") Long idAlumno);
+	@Query("select c from ClaseAlumno c where c.fecha = :fecha and c.id_alumno = :idAlumno and c.id_clase = :idClase")
+	List<ClaseAlumno> findByFechaIdAlumno(@Param("fecha") String fecha, @Param("idAlumno") Long idAlumno, @Param("idClase") Long idClase);
+	
+	@Query("select c from ClaseAlumno c where c.id_alumno = :idAlumno and YEAR(STR_TO_DATE(c.fecha, '%d%m%Y'))= :anio and MONTH(STR_TO_DATE(c.fecha, '%d%m%Y')) = :mes")
+	List<ClaseAlumno> findByPeriodoIdAlumno(@Param("mes") int mes,@Param("anio") int anio, @Param("idAlumno") Long idAlumno);
 
 }
 

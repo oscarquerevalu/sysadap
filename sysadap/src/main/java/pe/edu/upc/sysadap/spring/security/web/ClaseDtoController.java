@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pe.edu.upc.sysadap.spring.security.model.Clase;
 import pe.edu.upc.sysadap.spring.security.model.Persona;
+import pe.edu.upc.sysadap.spring.security.model.Profesor;
 import pe.edu.upc.sysadap.spring.security.service.ClaseService;
 import pe.edu.upc.sysadap.spring.security.service.PersonaService;
 import pe.edu.upc.sysadap.spring.security.service.ProfesorService;
@@ -26,6 +27,8 @@ public class ClaseDtoController {
     
     @Autowired
     private ClaseService claseService;
+    @Autowired
+    private ProfesorService profesorService;
 
     @GetMapping
     public String showRegistrationForm(Model model) {
@@ -44,6 +47,9 @@ public class ClaseDtoController {
         Clase clase = claseService.findById(claseDto.getId());
         clase.setNombre(claseDto.getNombre());
         clase.setEdad(claseDto.getEdad());
+        
+        Profesor profesor =  profesorService.findByID(claseDto.getIdProfesor());
+        clase.setProfesor(profesor);
         String strCompetencias = "";
         
         if(competencias != null) {

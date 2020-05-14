@@ -330,7 +330,9 @@ ul.social li{
             		<td style="padding: 0 2.5em; text-align: center;">
             			<div class="text">
             				<h2>Reporte de Estilos de Aprendizaje</h2>
+            				<h3><p th:text="${'Estimado ' + apoderado + ', a continuación el reporte de:'}"></p></h3>
             				<h3><p th:text="${'Alumno: ' + alumno}"></p></h3>
+            				<h3><p th:text="${'Clase: ' + clase}"></p></h3>
             			</div>
             		</td>
             	</tr>
@@ -342,13 +344,23 @@ ul.social li{
 	      		<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
 		      		<tr>
 		            <td valign="top" width="100%" style="padding-bottom: 20px;">
+		            	<h3>Recursos Didácticos:</h3>
+		            	<ul th:remove="all-but-first">
+					      <li th:each="recurso : ${recursos}" th:text="${recurso.rec+ ': %' +recurso.value}">
+					      </li>
+					    </ul>
+					    <h3>Competencias:</h3>
+		            	<ul th:remove="all-but-first">
+					      <li th:each="competencia : ${competencias}" th:text="${competencia.nombre}">
+					      </li>
+					    </ul>
 		              <div class="project-entry">
 		              	<img src="image_1.jpg" th:src="|cid:${imageResourceName}|" alt="" style="width: 100%; max-width: 600px; height: auto; margin: auto; display: block;"></img>
 		              	<div class="text-project" style="text-align: left; width: 100%;">
-              				<div>
-              					<h3><a href="#">Mountains</a></h3>
-			                	<span>1,108 followers</span>
-              				</div>
+<!--               				<div> -->
+<!--               					<h3><a href="#">Mountains</a></h3> -->
+<!-- 			                	<span>1,108 followers</span> -->
+<!--               				</div> -->
               				<!-- <div style="text-align: right;">
               					<p><a href="#" class="btn btn-white">Follow</a></p>
               				</div> -->

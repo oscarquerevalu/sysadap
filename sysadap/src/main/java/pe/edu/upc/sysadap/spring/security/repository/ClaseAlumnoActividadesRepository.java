@@ -15,5 +15,12 @@ public interface ClaseAlumnoActividadesRepository extends JpaRepository<ClaseAlu
 	@Query("select c from ClaseAlumnoActividades c where c.id_clasealumno = :idClasealumno")
 	List<ClaseAlumnoActividades> findByIdClasealumno(@Param("idClasealumno") Long idClasealumno);
 	
+	@Query("select distinct c.id_actividad as actividad from ClaseAlumnoActividades c where c.id_clasealumno = :idClasealumno")
+	List<Actidad> findByIdClasealumnoActividad(@Param("idClasealumno") Long idClasealumno);
+	
+	interface Actidad {
+		Long getActividad();
+	}
+	
 }
 

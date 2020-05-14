@@ -49,4 +49,10 @@ public class PersonaServiceImpl implements PersonaService {
 		// TODO Auto-generated method stub
 		return personaRepository.saveAndFlush(p);
 	}
+
+	@Override
+	public Persona findByIdApoderado(Long id) {
+		// TODO Auto-generated method stub
+		return personaRepository.findByIdApoderado(id);
+	}
 }

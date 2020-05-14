@@ -75,6 +75,7 @@ public class ClaseController {
     	map.put("id", id);
     	map.put("nombre", clase.getNombre());
     	map.put("edad", clase.getEdad());
+    	map.put("idProfesor", clase.getProfesor().getId());
     	
     	String[] listaCompetencias = clase.getCompetencias() != null? clase.getCompetencias().split(",") : new String[0];
     	for (String idComp : listaCompetencias) {

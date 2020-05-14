@@ -43,7 +43,7 @@ public class EstiloAlumnoController {
     	EstiloAlumno estiloAlumno = new EstiloAlumno();
     	estiloAlumno.setFecha(body.get("fecha"));
     	estiloAlumno.setId_alumno(new Long(body.get("idAlumno")));
-    	estiloAlumno.setId_clase(new Long("1"));
+    	estiloAlumno.setId_clase(new Long(body.get("idClase")));
     	
     	
     	String[] recursos = body.get("recursos").split(",");
@@ -106,7 +106,7 @@ public class EstiloAlumnoController {
     	
     	estiloAlumno.setId_estilo(new Long(mayor_estilo));
     	estiloAlumnoService.guardar(estiloAlumno);
-    	List<ClaseAlumno> listaClaseAlumno = claseAlumnoService.findByFechaIdAlumno(body.get("fecha"),new Long(body.get("idAlumno")));
+    	List<ClaseAlumno> listaClaseAlumno = claseAlumnoService.findByFechaIdAlumno(body.get("fecha"),new Long(body.get("idAlumno")),new Long(body.get("idClase")));
     	if(listaClaseAlumno!=null && listaClaseAlumno.size()>0) {
     		listaClaseAlumno.get(0).setId_estilo(new Long(mayor_estilo));
     		claseAlumnoService.guardar(listaClaseAlumno.get(0));

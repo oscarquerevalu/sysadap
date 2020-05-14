@@ -1,14 +1,8 @@
 package pe.edu.upc.sysadap.spring.security.service;
 
-import pe.edu.upc.sysadap.spring.security.model.Alumno;
-import pe.edu.upc.sysadap.spring.security.model.Clase;
-import pe.edu.upc.sysadap.spring.security.model.Persona;
-import pe.edu.upc.sysadap.spring.security.web.dto.UserRegistrationDto;
-
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import pe.edu.upc.sysadap.spring.security.model.Persona;
 
 public interface PersonaService {
 
@@ -19,6 +13,8 @@ public interface PersonaService {
     Persona findByIdAlumno(Long id);
     
     Persona findByIdProfesor(Long id);
+    
+    Persona findByIdApoderado(Long id);
     
     List<Persona> findByIdApoderado(String documento);
     
