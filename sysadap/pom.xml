@@ -19,7 +19,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<junit-jupiter.version>5.3.2</junit-jupiter.version>
+		<junit.version>4.11</junit.version>
         <mockito.version>2.24.0</mockito.version>
 	</properties>
 
@@ -136,13 +136,12 @@
 <!-- 			<version>3.8.1</version> -->
 <!-- 			<scope>test</scope> -->
 <!-- 		</dependency> -->
-		<!-- junit 5 -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit-jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
+ <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
         
         <dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -177,6 +176,20 @@
 		
         
         <!-- INICIO Angelo -->
+        <dependency>
+    <groupId>org.powermock</groupId>
+    <artifactId>powermock-module-junit4</artifactId>
+    <version>2.0.5</version>
+    <scope>test</scope>
+</dependency>
+
+	<dependency>
+    <groupId>org.powermock</groupId>
+    <artifactId>powermock-api-mockito2</artifactId>
+    <version>2.0.7</version>
+    <scope>test</scope>
+</dependency>
+
         <dependency>
     <groupId>org.sonarsource.scanner.maven</groupId>
     <artifactId>sonar-maven-plugin</artifactId>
@@ -218,11 +231,41 @@
 		<plugins>
 		
 		<!-- INICIO Angelo -->
-		
-		<plugin>
-  <groupId>org.jacoco</groupId>
-  <artifactId>jacoco-maven-plugin</artifactId>
-  <version>0.8.6-SNAPSHOT</version>
+	<plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.3</version>
+    <configuration>
+           <dataFile>target/jacoco.exec</dataFile>
+        <destFile>${sonar.jacoco.reportPath}</destFile>
+        <outputDirectory>target/myreports</outputDirectory>
+        <append>true</append>
+       <systemPropertyVariables>
+       <jacoco-agent.destfile>tarjet/jacoco.exec</jacoco-agent.destfile>
+       </systemPropertyVariables>
+    </configuration>
+    <executions>
+        <execution>
+            <id>prepare-agent</id>
+            <goals>
+                <goal>prepare-agent</goal>
+            </goals>
+        </execution>
+        <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+                <goal>report</goal>
+            </goals>
+        </execution>
+        <execution>
+            <id>post-unit-test</id>
+            <phase>test</phase>
+            <goals>
+                <goal>report</goal>
+            </goals>
+        </execution>
+    </executions>
 </plugin>
 		 <plugin>
            <groupId>org.apache.maven.plugins</groupId>
@@ -286,6 +329,27 @@
                 <sonar.host.url>
                  http://localhost:9000/
                 </sonar.host.url>
+                 <sonar.exclusions>
+                 src/main/java/pe/edu/upc/sysadap/spring/conf/*,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/Run.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/config/*,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/constraint/*,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/jobs/*,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/model/*,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/repository/*,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/tasklet/*,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/web/dto/*,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/AlumnoService.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/ApoderadoService.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/ClaseAlumnoActividadesService.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/ClaseAlumnoService.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/ClaseService.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/CompetenciaService.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/EstiloAlumnoService.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/PersonaService.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/ProfesorService.java,
+                 src/main/java/pe/edu/upc/sysadap/spring/security/service/UserService.java,
+                 </sonar.exclusions>
             </properties>
         </profile>
      </profiles>

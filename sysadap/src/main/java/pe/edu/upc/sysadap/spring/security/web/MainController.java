@@ -175,11 +175,14 @@ public class MainController {
     }
     
     private void setDatosSession(HttpSession session) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	Authentication authentication = getAuthentication();
     	String currentPrincipalName = authentication.getName();
     	System.out.println("currentPrincipalName: "+currentPrincipalName);
     	Persona persona = userRepository.findByEmail(currentPrincipalName);
     	session.setAttribute("persona", persona);
     	session.setAttribute("urlCntx", urlCntx);
     }
+    public Authentication getAuthentication() {
+    	return SecurityContextHolder.getContext().getAuthentication();
+    } 
 }
