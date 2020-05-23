@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -18,13 +20,13 @@ import io.swagger.annotations.ApiParam;
 import pe.edu.upc.sysadap.spring.security.model.Alumno;
 import pe.edu.upc.sysadap.spring.security.model.Clase;
 import pe.edu.upc.sysadap.spring.security.model.Competencia;
-import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.service.ClaseService;
 import pe.edu.upc.sysadap.spring.security.service.CompetenciaService;
 
 @RestController
 @RequestMapping("/clase")
 public class ClaseController {
+	Logger logger = LoggerFactory.getLogger(ClaseController.class);
 
     @Autowired
     private ClaseService claseService;
@@ -42,7 +44,7 @@ public class ClaseController {
 //    		listaAlumnos = lista.get(0).getAlumnos();
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			logger.error("ClaseController listaClase", e);
 		}
     	
         return listaAlumnos;
@@ -60,7 +62,7 @@ public class ClaseController {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			logger.error("ClaseController listClases", e);
 		}
     	
         return lista;

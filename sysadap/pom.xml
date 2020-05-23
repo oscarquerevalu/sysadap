@@ -21,11 +21,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.11</junit.version>
 		<mockito.version>2.24.0</mockito.version>
-		<jacoco.version>0.8.3</jacoco.version>
-		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
-		<sonar.language>java</sonar.language>
 	</properties>
 
 	<dependencies>
@@ -236,95 +231,65 @@
 		<plugins>
 
 			<!-- INICIO Angelo -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.jacoco</groupId> -->
-<!-- 				<artifactId>jacoco-maven-plugin</artifactId> -->
-<!-- 				<version>0.8.3</version> -->
-<!-- 				<configuration> -->
-<!-- 					<dataFile>target/jacoco.exec</dataFile> -->
-<!-- 					<destFile>${sonar.jacoco.reportPath}</destFile> -->
-<!-- 					<outputDirectory>target/myreports</outputDirectory> -->
-<!-- 					<append>true</append> -->
-<!-- 					<systemPropertyVariables> -->
-<!-- 						<jacoco-agent.destfile>tarjet/jacoco.exec</jacoco-agent.destfile> -->
-<!-- 					</systemPropertyVariables> -->
-<!-- 				</configuration> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<id>prepare-agent</id> -->
-<!-- 						<goals> -->
-<!-- 							<goal>prepare-agent</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 					<execution> -->
-<!-- 						<id>report</id> -->
-<!-- 						<phase>prepare-package</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>report</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 					<execution> -->
-<!-- 						<id>post-unit-test</id> -->
-<!-- 						<phase>test</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>report</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-surefire-plugin</artifactId> -->
-<!-- 				<version>3.0.0-M4</version> -->
-<!-- 				<configuration> -->
-<!-- 					<parallel>none</parallel> -->
-<!-- 					<perCoreThreadCount>false</perCoreThreadCount> -->
-<!-- 					<forkCount>1</forkCount> -->
-<!-- 					<properties> -->
-<!-- 						<property> -->
-<!-- 							<name>listener</name> -->
-<!-- 							<value>org.sonar.java.jacoco.JUnitListener</value> -->
-<!-- 						</property> -->
-<!-- 					</properties> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.3</version>
+				<configuration>
+					<dataFile>target/jacoco.exec</dataFile>
+					<destFile>${sonar.jacoco.reportPath}</destFile>
+					<append>true</append>
+					<systemPropertyVariables>
+						<jacoco-agent.destfile>tarjet/jacoco.exec</jacoco-agent.destfile>
+					</systemPropertyVariables>
+				</configuration>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M4</version>
+				<configuration>
+					<!-- disable parallel execution so that JaCoCo listener can properly 
+						work -->
+					<parallel>none</parallel>
+					<perCoreThreadCount>false</perCoreThreadCount>
+					<forkCount>1</forkCount>
+					<properties>
+						<property>
+							<name>listener</name>
+							<value>org.sonar.java.jacoco.JUnitListener</value>
+						</property>
+					</properties>
+				</configuration>
+			</plugin>
 
 <!-- 			<plugin> -->
 <!-- 				<groupId>org.apache.maven.plugins</groupId> -->
 <!-- 				<artifactId>maven-jar-plugin</artifactId> -->
 <!-- 				<version>3.0.2</version> -->
 <!-- 			</plugin> -->
-				<plugin>
-				    <groupId>org.jacoco</groupId>
-				    <artifactId>jacoco-maven-plugin</artifactId>
-				    <version>${jacoco.version}</version>
-				    <configuration>
-				        <skip>${maven.test.skip}</skip>
-				        <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-				        <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-				        <output>file</output>
-				        <append>true</append>
-				        <excludes>
-				            <exclude>*MethodAccess</exclude>
-				        </excludes>
-				    </configuration>
-				    <executions>
-				        <execution>
-				            <id>jacoco-initialize</id>
-				            <goals>
-				                <goal>prepare-agent</goal>
-				            </goals>
-				            <phase>test-compile</phase>
-				        </execution>
-				        <execution>
-				            <id>jacoco-site</id>
-				            <phase>verify</phase>
-				            <goals>
-				                <goal>report</goal>
-				            </goals>
-				        </execution>
-				    </executions>
-				</plugin>
 			<!-- FIN Angelo -->
 
 			<plugin>

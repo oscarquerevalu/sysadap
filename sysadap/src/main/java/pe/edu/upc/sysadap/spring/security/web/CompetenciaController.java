@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -15,15 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import pe.edu.upc.sysadap.spring.security.model.Alumno;
 import pe.edu.upc.sysadap.spring.security.model.Competencia;
-import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.service.CompetenciaService;
 
 @RestController
 @RequestMapping("/competencia")
 public class CompetenciaController {
 
+	Logger logger = LoggerFactory.getLogger(CompetenciaController.class);
+	
     @Autowired
     private CompetenciaService CompetenciaService;
 
@@ -35,7 +37,7 @@ public class CompetenciaController {
     		lista = CompetenciaService.findByAll();
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			logger.error("CompetenciaController listCompetencias", e);
 		}
     	
         return lista;

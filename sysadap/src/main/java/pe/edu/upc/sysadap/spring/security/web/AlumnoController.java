@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -43,6 +45,8 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping("/alumno")
 @Api(value="Controlador para Alumnos", description="Operaciones de carga de datos")
 public class AlumnoController {
+	
+	Logger logger = LoggerFactory.getLogger(AlumnoController.class);
 
     @Autowired
     private AlumnoService alumnoService;
@@ -80,7 +84,7 @@ public class AlumnoController {
     		listaAlumnos = listaAlumnos.stream().filter(profesor -> profesor.getPersona()!=null).collect(Collectors.toList());
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			logger.error("AlumnoController listaClase", e);
 		}
     	
         return listaAlumnos;

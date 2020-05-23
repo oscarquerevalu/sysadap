@@ -1,6 +1,6 @@
 package pe.edu.upc.sysadap.spring.security.web;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 
 import pe.edu.upc.sysadap.spring.security.model.Clase;
 import pe.edu.upc.sysadap.spring.security.model.Profesor;
@@ -21,7 +20,7 @@ import pe.edu.upc.sysadap.spring.security.service.ClaseService;
 import pe.edu.upc.sysadap.spring.security.service.ProfesorService;
 import pe.edu.upc.sysadap.spring.security.web.dto.ClaseDto;
 
-public class TestClaseDtoController {
+public class ClaseDtoControllerTest {
 
 	@InjectMocks
 	@Spy
