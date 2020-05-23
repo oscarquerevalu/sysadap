@@ -18,6 +18,9 @@ public interface EstiloAlumnoRepository extends JpaRepository<EstiloAlumno, Long
 
 	@Query("select avg(c.valor1) as val1, avg(c.valor2) as val2, avg(c.valor3) as val3, avg(c.valor4) as val4, avg(c.valor5) as val5, avg(c.valor6) as val6, avg(c.valor7) as val7, avg(c.valor8) as val8 from EstiloAlumno c where c.id_alumno = :idAlumno and YEAR(STR_TO_DATE(c.fecha, '%d%m%Y'))= :anio and MONTH(STR_TO_DATE(c.fecha, '%d%m%Y')) = :mes")
 	List<PromId> findByFechasIdByMonth(@Param("anio") int anio, @Param("mes") int mes, @Param("idAlumno") Long idAlumno);
+	
+	@Query("select avg(c.valor1) as val1, avg(c.valor2) as val2, avg(c.valor3) as val3, avg(c.valor4) as val4, avg(c.valor5) as val5, avg(c.valor6) as val6, avg(c.valor7) as val7, avg(c.valor8) as val8 from EstiloAlumno c where c.id_clase = :idClase and YEAR(STR_TO_DATE(c.fecha, '%d%m%Y'))= :anio and MONTH(STR_TO_DATE(c.fecha, '%d%m%Y')) = :mes")
+	List<PromId> findByPeriodo(@Param("anio") int anio, @Param("mes") int mes, @Param("idClase")  Long idClase);
 
 	interface PromId {
 		Double getVal1();

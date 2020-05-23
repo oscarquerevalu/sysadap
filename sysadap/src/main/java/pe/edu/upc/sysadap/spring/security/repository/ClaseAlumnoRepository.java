@@ -17,6 +17,9 @@ public interface ClaseAlumnoRepository extends JpaRepository<ClaseAlumno, Long> 
 	
 	@Query("select c from ClaseAlumno c where c.id_alumno = :idAlumno and YEAR(STR_TO_DATE(c.fecha, '%d%m%Y'))= :anio and MONTH(STR_TO_DATE(c.fecha, '%d%m%Y')) = :mes")
 	List<ClaseAlumno> findByPeriodoIdAlumno(@Param("mes") int mes,@Param("anio") int anio, @Param("idAlumno") Long idAlumno);
+	
+	@Query("select c from ClaseAlumno c where c.id_clase = :idClase and YEAR(STR_TO_DATE(c.fecha, '%d%m%Y'))= :anio and MONTH(STR_TO_DATE(c.fecha, '%d%m%Y')) = :mes")
+	List<ClaseAlumno> findByPeriodo(@Param("mes") int mes,@Param("anio") int anio,@Param("idClase")  Long idClase);
 
 }
 

@@ -45,6 +45,7 @@ import pe.edu.upc.sysadap.spring.security.service.ProfesorService;
 import pe.edu.upc.sysadap.spring.security.service.UserService;
 import pe.edu.upc.sysadap.spring.security.web.dto.AlumnoDto;
 import pe.edu.upc.sysadap.spring.security.web.dto.ClaseDto;
+import pe.edu.upc.sysadap.spring.security.web.dto.CompentenciaDto;
 import pe.edu.upc.sysadap.spring.security.web.dto.ProfesorDto;
 
 @Controller
@@ -158,7 +159,7 @@ public class MainController {
     @GetMapping("/mantComp")
     public String mantComp(Model model, HttpSession session) {
     	setDatosSession(session);
-    	model.addAttribute("competencia", new Competencia());
+    	model.addAttribute("competencia", new CompentenciaDto());
         return "admin/mantComp";
     }
     

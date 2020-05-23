@@ -40,4 +40,10 @@ public class ClaseAlumnoServiceImpl implements ClaseAlumnoService {
 		// TODO Auto-generated method stub
 		return claseAlumnoRepository.findByPeriodoIdAlumno(mes, anio, idAlumno);
 	}
+
+	@Override
+	public List<ClaseAlumno> findByPeriodo(int mes, int anio, Long idClase) {
+		// TODO Auto-generated method stub
+		return claseAlumnoRepository.findByPeriodo(mes, anio, idClase);
+	}
 }

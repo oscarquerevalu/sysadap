@@ -10,5 +10,6 @@ public interface ClaseAlumnoService {
     List<ClaseAlumno> findByFechaIdAlumno(String fecha, Long idAlumno, Long idClase);
     ClaseAlumno guardar(ClaseAlumno claseAlumno);
     List<ClaseAlumno> findByPeriodoIdAlumno(int mes, int anio, Long idAlumno);
+    List<ClaseAlumno> findByPeriodo(int mes, int anio, Long idClase);
 
 }
