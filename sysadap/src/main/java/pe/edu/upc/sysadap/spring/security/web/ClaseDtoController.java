@@ -54,7 +54,7 @@ public class ClaseDtoController {
         
         if(competencias != null) {
         	for (Long long1 : competencias) {
-            	if(strCompetencias == "") {
+            	if("".equals(strCompetencias) ) {
             		strCompetencias = long1.toString();	
             	}else {
             		strCompetencias = strCompetencias.concat(","+long1.toString());

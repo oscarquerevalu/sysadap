@@ -136,7 +136,7 @@ public class EmailService {
         					for (Actidad actividadAl : competencias) {
         						boolean exists = false;
         						for (Actidad actividad : competenciasArray) {
-            						if(actividad.getActividad() == actividadAl.getActividad())
+            						if(actividad.getActividad().equals(actividadAl.getActividad()))
             							exists = true;
     							}
         						if(!exists)
