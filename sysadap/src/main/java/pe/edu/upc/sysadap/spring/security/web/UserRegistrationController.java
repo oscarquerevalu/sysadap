@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.service.UserService;
+import pe.edu.upc.sysadap.spring.security.web.dto.PersonaDTO;
 
 @Controller
 @RequestMapping("/registration")
@@ -22,8 +23,8 @@ public class UserRegistrationController {
     private UserService userService;
 
     @ModelAttribute("user")
-    public Persona userRegistrationDto() {
-        return new Persona();
+    public PersonaDTO userRegistrationDto() {
+        return new PersonaDTO();
     }
 
     @GetMapping
@@ -32,7 +33,7 @@ public class UserRegistrationController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") @Valid Persona userDto,
+    public String registerUserAccount(@ModelAttribute("user") @Valid PersonaDTO userDto,
                                       BindingResult result){
 
         Persona existing = userService.findByEmail(userDto.getEmail());
@@ -47,9 +48,20 @@ public class UserRegistrationController {
         if (result.hasErrors()){
             return "registration";
         }
-        userDto.setUsername(userDto.getEmail());
-
-        userService.save(userDto);
+        
+        existing = new Persona();
+        existing.setUsername(userDto.getEmail());
+        existing.setName(userDto.getName());
+        existing.setPassword(userDto.getPassword());
+        existing.setConfirmPassword(userDto.getConfirmPassword());
+        existing.setEmail(userDto.getEmail());
+        existing.setConfirmEmail(userDto.getConfirmEmail());
+        existing.setTelefono(userDto.getTelefono());
+        existing.setDocumento(userDto.getDocumento());
+        existing.setDireccion(userDto.getDireccion());
+        existing.setTerms(userDto.getTerms());
+        existing.setRole(userDto.getRole());
+        userService.save(existing);
         return "redirect:/registration?success";
     }
 

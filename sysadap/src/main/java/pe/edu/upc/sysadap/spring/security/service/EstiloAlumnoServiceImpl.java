@@ -39,4 +39,10 @@ public class EstiloAlumnoServiceImpl implements EstiloAlumnoService {
 		// TODO Auto-generated method stub
 		return estiloAlumnoRepository.findByFechasIdByMonth(anio, mes, idAlumno);
 	}
+
+	@Override
+	public List<PromId> findByPeriodo(int anio, int mes, Long idClase) {
+		// TODO Auto-generated method stub
+		return estiloAlumnoRepository.findByPeriodo(anio, mes, idClase);
+	}
 }

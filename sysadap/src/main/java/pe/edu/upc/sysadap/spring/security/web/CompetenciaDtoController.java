@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pe.edu.upc.sysadap.spring.security.model.Competencia;
 import pe.edu.upc.sysadap.spring.security.service.CompetenciaService;
+import pe.edu.upc.sysadap.spring.security.web.dto.CompentenciaDto;
 
 @Controller
 @RequestMapping("/competenciaDTO")
@@ -27,15 +28,15 @@ public class CompetenciaDtoController {
     }
 
     @PostMapping(value="guardar")
-    public String registerProfesor(Model model,@ModelAttribute("competencia") @Valid Competencia competencia,
+    public String registerProfesor(Model model,@ModelAttribute("competencia") @Valid CompentenciaDto competenciaDto,
                                       BindingResult result){
 
         if (result.hasErrors()){
             return "admin/mantComp :: competencia-form";
         }
         
-        Competencia Competencia = competenciaService.findById(competencia.getId());
-        Competencia.setNombre(competencia.getNombre());
+        Competencia Competencia = competenciaService.findById(competenciaDto.getId());
+        Competencia.setNombre(competenciaDto.getNombre());
         competenciaService.guardarCompetencia(Competencia);
 
         return "redirect:/mantComp?success";

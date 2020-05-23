@@ -1,4 +1,4 @@
-package pe.edu.upc.sysadap.spring.security.service.test;
+package pe.edu.upc.sysadap.spring.security.service;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;

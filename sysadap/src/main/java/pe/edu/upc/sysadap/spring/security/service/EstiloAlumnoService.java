@@ -13,5 +13,6 @@ public interface EstiloAlumnoService {
     EstiloAlumno guardar(EstiloAlumno estiloAlumno);
     List<EstiloAlumno> findByFechaIdAlumno(String fechaIni, String fechaFin, Long idAlumno);
     List<PromId> findByFechasIdByMonth(int anio, int mes, @Param("idAlumno") Long idAlumno);
+    List<PromId> findByPeriodo(int anio, int mes, Long idClase);
 
 }

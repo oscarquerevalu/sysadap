@@ -65,6 +65,9 @@ public class EmailService {
     
     @Autowired
     private PersonaService personaService;
+
+    @Autowired
+    private ClaseService claseService;
     
     @Autowired
     private ClaseAlumnoService claseAlumnoService;
@@ -397,6 +400,252 @@ public class EmailService {
         } catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+    
+    public void sendEmailProfesor() {
+    	Date fecha = new Date();
+    	LocalDate localDate = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    	int month = localDate.getMonthValue();
+    	Calendar calendar = new GregorianCalendar();
+    	calendar.setTime(fecha);
+    	int year = calendar.get(Calendar.YEAR);
+    	String periodo ="Periodo: "+ StringUtils.leftPad(""+month, 2, "0")+"/"+year;
+    	try {
+    		List<Clase> clases = claseService.findByAll();
+    		if(!clases.isEmpty()) {
+    			for (Clase clase : clases) {
+    				System.out.println("month: "+ month);
+    	    		System.out.println("year: "+ year);
+    	    		System.out.println("periodo: "+ periodo);
+
+    	    		List<ClaseAlumno> listaClaseAlumno = claseAlumnoService.findByPeriodo(month,year,clase.getId());
+    	    		Map<String, Object> promedioClase = new HashMap<String, Object>();
+    	    		List<Map<String, Object>> listPromedio = new ArrayList<Map<String,Object>>(); 
+    	    		List<ClaseAlumnoActividades> claseAlumnoActividades = new ArrayList<ClaseAlumnoActividades>();
+
+    	    		List<Actidad> competenciasArray =  new ArrayList<Actidad>();
+    	    		List<Competencia> competenciasLst = new ArrayList<Competencia>();
+
+    	    		for (ClaseAlumno claseAlumno : listaClaseAlumno) {
+    	    			List<Actidad> competencias = claseAlumnoActividadesService.findByIdClasealumnoActividad(claseAlumno.getId());
+
+    	    			for (Actidad actividadAl : competencias) {
+    	    				boolean exists = false;
+    	    				for (Actidad actividad : competenciasArray) {
+    	    					if(actividad.getActividad().equals(actividadAl.getActividad()))
+    	    						exists = true;
+    	    				}
+    	    				if(!exists)
+    	    					competenciasArray.add(actividadAl);
+    	    			}
+
+    	    			claseAlumnoActividades.addAll(claseAlumnoActividadesService.findByIdClasealumno(claseAlumno.getId()));
+    	    		}
+    	    		System.out.println("Competencias");
+    	    		for (Actidad actividad : competenciasArray) {
+    	    			System.out.println(actividad.getActividad());
+    	    			Competencia competencia = competenciaService.findById(actividad.getActividad());
+    	    			if(competencia !=null)
+    	    				competenciasLst.add(competencia);
+    	    		}
+
+    	    		Collections.sort(claseAlumnoActividades, ClaseAlumnoActividades.claseAlumnoActividadesComparator);
+    	    		Long id_recurso = 0L;
+    	    		Double sum = new Double(0);
+    	    		int cant = 0;
+    	    		boolean reinicio = false;
+    	    		for (ClaseAlumnoActividades actividad : claseAlumnoActividades) {
+
+    	    			if(id_recurso.equals(0L)) {
+    	    				id_recurso = actividad.getId_recurso();
+    	    			}
+
+    	    			if(id_recurso.compareTo(actividad.getId_recurso()) == 0) {
+    	    				cant++;
+    	    				sum += actividad.getValor()!=null?actividad.getValor():new Double(0);
+    	    				reinicio = true;
+    	    			}else {
+    	    				Double prom = !sum.equals(new Double(0)) && cant != 0? sum/cant:0;
+    	    				promedioClase = new HashMap<String, Object>();
+    	    				promedioClase.put("index", id_recurso);
+    	    				switch (id_recurso.intValue()+"") {
+    	    				case "1":
+    	    					promedioClase.put("rec", "Cuaderno de Dibujo");
+    	    					break;
+    	    				case "2":
+    	    					promedioClase.put("rec", "Reproductor de sonido");
+    	    					break;
+    	    				case "3":
+    	    					promedioClase.put("rec", "Telefono");
+    	    					break;
+    	    				case "4":
+    	    					promedioClase.put("rec", "Pelota");
+    	    					break;
+    	    				case "5":
+    	    					promedioClase.put("rec", "Puzzle");
+    	    					break;
+    	    				case "6":
+    	    					promedioClase.put("rec", "Flores");
+    	    					break;
+    	    				case "7":
+    	    					promedioClase.put("rec", "Libro de animaciones");
+    	    					break;
+    	    				case "8":
+    	    					promedioClase.put("rec", "Castillo");
+    	    					break;
+    	    				case "9":
+    	    					promedioClase.put("rec", "Plastilina");
+    	    					break;
+    	    				case "10":
+    	    					promedioClase.put("rec", "Cubos");
+    	    					break;
+    	    				case "11":
+    	    					promedioClase.put("rec", "Papel de seda");
+    	    					break;
+    	    				case "12":
+    	    					promedioClase.put("rec", "Tambor");
+    	    					break;
+    	    				}
+    	    				promedioClase.put("value", round((prom*100), 2));
+    	    				listPromedio.add(promedioClase);
+    	    				id_recurso = actividad.getId_recurso();
+    	    				cant=1;
+    	    				reinicio = false;
+    	    				sum = actividad.getValor()!=null?actividad.getValor():new Double(0);
+    	    			}
+    	    		} 
+
+    	    		if(reinicio || cant==1) {
+    	    			Double prom = !sum.equals(new Double(0)) && cant != 0? sum/cant:0;
+    	    			promedioClase = new HashMap<String, Object>();
+    	    			promedioClase.put("index", id_recurso);
+    	    			switch (id_recurso.intValue()+"") {
+    	    			case "1":
+    	    				promedioClase.put("rec", "Cuaderno de Dibujo");
+    	    				break;
+    	    			case "2":
+    	    				promedioClase.put("rec", "Reproductor de sonido");
+    	    				break;
+    	    			case "3":
+    	    				promedioClase.put("rec", "Telefono");
+    	    				break;
+    	    			case "4":
+    	    				promedioClase.put("rec", "Pelota");
+    	    				break;
+    	    			case "5":
+    	    				promedioClase.put("rec", "Puzzle");
+    	    				break;
+    	    			case "6":
+    	    				promedioClase.put("rec", "Flores");
+    	    				break;
+    	    			case "7":
+    	    				promedioClase.put("rec", "Libro de animaciones");
+    	    				break;
+    	    			case "8":
+    	    				promedioClase.put("rec", "Castillo");
+    	    				break;
+    	    			case "9":
+    	    				promedioClase.put("rec", "Plastilina");
+    	    				break;
+    	    			case "10":
+    	    				promedioClase.put("rec", "Cubos");
+    	    				break;
+    	    			case "11":
+    	    				promedioClase.put("rec", "Papel de seda");
+    	    				break;
+    	    			case "12":
+    	    				promedioClase.put("rec", "Tambor");
+    	    				break;
+    	    			}
+    	    			promedioClase.put("value", round((prom*100), 2));
+    	    			listPromedio.add(promedioClase);
+    	    		}
+
+    	    		for (Map<String, Object> map : listPromedio) {
+    	    			System.out.println("index "+map.get("index"));
+    	    			System.out.println("rec "+map.get("rec"));
+    	    			System.out.println("value "+map.get("value"));
+    	    		}
+
+    	    		//Promedios de Estilos 
+    	    		List<PromId> promedios = estiloAlumnoService.findByPeriodo(year, month, clase.getId());
+    	    		File BarChart = new File( "BarChart.jpeg" ); 
+    	    		if(!promedios.isEmpty()) {
+    	    			for (PromId promedio : promedios) {
+    	    				System.out.println("Valor 1: "+promedio.getVal1());
+    	    				System.out.println("Valor 2: "+promedio.getVal2());
+    	    				System.out.println("Valor 3: "+promedio.getVal3());
+    	    				System.out.println("Valor 4: "+promedio.getVal4());
+    	    				System.out.println("Valor 5: "+promedio.getVal5());
+    	    				System.out.println("Valor 6: "+promedio.getVal6());
+    	    				System.out.println("Valor 7: "+promedio.getVal7());
+    	    				System.out.println("Valor 8: "+promedio.getVal8());
+    	    				JFreeChart pieChart = ChartFactory.createPieChart3D
+    	    						(periodo, createDataset(
+    	    								new Double[]{   promedio.getVal1()!=null?promedio.getVal1():0.0,
+    	    										promedio.getVal2()!=null?promedio.getVal2():0.0,
+    	    												promedio.getVal3()!=null?promedio.getVal3():0.0,
+    	    														promedio.getVal4()!=null?promedio.getVal4():0.0,
+    	    																promedio.getVal5()!=null?promedio.getVal5():0.0,
+    	    																		promedio.getVal6()!=null?promedio.getVal6():0.0,
+    	    																				promedio.getVal7()!=null?promedio.getVal7():0.0,
+    	    																						promedio.getVal8()!=null?promedio.getVal8():0.0
+    	    								}), true, true, true);
+
+    	    				int width = 640;    /* Width of the image */
+    	    				int height = 480;   /* Height of the image */ 
+    	    				ChartUtilities.saveChartAsJPEG( BarChart , pieChart , width , height );
+    	    			}
+    	    		}
+    	    		
+    	    		for (Alumno alumno : clase.getAlumnos()) {
+						Persona persona = personaService.findByIdAlumno(alumno.getId());
+						System.out.println("Alumno: "+ persona.getName());
+						alumno.setPersona(persona);
+					}
+    	    		
+    	    		Persona profesor = personaService.findByIdAlumno(clase.getProfesor().getId());
+
+    	    		Mail mail = new Mail();
+    	    		mail.setFrom("no-reply@sistemadaptativo.com");
+    	    		mail.setTo("oscarquerevalu@gmail.com");
+    	    		mail.setSubject("Reporte Inteligencias Multiples");
+
+    	    		Map<String, Object> model = new HashMap<>();
+    	    		model.put("token", "");
+    	    		model.put("user", "");
+    	    		model.put("profesor", profesor.getName());
+    	    		model.put("alumnos", clase.getAlumnos());
+    	    		model.put("recursos", listPromedio);
+    	    		model.put("competencias", competenciasLst);
+    	    		model.put("clase", clase.getNombre());
+
+    	    		model.put("signature", "https://sistemadaptativo.com");
+    	    		mail.setModel(model);
+    	    		MimeMessage message = emailSender.createMimeMessage();
+    	    		MimeMessageHelper helper = new MimeMessageHelper(message,
+    	    				MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+    	    				StandardCharsets.UTF_8.name());
+
+    	    		Context context = new Context();
+    	    		context.setVariables(mail.getModel());
+    	    		context.setVariable("imageResourceName", "img1.jpg");
+    	    		//        	            context.setVariable("imageResourceName2", "img2.jpg");
+    	    		String html = templateEngine.process("email/email-template-clase", context);
+
+    	    		helper.setTo(mail.getTo());
+    	    		helper.setText(html, true);
+    	    		helper.setSubject(mail.getSubject());
+    	    		helper.setFrom(mail.getFrom());
+    	    		helper.addInline("img1.jpg", BarChart);
+
+    	    		emailSender.send(message);
+				}
+    		}
+    		
+    	} catch (Exception e){
+    		throw new RuntimeException(e);
+    	}
     }
     
     private static double round(double value, int places) {
