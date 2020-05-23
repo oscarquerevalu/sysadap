@@ -78,6 +78,10 @@ public class EmailService {
     @Autowired
     private CompetenciaService competenciaService;
     
+    public String html(String valueSt, Context context){
+    	return templateEngine.process(valueSt, context);
+    }
+    
     public void sendEmail(Mail mail) {
         try {
             MimeMessage message = emailSender.createMimeMessage();
@@ -87,7 +91,7 @@ public class EmailService {
 
             Context context = new Context();
             context.setVariables(mail.getModel());
-            String html = templateEngine.process("email/email-template", context);
+            String html = html("email/email-template", context);
 
             helper.setTo(mail.getTo());
             helper.setText(html, true);
