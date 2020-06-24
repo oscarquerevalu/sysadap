@@ -14,16 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import pe.edu.upc.sysadap.spring.security.model.Alumno;
-import pe.edu.upc.sysadap.spring.security.model.ClaseAlumno;
-import pe.edu.upc.sysadap.spring.security.model.ClaseAlumnoActividades;
-import pe.edu.upc.sysadap.spring.security.model.EstiloAlumno;
-import pe.edu.upc.sysadap.spring.security.service.ClaseAlumnoService;
-import pe.edu.upc.sysadap.spring.security.service.EstiloAlumnoService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import pe.edu.upc.sysadap.spring.security.model.ClaseAlumno;
+import pe.edu.upc.sysadap.spring.security.model.EstiloAlumno;
+import pe.edu.upc.sysadap.spring.security.service.ClaseAlumnoService;
+import pe.edu.upc.sysadap.spring.security.service.EstiloAlumnoService;
 
 @RestController
 @RequestMapping("/estiloAlumno")

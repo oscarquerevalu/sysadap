@@ -17,21 +17,21 @@ public class ApoderadoServiceImpl implements ApoderadoService {
 
 	@Override
 	public Apoderado save(Apoderado apoderado) {
-		// TODO Auto-generated method stub
+		
 		return apoderadoRepository.save(apoderado);
 	}
 
 
 	@Override
 	public Apoderado findById(Long id) {
-		// TODO Auto-generated method stub
+		
 		return apoderadoRepository.findOne(id);
 	}
 
 
 	@Override
 	public List<Apoderado> findAll() {
-		// TODO Auto-generated method stub
+		
 		return apoderadoRepository.findAll();
 	}
 }

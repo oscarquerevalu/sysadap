@@ -18,6 +18,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 
 import pe.edu.upc.sysadap.spring.security.model.Alumno;
+import pe.edu.upc.sysadap.spring.security.model.Apoderado;
+import pe.edu.upc.sysadap.spring.security.model.Clase;
 import pe.edu.upc.sysadap.spring.security.model.ClaseAlumno;
 import pe.edu.upc.sysadap.spring.security.model.ClaseAlumnoActividades;
 import pe.edu.upc.sysadap.spring.security.model.Persona;
@@ -50,7 +52,7 @@ public class AlumnoControllerTest {
 	Map<String, Object> map = new HashMap<String, Object>();
 	Map<String, String> body = new HashMap<String, String>();
 	List<Map<String, Object>> listReturn = new ArrayList<Map<String,Object>>(); 
-	Alumno Alumno = new Alumno();
+	Alumno alumno = new Alumno();
 	@Before
 	public void init() {
 		
@@ -59,23 +61,36 @@ public class AlumnoControllerTest {
 		List<Alumno> listAlumno = new ArrayList<Alumno>();
 
 		Persona persona = new Persona();
-		Alumno.setPersona(persona);
-		Alumno.setId(15L);
-		listAlumno.add(Alumno);
+		alumno.setPersona(persona);
+		alumno.setId(15L);
+		listAlumno.add(alumno);
 		ClaseAlumno.setId(15L);
+		
+		Apoderado apoderado = new Apoderado();
+		apoderado.setId(1L);
+		Persona apoderadoPer = new Persona();
+		apoderadoPer.setName("Oscar");
+		apoderadoPer.setDocumento("12345678");
+		List<Persona> apoderados = new ArrayList<Persona>();
+		apoderados.add(apoderadoPer);
+		apoderado.setPersonas(apoderados);
+		alumno.setApoderado(apoderado);
+		Clase clase = new Clase();
+		clase.setId(1L);
+		alumno.setClase(clase);
+		persona.setAlumno(alumno);
+		List<ClaseAlumnoActividades> listClaseAlumnoActividades = new ArrayList<ClaseAlumnoActividades>();
+	    listClaseAlumnoActividades.add(ClaseAlumnoActividades);
+	    listClaseAlumnoActividades.add(ClaseAlumnoActividades1);
+	    
 		when(alumnoService.findByAll()).thenReturn(listAlumno);
 		when(alumnoService.findByIdClase(Mockito.anyLong())).thenReturn(listAlumno);
-		
-		when(personaService.findByIdAlumno(Alumno.getId())).thenReturn(persona);
-
+		when(personaService.findByIdAlumno(alumno.getId())).thenReturn(persona);
+		when(personaService.findById(Mockito.anyLong())).thenReturn(persona);
+		when(personaService.findByIdApoderado(Mockito.anyLong())).thenReturn(persona);
 	    when(claseAlumnoService.findByFechaIdAlumno(Mockito.anyString(), Mockito.anyLong(),Mockito.anyLong())).thenReturn(listClaseAlumno);
 	    when(claseAlumnoService.findByAll()).thenReturn(listClaseAlumno);
 	    when(claseAlumnoService.guardar(Mockito.any(ClaseAlumno.class))).thenReturn(ClaseAlumno);
-	    
-	    
-	    List<ClaseAlumnoActividades> listClaseAlumnoActividades = new ArrayList<ClaseAlumnoActividades>();
-	    listClaseAlumnoActividades.add(ClaseAlumnoActividades);
-	    listClaseAlumnoActividades.add(ClaseAlumnoActividades1);
 	    when(claseAlumnoActividadesService.findByIdClasealumno(ClaseAlumno.getId())).thenReturn(listClaseAlumnoActividades);
 	    when(claseAlumnoActividadesService.findAll()).thenReturn(listClaseAlumnoActividades);
 	    
@@ -370,5 +385,30 @@ public class AlumnoControllerTest {
 		ClaseAlumnoActividades1.setId_recurso(2L);
 		assertEquals(listReturn.get(0).get("index"), controller.promRecursos(model).get(0).get("index"));
 	}
+	
+	@Test
+	public void testGetProfesor() {
+		assertNotNull(controller.getProfesor(1L));
+	}
+	
+	@Test
+	public void testGetApoderado() {
+		List<Persona> listPersonas = new ArrayList<Persona>();
+		when(personaService.findByIdApoderado(Mockito.anyString())).thenReturn(listPersonas);
+		assertNotNull(controller.getApoderado(""));
+	}
+	
+	@Test
+	public void testGetApoderado2() {
+		List<Persona> listPersonas = new ArrayList<Persona>();
+		Persona persona = new Persona();
+		Apoderado apoderado = new Apoderado();
+		apoderado.setId(1L);
+		persona.setApoderado(apoderado);
+		listPersonas.add(persona);
+		when(personaService.findByIdApoderado(Mockito.anyString())).thenReturn(listPersonas);
+		assertNotNull(controller.getApoderado(""));
+	}
+	
 
 }

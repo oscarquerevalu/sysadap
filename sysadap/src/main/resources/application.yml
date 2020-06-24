@@ -3,12 +3,14 @@
 # ===============================
 spring:
   datasource:
+#    url: jdbc:mysql://dbeduini2.c6qojqnu4td3.us-east-1.rds.amazonaws.com:3306/db_eduini?serverTimezone=UTC
     url: jdbc:mysql://localhost:3306/db_eduini?serverTimezone=UTC
     username: root
+#    password: adminHola1414
     password: root
   devtools:
     restart:
-      additional-paths: /Users/Oscar/git/reset-password/src/main/resources/templates
+      additional-paths: /Users/Oscar/git/sysadap/sysadap/src/main/resources/templates
 
 # ===============================
 # = JPA configurations
@@ -28,8 +30,8 @@ spring:
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
-    username: alquilerautosrara@gmail.com
-    password: alquilerautosrara123
+    username: sysadapini@gmail.com
+    password: Hola1414
     port: 587
     #host: mailrelay.intranet.hdp.be
     #username: test
@@ -55,5 +57,5 @@ logging:
     org.springframework.security: INFO
     
 #server:
-#  port: 9000
+#  port: 8080
   

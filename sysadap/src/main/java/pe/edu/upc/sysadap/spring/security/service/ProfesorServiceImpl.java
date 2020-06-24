@@ -17,19 +17,19 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 	@Override
 	public Profesor save(Profesor profesor) {
-		// TODO Auto-generated method stub
+		
 		return profesorRepository.save(profesor);
 	}
 	
 	@Override
 	public List<Profesor> findByAll() {
-		// TODO Auto-generated method stub
+		
 		return profesorRepository.findAll();
 	}
 
 	@Override
 	public Profesor findByID(Long id) {
-		// TODO Auto-generated method stub
+		
 		return profesorRepository.findOne(id);
 	}
 }

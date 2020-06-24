@@ -17,7 +17,7 @@ public class PersonaServiceImpl implements PersonaService {
 
 	@Override
 	public List<Persona> findByAll() {
-		// TODO Auto-generated method stub
+		
 		return personaRepository.findAll();
 	}
 	
@@ -28,31 +28,31 @@ public class PersonaServiceImpl implements PersonaService {
 
 	@Override
 	public Persona findById(Long id) {
-		// TODO Auto-generated method stub
+		
 		return personaRepository.getOne(id);
 	}
 	
 	@Override
 	public Persona findByIdAlumno(Long id) {
-		// TODO Auto-generated method stub
+		
 		return personaRepository.findByIdAlumno(id);
 	}
 	
 	@Override
 	public Persona findByIdProfesor(Long id) {
-		// TODO Auto-generated method stub
+		
 		return personaRepository.findByIdProfesor(id);
 	}
 
 	@Override
 	public Persona guardarPersona(Persona p) {
-		// TODO Auto-generated method stub
+		
 		return personaRepository.saveAndFlush(p);
 	}
 
 	@Override
 	public Persona findByIdApoderado(Long id) {
-		// TODO Auto-generated method stub
+		
 		return personaRepository.findByIdApoderado(id);
 	}
 }

@@ -75,9 +75,9 @@ public class UserServiceImpl implements UserService {
                 mapRolesToAuthorities(Arrays.asList(persona.getRole())));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<pe.edu.upc.sysadap.spring.security.model.Persona.Role> roles){
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.toString()))
-                .collect(Collectors.toList());
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<pe.edu.upc.sysadap.spring.security.model.Persona.Role> roles){//NOSONAR
+        return roles.stream()//NOSONAR
+                .map(role -> new SimpleGrantedAuthority(role.toString()))//NOSONAR
+                .collect(Collectors.toList());//NOSONAR
     }
 }

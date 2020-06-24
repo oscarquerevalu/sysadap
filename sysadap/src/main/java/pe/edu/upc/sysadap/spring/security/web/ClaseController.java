@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import pe.edu.upc.sysadap.spring.security.model.Alumno;
 import pe.edu.upc.sysadap.spring.security.model.Clase;
 import pe.edu.upc.sysadap.spring.security.model.Competencia;
 import pe.edu.upc.sysadap.spring.security.service.ClaseService;
@@ -34,22 +33,6 @@ public class ClaseController {
     @Autowired
     private CompetenciaService competenciaService;
 
-    @GetMapping(value="/listAlumnos", produces=MediaType.APPLICATION_JSON_VALUE)
-    public List<Alumno> listaClase(Model model) {
-    	
-    	List<Clase> lista = new ArrayList<Clase>();
-    	List<Alumno> listaAlumnos = new ArrayList<Alumno>();
-    	try {
-    		lista = claseService.findByAll();
-//    		listaAlumnos = lista.get(0).getAlumnos();
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.error("ClaseController listaClase", e);
-		}
-    	
-        return listaAlumnos;
-    }
-    
     @GetMapping(value="/listClases", produces=MediaType.APPLICATION_JSON_VALUE)
     public List<Clase> listClases(Model model) {
     	

@@ -17,21 +17,21 @@ public class CompetenciaServiceImpl implements CompetenciaService {
 
 	@Override
 	public List<Competencia> findByAll() {
-		// TODO Auto-generated method stub
+		
 		return competenciaRepository.findAll();
 	}
 
 
 	@Override
 	public Competencia findById(Long id) {
-		// TODO Auto-generated method stub
+		
 		return competenciaRepository.findOne(id);
 	}
 
 
 	@Override
 	public Competencia guardarCompetencia(Competencia Competencia) {
-		// TODO Auto-generated method stub
+		
 		return competenciaRepository.saveAndFlush(Competencia);
 	}
 }

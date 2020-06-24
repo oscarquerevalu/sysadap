@@ -1430,6 +1430,212 @@
 	    	
 		
 	    	document.addEventListener('DOMContentLoaded', run);
+	    	document.addEventListener('DOMContentLoaded', runTest);
+	    	
+	    	var modelTest;
+	    	var NIVEL_DATA_TEST;
+	    	const NIVEL = ['Nivel 1', 'Nivel 2', 'Nivel 3'];
+	   		const NIVEL_NRO = NIVEL.length;
+
+	    	async function runTest() {
+	    		// SET DE DATOS PARA LOS ESTILOS DE APRENDIZAJE
+	    		// Recursos didácticos:
+	    		// Columna 0: Respuesta 1
+	    		// Columna 1: Respuesta 2
+	    		// Columna 2: Respuesta 3
+	    		// Columna 3: Respuesta 4
+	    		// Columna 4: Respuesta 5
+	    		// Columna 5: Respuesta 6
+	    		// Columna 6: Respuesta 7
+	    		// Columna 7: Respuesta 8
+	    		// Resultado Test
+	    		// Columna 8: Resultado 1
+
+	    		NIVEL_DATA_TEST = [
+	    			// Con respuestas Nivel 1 = Resultado 0 - 0.620625
+	    			[0.2 , 0.12 , 0.17 , 0.04 , 0.57 , 0.1 , 0.42 , 0.62 , 0], 
+					[0.12 , 0.13 , 0.69 , 0.05 , 0.13 , 0.1 , 0.8 , 0.41 , 0], 
+					[0.03 , 0.01 , 0.66 , 0.52 , 0.51 , 0.5 , 0.68 , 0.55 , 0], 
+					[0.27 , 0.04 , 0.56 , 0.46 , 0.56 , 0.54 , 0.36 , 0.58 , 0], 
+					[0.14 , 0.17 , 0.68 , 0.07 , 0.19 , 0.69 , 0.09 , 0.45 , 0], 
+					[0.18 , 0.02 , 0.28 , 0.42 , 0.01 , 0.64 , 0.69 , 0.46 , 0], 
+					[0.13 , 0.04 , 0.4 , 0.09 , 0.1 , 0.02 , 0.34 , 0.46 , 0], 
+					[0.26 , 0.01 , 0.16 , 0.47 , 0.33 , 0.3 , 0.57 , 0.63 , 0], 
+					[0.1 , 0.01 , 0.67 , 0.25 , 0.04 , 0.87 , 0.58 , 0.68 , 0], 
+					[0.04 , 0.16 , 0.59 , 0.3 , 0.07 , 0.73 , 0.26 , 0.61 , 0], 
+					[0.05 , 0.12 , 0.37 , 0.51 , 0.58 , 0.55 , 0.51 , 0.31 , 0], 
+					[0.27 , 0.04 , 0.18 , 0.4 , 0.55 , 0.44 , 0.25 , 0.61 , 0], 
+					[0.13 , 0.11 , 0.33 , 0.45 , 0.57 , 0.72 , 0.02 , 0.3 , 0], 
+					[0.16 , 0.04 , 0.62 , 0.31 , 0.4 , 0.25 , 0.06 , 0.44 , 0], 
+					[0.01 , 0.11 , 0.18 , 0.03 , 0.42 , 0.09 , 0.66 , 0.39 , 0], 
+					[0.27 , 0.09 , 0.03 , 0.29 , 0.45 , 0.77 , 0.42 , 0.6 , 0], 
+					[0.21 , 0.05 , 0.65 , 0.04 , 0.46 , 0.79 , 0.67 , 0.04 , 0], 
+					[0.18 , 0.08 , 0.39 , 0.44 , 0.22 , 0.26 , 0.66 , 0.18 , 0], 
+					[0.06 , 0.12 , 0.64 , 0.26 , 0.22 , 0.31 , 0.54 , 0.55 , 0], 
+					[0.08 , 0.09 , 0.37 , 0.11 , 0.35 , 0.17 , 0.04 , 0.64 , 0], 
+					[0.26 , 0.08 , 0.13 , 0.49 , 0.54 , 0.62 , 0.71 , 0.38 , 0], 
+					
+					[0.71 , 0.44 , 0.8 , 0.59 , 0.74 , 0.93 , 0.93 , 0.84 , 1], 
+					[0.28 , 0.56 , 0.8 , 0.59 , 0.6 , 0.97 , 0.95 , 0.7 , 1], 
+					[0.3 , 0.88 , 0.8 , 0.59 , 0.63 , 0.98 , 0.85 , 0.73 , 1], 
+					[0.14 , 0.31 , 0.8 , 0.59 , 0.73 , 0.92 , 0.85 , 0.7 , 1], 
+					[0.36 , 0.59 , 0.8 , 0.59 , 0.6 , 0.95 , 0.82 , 0.82 , 1], 
+					[0.14 , 0.24 , 0.8 , 0.59 , 0.75 , 0.97 , 0.86 , 0.79 , 1], 
+					[0.33 , 0.46 , 0.8 , 0.59 , 0.62 , 1 , 0.82 , 0.73 , 1], 
+					[0.22 , 0.8 , 0.8 , 0.59 , 0.63 , 0.91 , 0.97 , 0.81 , 1], 
+					[0.16 , 0.78 , 0.8 , 0.59 , 0.79 , 0.92 , 0.85 , 0.85 , 1], 
+					[0.09 , 0.58 , 0.8 , 0.59 , 0.71 , 0.96 , 0.83 , 0.84 , 1], 
+					[0.1 , 0.69 , 0.8 , 0.59 , 0.74 , 1 , 0.83 , 0.74 , 1], 
+					[0.36 , 0.49 , 0.8 , 0.59 , 0.71 , 0.96 , 0.97 , 0.84 , 1], 
+					[0.25 , 0.63 , 0.8 , 0.59 , 0.63 , 0.94 , 0.96 , 0.73 , 1], 
+					[0.11 , 0.8 , 0.8 , 0.59 , 0.7 , 0.91 , 0.96 , 0.88 , 1], 
+					[0.3 , 0.62 , 0.8 , 0.59 , 0.75 , 0.95 , 0.83 , 0.89 , 1], 
+					[0.05 , 0.87 , 0.8 , 0.59 , 0.72 , 0.95 , 0.99 , 0.78 , 1], 
+					[0.3 , 0.52 , 0.8 , 0.59 , 0.74 , 1 , 0.91 , 0.77 , 1], 
+					[0.06 , 0.25 , 0.8 , 0.59 , 0.76 , 1 , 0.87 , 0.88 , 1], 
+					[0.01 , 0.61 , 0.8 , 0.59 , 0.7 , 0.92 , 0.92 , 0.77 , 1], 
+					[0.09 , 0.21 , 0.8 , 0.59 , 0.6 , 0.98 , 0.94 , 0.87 , 1], 
+					[0.01 , 0.46 , 0.8 , 0.59 , 0.68 , 0.96 , 0.89 , 0.74 , 1], 
+
+					[0.82 , 1 , 0.91 , 0.85 , 0.93 , 1 , 0.93 , 0.9 , 2], 
+					[0.95 , 1 , 0.97 , 0.82 , 0.85 , 0.96 , 1 , 0.9 , 2], 
+					[0.79 , 1 , 0.94 , 0.66 , 0.95 , 0.94 , 1 , 0.98 , 2], 
+					[0.82 , 1 , 0.82 , 0.88 , 0.96 , 0.96 , 0.93 , 0.94 , 2], 
+					[0.95 , 1 , 0.84 , 1 , 0.82 , 0.97 , 0.99 , 0.92 , 2], 
+					[0.86 , 1 , 0.98 , 0.95 , 0.93 , 0.99 , 1 , 0.97 , 2], 
+					[0.8 , 1 , 0.96 , 0.93 , 0.93 , 0.93 , 0.95 , 0.9 , 2], 
+					[0.78 , 1 , 0.98 , 0.74 , 0.98 , 0.95 , 0.91 , 0.94 , 2], 
+					[0.79 , 1 , 0.9 , 0.66 , 0.92 , 0.92 , 0.96 , 0.94 , 2], 
+					[0.77 , 1 , 0.89 , 1 , 0.82 , 0.97 , 0.91 , 0.96 , 2], 
+					[0.85 , 1 , 0.94 , 0.79 , 0.88 , 1 , 0.99 , 0.92 , 2], 
+					[0.75 , 1 , 0.84 , 0.72 , 0.85 , 1 , 0.94 , 0.9 , 2], 
+					[0.94 , 1 , 0.94 , 0.85 , 0.85 , 0.92 , 0.99 , 0.91 , 2], 
+					[0.82 , 1 , 0.85 , 1 , 0.91 , 0.99 , 0.97 , 1 , 2], 
+					[0.94 , 1 , 0.86 , 0.69 , 0.91 , 0.91 , 0.94 , 0.91 , 2], 
+					[0.92 , 1 , 1 , 0.95 , 0.84 , 0.97 , 0.98 , 0.97 , 2], 
+					[0.78 , 1 , 0.89 , 0.95 , 1 , 0.92 , 0.96 , 1 , 2], 
+					[0.82 , 1 , 0.95 , 0.67 , 0.85 , 0.98 , 0.92 , 0.98 , 2], 
+					[0.76 , 1 , 0.91 , 0.82 , 0.82 , 0.92 , 0.98 , 0.99 , 2], 
+					[0.88 , 1 , 1 , 0.66 , 0.88 , 1 , 0.97 , 0.9 , 2], 
+					[0.9 , 1 , 0.95 , 0.81 , 0.87 , 0.94 , 0.97 , 0.97 , 2]
+
+
+	    			];
+
+	    		const [xTrain, yTrain, xTest, yTest] = getEstilosDataTest(.2);
+	    		entrenarModeloTest(xTrain, yTrain, xTest, yTest);
+	    		console.log('Done Training');
+
+	    	}
+
+	    	function getEstilosDataTest(testDividir) {
+	    		return tf.tidy(() => {
+	    			const datosPorClase = [];
+	    			const resultadoPorClase = [];	    	        
+
+	    			$.each(NIVEL, (index, element) => {
+	    				datosPorClase.push([]);
+	    				resultadoPorClase.push([]);
+	    			});
+
+	    			for (const fila of NIVEL_DATA_TEST) {
+	    				const prediccion = fila[fila.length - 1];
+	    				const data = fila.slice(0, fila.length - 1); //
+	    				datosPorClase[prediccion].push(data); //
+	    				resultadoPorClase[prediccion].push(prediccion); //
+	    			}
+
+	    			const xTrains = [];
+	    			const yTrains = [];
+	    			const xTests = [];
+	    			const yTests = [];
+
+	    			$.each(NIVEL, (index, element) => {
+
+	    				if(datosPorClase[index].length > 0 ){
+	    					const [xTrain, yTrain, xTest, yTest] = 
+	    						convertirATensoresTest(datosPorClase[index], resultadoPorClase[index], testDividir);
+
+	    					xTrains.push(xTrain);
+	    					yTrains.push(yTrain);
+	    					xTests.push(xTest);
+	    					yTests.push(yTest);
+	    				}
+
+	    			});	    	     
+
+	    			const concatAxis = 0;
+	    			const test1 = xTrains;
+	    			const test2 = tf.concat(xTrains, concatAxis);
+	    			console.log('test1 concat', test1);
+	    			console.log('test2 concat', test2);
+	    			return [
+	    				tf.concat(xTrains, concatAxis), tf.concat(yTrains, concatAxis),
+	    				tf.concat(xTests, concatAxis), tf.concat(yTests, concatAxis)
+	    				];
+
+	    		});
+	    	}
+
+	    	function testPrediccion(val1, val2, val3, val4, val5, val6, val7, val8){
+	    		var arry = [val1, val2, val3, val4, val5, val6, val7, val8];
+	    		console.log('arryTest', arry);
+	    		const input = tf.tensor2d(arry, [1, 8]);	
+	    		const prediccion = modelTest.predict(input).dataSync();
+	    		console.log('Prediccion Test', prediccion);
+	    	}
+
+	    	async function entrenarModeloTest(xTrain, yTrain, xTest, yTest) {
+	    		modelTest = tf.sequential();
+	    		const ratioAprendizaje = .01;
+	    		const numEpochs = 60;
+	    		const optimizer = tf.train.adam(ratioAprendizaje);
+	    		// 16 neuronas en la capa oculta
+	    		modelTest.add(tf.layers.dense({
+	    			units: 16, 
+	    			activation: 'sigmoid', 
+	    			inputShape: [xTrain.shape[1]]
+	    		}));
+	    		// 3 neuronas de salida
+	    		modelTest.add(tf.layers.dense({
+	    			units: 3,
+	    			activation: 'softmax'
+	    		}));
+
+	    		modelTest.compile({
+	    			optimizer: optimizer,
+	    			loss: 'categoricalCrossentropy',
+	    			metrics: ['accuracy']
+	    		});
+	    		
+	    		const historico = await modelTest.fit(xTrain, yTrain, {
+					epochs: numEpochs,
+					validationData: [xTest, yTest]
+				});
+	    	}
+	    	
+	    	function convertirATensoresTest (data, resultado, testDividir) {
+	    	    const numEjemplos = data.length;
+	    	    if (numEjemplos !== resultado.length) {
+	    	        throw new Error('data y split tienen distintos numeros de ejemplos');
+	    	    }
+	    	    const numTestEjemplos = Math.round(numEjemplos * testDividir);
+	    	    const numTrainEjemplos = numEjemplos - numTestEjemplos;
+
+	    	    const nro_recursos = data[0].length;
+
+	    	    // Creamos un tensor 2d para las entradas (recursos)
+	    	    const xs = tf.tensor2d(data, [numEjemplos, nro_recursos]);
+	    	    // Creamos un tensor 1D 
+	    	    const ys = tf.oneHot(tf.tensor1d(resultado).toInt(), NIVEL_NRO);
+	    	    // Dividimos la data en sets de Entrenamiento y Test usando 'slice'
+	    	    const xTrain = xs.slice([0, 0], [numTrainEjemplos, nro_recursos]);
+	    	    const xTest = xs.slice([numTrainEjemplos, 0], [numTestEjemplos, nro_recursos]);
+	    	    const yTrain = ys.slice([0, 0], [numTrainEjemplos, NIVEL_NRO]);
+	    	    const yTest = ys.slice([0, 0], [numTestEjemplos, NIVEL_NRO]);
+
+	    	    return [xTrain, yTrain, xTest, yTest];
+	    	}
 	
 	    	/*]]>*/
     </script>

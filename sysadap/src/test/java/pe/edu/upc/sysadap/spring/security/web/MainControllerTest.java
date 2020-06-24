@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.h2.util.New;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -21,13 +22,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.ui.Model;
 
+import pe.edu.upc.sysadap.spring.security.model.Apoderado;
 import pe.edu.upc.sysadap.spring.security.model.Clase;
 import pe.edu.upc.sysadap.spring.security.model.Competencia;
 import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.model.Profesor;
 import pe.edu.upc.sysadap.spring.security.repository.UserRepository;
+import pe.edu.upc.sysadap.spring.security.service.ApoderadoService;
 import pe.edu.upc.sysadap.spring.security.service.ClaseService;
 import pe.edu.upc.sysadap.spring.security.service.CompetenciaService;
+import pe.edu.upc.sysadap.spring.security.service.PersonaService;
+import pe.edu.upc.sysadap.spring.security.service.ProfesorService;
 
 public class MainControllerTest {
 
@@ -48,6 +53,13 @@ public class MainControllerTest {
 	private SecurityContextHolder security;
 	@Mock
 	private ClaseService claseService;
+	@Mock
+	private ApoderadoService apoderadoService;
+	@Mock
+	private ProfesorService profesorService;
+	@Mock
+	private PersonaService personaService;
+	
 	
 	HttpSession session = Mockito.mock(HttpSession.class);
 	Model model = Mockito.mock(Model.class);
@@ -65,7 +77,10 @@ public class MainControllerTest {
 		
 		persona.setProfesor(profesor);
 		when(userRepository.findByEmail(Mockito.anyString())).thenReturn(persona);
-
+		Apoderado apoderado = new Apoderado();
+		apoderado.setId(1L);
+		persona.setApoderado(apoderado);
+		session.setAttribute("persona", persona);
 		when((Persona) session.getAttribute(Mockito.anyString())).thenReturn(persona);
 		String as = "Angelo";
 		when(authen.getName()).thenReturn(as);
@@ -75,8 +90,19 @@ public class MainControllerTest {
 		Competencia competencia = new Competencia();
 		listCompetencia.add(competencia);
 		when(competenciaService.findByAll()).thenReturn(listCompetencia);
+		
+		List<Profesor> profesores = new ArrayList<Profesor>();
+		Profesor prof = new Profesor();
+		prof.setId(1L);
+		profesores.add(prof);
 	
 		when(claseService.findByAll()).thenReturn(listclase);
+		when(apoderadoService.findById(Mockito.anyLong())).thenReturn(new Apoderado());
+		when(apoderadoService.findById(null)).thenReturn(new Apoderado());
+		when(profesorService.findByAll()).thenReturn(profesores);
+		when(personaService.findByIdProfesor(Mockito.anyLong())).thenReturn(persona);
+		
+		
 	}
 	
 	@Test
@@ -130,6 +156,16 @@ public class MainControllerTest {
 	@Test
 	public void testgetAuthentication() {
 		assertNotNull(controller.getAuthentication());
+	}
+	
+	@Test
+	public void testViewAlumnos() {
+		assertNotNull(controller.viewAlumnos(model, session));
+	}
+	
+	@Test
+	public void testMantAulSec() {
+		assertNotNull(controller.mantAulSec(model, session));
 	}
 
 }

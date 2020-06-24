@@ -42,7 +42,7 @@ public class PasswordForgotController {
     @PostMapping
     public String processForgotPasswordForm(@ModelAttribute("forgotPasswordForm") @Valid PasswordForgotDto form,
                                             BindingResult result,
-                                            HttpServletRequest request) {
+                                            HttpServletRequest request) throws Exception {
 
         if (result.hasErrors()){
             return "forgot-password";

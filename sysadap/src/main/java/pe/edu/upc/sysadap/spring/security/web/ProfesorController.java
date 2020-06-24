@@ -52,8 +52,7 @@ public class ProfesorController {
     @ApiOperation(value = "Ver lista los profesores ")
     public List<Profesor> listaProfesores(Model model) {
     	
-    	List<Profesor> listaProfesores = new ArrayList<Profesor>();
-    	System.out.println("listaProfesores");
+    	List<Profesor> listaProfesores = new ArrayList<>();
     	try {
     		listaProfesores = profesorService.findByAll();
     		
@@ -70,9 +69,7 @@ public class ProfesorController {
     		
     		listaProfesores = listaProfesores.stream().filter(profesor -> profesor.getPersona()!=null).collect(Collectors.toList());
 		} catch (Exception e) {
-			// TODO: handle exception
 			logger.error("ProfesorController listProfesores", e);
-			
 		}
         return listaProfesores;
     }
@@ -80,14 +77,14 @@ public class ProfesorController {
     @GetMapping(value = "/getProfesor/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Ver los alumnos por fecha de clase")
     public Map<String, Object> getProfesor(@ApiParam(value = "Id persona", required = true) @PathVariable Long id) {
-    	Map<String, Object> map = new HashMap<String, Object>();
+    	Map<String, Object> mapProf = new HashMap<>();
     	Persona persona = personaService.findById(id);
-    	map.put("id", id);
-    	map.put("nombre", persona.getName());
-    	map.put("telefono", persona.getTelefono());
-    	map.put("documento", persona.getDocumento());
-    	map.put("direccion", persona.getDireccion());
-    	return map;
+    	mapProf.put("id", id);
+    	mapProf.put("nombre", persona.getName());
+    	mapProf.put("telefono", persona.getTelefono());
+    	mapProf.put("documento", persona.getDocumento());
+    	mapProf.put("direccion", persona.getDireccion());
+    	return mapProf;
     }
     
     @PostMapping(value = "/guardar")
@@ -100,7 +97,6 @@ public class ProfesorController {
             return "admin/mantProfesor";
         } 
 
-//        profesorService.save(profesor);
         return "redirect:/mantProfesor?success";
     }
 }

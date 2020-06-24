@@ -1,9 +1,5 @@
 package pe.edu.upc.sysadap.spring.security.web;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +20,6 @@ import pe.edu.upc.sysadap.spring.security.service.ApoderadoService;
 import pe.edu.upc.sysadap.spring.security.service.ClaseService;
 import pe.edu.upc.sysadap.spring.security.service.PersonaService;
 import pe.edu.upc.sysadap.spring.security.web.dto.AlumnoDto;
-import pe.edu.upc.sysadap.spring.security.web.dto.ProfesorDto;
 
 @Controller
 @RequestMapping("/alumnoDTO")

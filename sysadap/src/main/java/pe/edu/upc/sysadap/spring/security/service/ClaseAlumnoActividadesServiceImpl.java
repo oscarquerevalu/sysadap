@@ -17,25 +17,25 @@ public class ClaseAlumnoActividadesServiceImpl implements ClaseAlumnoActividades
 
 	@Override
 	public void guardarActividad(ClaseAlumnoActividades c) {
-		// TODO Auto-generated method stub
+		
 		claseAlumnoActividadesRepository.saveAndFlush(c);
 	}
 
 	@Override
 	public List<ClaseAlumnoActividades> findAll() {
-		// TODO Auto-generated method stub
+		
 		return claseAlumnoActividadesRepository.findAll();
 	}
 	
 	@Override
 	public List<ClaseAlumnoActividades> findByIdClasealumno(Long idClasealumno) {
-		// TODO Auto-generated method stub
+		
 		return claseAlumnoActividadesRepository.findByIdClasealumno(idClasealumno);
 	}
 
 	@Override
 	public List<Actidad> findByIdClasealumnoActividad(Long idClasealumno) {
-		// TODO Auto-generated method stub
+		
 		return claseAlumnoActividadesRepository.findByIdClasealumnoActividad(idClasealumno);
 	}
 

@@ -5,10 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pe.edu.upc.sysadap.spring.security.model.Clase;
 import pe.edu.upc.sysadap.spring.security.model.ClaseAlumno;
 import pe.edu.upc.sysadap.spring.security.repository.ClaseAlumnoRepository;
-import pe.edu.upc.sysadap.spring.security.repository.ClaseRepository;
 
 @Service
 public class ClaseAlumnoServiceImpl implements ClaseAlumnoService {
@@ -19,31 +17,31 @@ public class ClaseAlumnoServiceImpl implements ClaseAlumnoService {
 
 	@Override
 	public List<ClaseAlumno> findByAll() {
-		// TODO Auto-generated method stub
+		
 		return claseAlumnoRepository.findAll();
 	}
 	
 	@Override
 	public List<ClaseAlumno> findByFechaIdAlumno(String fecha, Long idAlumno, Long idClase) {
-		// TODO Auto-generated method stub
+		
 		return claseAlumnoRepository.findByFechaIdAlumno(fecha,idAlumno,idClase);
 	}
 
 	@Override
 	public ClaseAlumno guardar(ClaseAlumno claseAlumno) {
-		// TODO Auto-generated method stub
+		
 		return claseAlumnoRepository.saveAndFlush(claseAlumno);
 	}
 
 	@Override
 	public List<ClaseAlumno> findByPeriodoIdAlumno(int mes, int anio, Long idAlumno) {
-		// TODO Auto-generated method stub
+		
 		return claseAlumnoRepository.findByPeriodoIdAlumno(mes, anio, idAlumno);
 	}
 
 	@Override
 	public List<ClaseAlumno> findByPeriodo(int mes, int anio, Long idClase) {
-		// TODO Auto-generated method stub
+		
 		return claseAlumnoRepository.findByPeriodo(mes, anio, idClase);
 	}
 }

@@ -1,8 +1,8 @@
 package pe.edu.upc.sysadap.spring.security.service;
 
-import pe.edu.upc.sysadap.spring.security.model.Persona;
-import pe.edu.upc.sysadap.spring.security.web.dto.UserRegistrationDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import pe.edu.upc.sysadap.spring.security.model.Persona;
 
 public interface UserService extends UserDetailsService {
 

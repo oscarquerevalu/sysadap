@@ -1,6 +1,5 @@
 package pe.edu.upc.sysadap.spring.security.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,27 +26,18 @@ public class CompetenciaController {
 	Logger logger = LoggerFactory.getLogger(CompetenciaController.class);
 	
     @Autowired
-    private CompetenciaService CompetenciaService;
+    private CompetenciaService competenciaService;
 
     @GetMapping(value="/listCompetencias", produces=MediaType.APPLICATION_JSON_VALUE)
-    public List<Competencia> listCompetencias(Model model) {
-    	
-    	List<Competencia> lista = new ArrayList<Competencia>();
-    	try {
-    		lista = CompetenciaService.findByAll();
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.error("CompetenciaController listCompetencias", e);
-		}
-    	
-        return lista;
+    public List<Competencia> listCompetencias(Model model) throws Exception {
+        return competenciaService.findByAll();
     }
     
     @GetMapping(value = "/getCompetencia/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Obtener Competencia por id")
     public Map<String, Object> getProfesor(@ApiParam(value = "Id Competencia", required = true) @PathVariable Long id) {
     	Map<String, Object> map = new HashMap<String, Object>();
-    	Competencia Competencia = CompetenciaService.findById(id);
+    	Competencia Competencia = competenciaService.findById(id);
     	map.put("id", id);
     	map.put("nombre", Competencia.getNombre());
     	return map;

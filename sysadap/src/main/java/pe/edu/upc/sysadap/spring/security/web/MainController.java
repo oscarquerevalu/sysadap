@@ -1,48 +1,30 @@
 package pe.edu.upc.sysadap.spring.security.web;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.thymeleaf.context.Context;
 
 import pe.edu.upc.sysadap.spring.security.model.Alumno;
 import pe.edu.upc.sysadap.spring.security.model.Apoderado;
 import pe.edu.upc.sysadap.spring.security.model.Clase;
 import pe.edu.upc.sysadap.spring.security.model.Competencia;
-import pe.edu.upc.sysadap.spring.security.model.Mail;
 import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.model.Profesor;
-import pe.edu.upc.sysadap.spring.security.repository.ClaseRepository;
-import pe.edu.upc.sysadap.spring.security.repository.CompetenciaRepository;
-import pe.edu.upc.sysadap.spring.security.repository.ProfesorRepository;
 import pe.edu.upc.sysadap.spring.security.repository.UserRepository;
-import pe.edu.upc.sysadap.spring.security.repository.EstiloAlumnoRepository.PromId;
 import pe.edu.upc.sysadap.spring.security.service.ApoderadoService;
-import pe.edu.upc.sysadap.spring.security.service.ApoderadoServiceImpl;
 import pe.edu.upc.sysadap.spring.security.service.ClaseService;
 import pe.edu.upc.sysadap.spring.security.service.CompetenciaService;
 import pe.edu.upc.sysadap.spring.security.service.PersonaService;
 import pe.edu.upc.sysadap.spring.security.service.ProfesorService;
-import pe.edu.upc.sysadap.spring.security.service.UserService;
 import pe.edu.upc.sysadap.spring.security.web.dto.AlumnoDto;
 import pe.edu.upc.sysadap.spring.security.web.dto.ClaseDto;
 import pe.edu.upc.sysadap.spring.security.web.dto.CompentenciaDto;

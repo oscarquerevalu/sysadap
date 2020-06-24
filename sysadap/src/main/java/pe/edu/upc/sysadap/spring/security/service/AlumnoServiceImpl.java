@@ -18,7 +18,7 @@ public class AlumnoServiceImpl implements AlumnoService {
 
 	@Override
 	public List<Alumno> findByAll() {
-		// TODO Auto-generated method stub
+		
 		return alumnoRepository.findAll();
 	}
 
@@ -32,7 +32,7 @@ public class AlumnoServiceImpl implements AlumnoService {
 
 	@Override
 	public List<Alumno> findByIdClase(Long id) {
-		// TODO Auto-generated method stub
+		
 		return alumnoRepository.findByIdClase(id);
 	}
 	

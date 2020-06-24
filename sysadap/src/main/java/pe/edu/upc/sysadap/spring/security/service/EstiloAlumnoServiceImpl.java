@@ -18,31 +18,31 @@ public class EstiloAlumnoServiceImpl implements EstiloAlumnoService {
 
 	@Override
 	public List<EstiloAlumno> findByAll() {
-		// TODO Auto-generated method stub
+		
 		return estiloAlumnoRepository.findAll();
 	}
 	
 	@Override
 	public List<EstiloAlumno> findByFechaIdAlumno(String fechaIni, String fechaFin, Long idAlumno) {
-		// TODO Auto-generated method stub
+		
 		return estiloAlumnoRepository.findByFechasIdAlumno(fechaIni, fechaFin, idAlumno);
 	}
 
 	@Override
 	public EstiloAlumno guardar(EstiloAlumno estiloAlumno) {
-		// TODO Auto-generated method stub
+		
 		return estiloAlumnoRepository.saveAndFlush(estiloAlumno);
 	}
 
 	@Override
 	public List<PromId> findByFechasIdByMonth(int anio, int mes, Long idAlumno) {
-		// TODO Auto-generated method stub
+		
 		return estiloAlumnoRepository.findByFechasIdByMonth(anio, mes, idAlumno);
 	}
 
 	@Override
 	public List<PromId> findByPeriodo(int anio, int mes, Long idClase) {
-		// TODO Auto-generated method stub
+		
 		return estiloAlumnoRepository.findByPeriodo(anio, mes, idClase);
 	}
 }
