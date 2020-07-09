@@ -239,7 +239,7 @@ public class EmailService {
         				
         				Mail mail = new Mail();
         	            mail.setFrom("no-reply@sistemadaptativo.com");
-        	            mail.setTo("oscarquerevalu@gmail.com");
+        	            mail.setTo("sysadapini@gmail.com");
         	            mail.setSubject("Reporte Inteligencias Multiples");
 
         	            Map<String, Object> model = new HashMap<>();
@@ -280,12 +280,15 @@ public class EmailService {
         } catch (RuntimeException|IOException|MessagingException e){
         	logger.error(error, e);
         }
+        sendEmailProfesor();
     }
     
     public void sendEmailProfesor(){
     	Date fecha = new Date();
+//    	LocalDate localDate = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//    	int month = localDate.getMonthValue();
     	LocalDate localDate = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    	int month = localDate.getMonthValue();
+		int month = 5;//localDate.getMonthValue();
     	Calendar calendar = new GregorianCalendar();
     	calendar.setTime(fecha);
     	int year = calendar.get(Calendar.YEAR);
@@ -400,7 +403,7 @@ public class EmailService {
 				reinicioProf = true;
 			}else {
 				Double prom = !sum.equals(new Double(0)) && cant != 0? sum/cant:0;
-				
+				promedioClaseProfesor = new HashMap<String, Object>();
 				promedioClaseProfesor.put("index", idRecursoProf);
 				setRecProm(idRecursoProf, promedioClaseProfesor);
 				promedioClaseProfesor.put("value", round((prom*100), 2));
