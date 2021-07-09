@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+<meta charset="utf-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Lato" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+<script
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"
+	type="text/javascript"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<!--     <script src="js/redneuronal.js"></script> -->
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"
+	rel="stylesheet" type="text/css" />
+<!-- 	<script src="/js/datatable.js"></script> -->
+<title>Estilo de Aprendizaje</title>
+<style>
+.slidecontainer {
+	width: 100%;
+}
+
+.slider {
+	-webkit-appearance: none;
+	width: 100%;
+	height: 25px;
+	background: #d3d3d3;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	background: #4CAF50;
+	cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	background: #4CAF50;
+	cursor: pointer;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+</style>
+</head>
+<body>
+	<div class="container animate-bottom" id="myDiv" >
+		<div class="row">
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="#">Sistema Adaptativo Predictivo</a>
+			    </div>
+			
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="nav navbar-nav">
+			        <li><a href="/">Registro de Clase</a></li>
+			        <li class="active"><a href="#">Estilos de Aprendizaje<span class="sr-only">(current)</span></a></li>
+			      </ul>
+			      <ul class="nav navbar-nav navbar-right">
+			        <li class="dropdown">
+			          <a href="/logout" class="btn btn-default">Cerrar Sesión</a>
+			        </li>
+			      </ul>
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+			<div class="col-md-6 col-sm-offset-3">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="text-center">
+							<h3>
+								<div th:if="${session.containsKey('persona')}" th:text="${'Bienvenido: '+session.persona.name}"></div>
+							</h3>
+							<h3>
+								<i class="glyphicon glyphicon-user" style="font-size: 2em;"></i>
+							</h3>
+							<h2 class="text-center">Registro de Estilo de Aprendizaje</h2>
+							<div class="panel-body">
+								<form id="frmEstiloAprendizaje" method="post">
+									<label class="form-control">Recursos Didácticos</label>
+									<div class="container">
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="1"> Cuaderno de Dibujo</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText1">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang1"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="2"> Reproductor de sonido</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText2">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang2"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="3"> Telefono</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText3">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang3"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="4"> Pelota</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText4">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang4"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="5"> Puzzle</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText5">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang5"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="6"> Flores</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText6">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang6"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="7"> Libro de animaciones</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText7">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang7"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="8"> Castillo</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText8">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang8"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="9"> Plastilina</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText9">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang9"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="10"> Cubos</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText10">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang10"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="11"> Papel de seda</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText11">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang11"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									    
+									    <div class="row">
+									        <div class="col-xs-2">
+									            <input type="checkbox" class="col-md-2 text-left" id="checkRecurso" name="checkRecurso" value="12"> Tambor</input>
+									        </div>
+									        <div class="col-xs-6">
+									            <label class="col-md-6 text-right" id="rangeText12">Valor: 0</label>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									       		<input type="range" min="0" max="100" value="0" class="slider" id="rang12"></input>
+									        </div>
+									    </div>
+									    <div class="row">
+									    	<div class="col-xs-5">
+									    		<p></p>
+									    	</div>
+									    </div>
+									</div>
+									<div class="form-group">
+										<label class="form-control">Estilo</label>
+										<select id="cboEstilo" name="cboEstilo">
+											<option value="0">LINGÜÍSTICO- VERBAL</option>
+											<option value="1">LÓGICA MATEMÁTICA</option>
+											<option value="2">ESPACIAL</option>
+											<option value="3">CORPORAL KINESTÉSICA</option>
+											<option value="4">MUSICAL</option>
+											<option value="5">INTERPERSONAL</option>
+											<option value="6">INTRAPERSONAL</option>
+											<option value="7">NATURALISTA</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<button type="button" onclick="grabarEstilo()"
+											class="btn btn-success btn-block btn-load">Registrar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	    var table;
+		var urlsys = '';
+	    $(document).ready( function () {
+	    	urlsys = [[${session.urlCntx}]];
+	   		$("#fechaConsulta").datepicker({format: 'dd/mm/yyyy'});
+	   		$('#rang1').on('input change', function () {
+		        $('#rangeText1').text("Valor: "+$(this).val());
+		    });
+			$('#rang2').on('input change', function () {
+		        $('#rangeText2').text("Valor: "+$(this).val());
+		    });
+			$('#rang3').on('input change', function () {
+		        $('#rangeText3').text("Valor: "+$(this).val());
+		    });
+			$('#rang4').on('input change', function () {
+		        $('#rangeText4').text("Valor: "+$(this).val());
+		    });
+			$('#rang5').on('input change', function () {
+		        $('#rangeText5').text("Valor: "+$(this).val());
+		    });
+			$('#rang6').on('input change', function () {
+		        $('#rangeText6').text("Valor: "+$(this).val());
+		    });
+			$('#rang7').on('input change', function () {
+		        $('#rangeText7').text("Valor: "+$(this).val());
+		    });
+			$('#rang8').on('input change', function () {
+		        $('#rangeText8').text("Valor: "+$(this).val());
+		    });
+			$('#rang9').on('input change', function () {
+		        $('#rangeText9').text("Valor: "+$(this).val());
+		    });
+			$('#rang10').on('input change', function () {
+		        $('#rangeText10').text("Valor: "+$(this).val());
+		    });
+			$('#rang11').on('input change', function () {
+		        $('#rangeText11').text("Valor: "+$(this).val());
+		    });
+			$('#rang12').on('input change', function () {
+		        $('#rangeText12').text("Valor: "+$(this).val());
+		    });
+	   });
+	    
+function grabarEstilo(){
+	    	
+			var recursos = [];
+			var valores = "";
+			var rsc = "";
+			
+			$.each($("input[name='checkRecurso']:checked"), function(){
+				recursos.push($(this).val());
+	        });
+			
+			$.each(recursos, function( index, value ) {
+				  if(index==0){
+						rsc = recursos[index];
+						valores= $('#rang'+recursos[index]).val()
+					}else{
+						rsc += ","+ recursos[index];
+						valores += ","+ $('#rang'+recursos[index]).val()
+					}
+				});
+			
+	    	$.ajax({
+	    		url: urlsys+'/alumno/grabarClaseEstilo',
+	    		type:"POST",
+	    		data:JSON.stringify({"recursos":rsc, "valores":valores , "estilo":$('#cboEstilo').val(), "idClase":-1 }),
+	    		contentType:"application/json; charset=utf-8",
+	    		dataType:"json",
+	    		success: function(respuesta) {
+		    			console.log(respuesta);
+		    			alert("Estilo Registrado correctamente");
+		    		},
+		    		error: function (jqXHR, exception) {
+		    	        var msg = '';
+		    	        if (jqXHR.status === 0) {
+		    	            msg = 'Not connect.\n Verify Network.';
+		    	        } else if (jqXHR.status == 404) {
+		    	            msg = 'Requested page not found. [404]';
+		    	        } else if (jqXHR.status == 500) {
+		    	            msg = 'Internal Server Error [500].';
+		    	        } else if (exception === 'parsererror') {
+		    	            msg = 'Requested JSON parse failed.';
+		    	        } else if (exception === 'timeout') {
+		    	            msg = 'Time out error.';
+		    	        } else if (exception === 'abort') {
+		    	            msg = 'Ajax request aborted.';
+		    	        } else {
+		    	            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+		    	        }
+		    	        $('#post').html(msg);
+		    	    }
+		    	});
+		//     	$('#alumnosTable').empty();
+		//         $('#myTable').empty();
+		
+		    }	    
+	    
+	    $(document)
+	    .ajaxStart(function () {
+	      $('.btn-load').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Buscando...').addClass('disabled');
+	      $('.btn-table').addClass('disabled');
+	    })
+	    .ajaxStop(function () {
+	    	$('.btn-load').html('Consultar').removeClass('disabled');
+	    	$('.btn-table').removeClass('disabled');
+	    });
+	    
+	    	/*]]>*/
+    </script>
+
+</body>
+</html>
