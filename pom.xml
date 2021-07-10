@@ -336,9 +336,7 @@
 				</configuration>
 			</plugin>
 
-
 		</plugins>
-
 	</build>
 
 	<!-- INICIO Angelo -->
