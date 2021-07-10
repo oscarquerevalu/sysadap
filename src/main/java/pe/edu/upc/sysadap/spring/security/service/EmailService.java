@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,14 @@ import pe.edu.upc.sysadap.spring.security.model.Mail;
 import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.repository.ClaseAlumnoActividadesRepository.Actidad;
 import pe.edu.upc.sysadap.spring.security.repository.EstiloAlumnoRepository.PromId;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
+import com.amazonaws.services.simpleemail.model.Destination;
+import com.amazonaws.services.simpleemail.model.SendTemplatedEmailRequest;
 
 @Service
 public class EmailService {
@@ -92,6 +101,15 @@ public class EmailService {
 	private String r11= "Papel de seda";
 	private String r12= "Tambor";
 	private String error= "Error";
+	
+	@Value("${accessKey}")
+	private String accessKey;
+
+	@Value("${secretKey}")
+	private String secretKey;
+
+	@Value("${region}")
+	private String region;
     
     public String html(String valueSt, Context context){
     	return templateEngine.process(valueSt, context);
@@ -238,8 +256,8 @@ public class EmailService {
         	    		consultarReporte(listaClaseAlumnoProf, competenciasArrayProf, claseAlumnoActividadesProf, competenciasLstProf, listPromedioProf, year, month, alumno.getClase(), (periodo+" Clase: "+alumno.getClase().getNombre()), barChart2);
         				
         				Mail mail = new Mail();
-        	            mail.setFrom("no-reply@sistemadaptativo.com");
-        	            mail.setTo("sysadapini@gmail.com");
+        	            mail.setFrom("sysadapini@gmail.com");
+        	            mail.setTo("oscarquerevalu@gmail.com");
         	            mail.setSubject("Reporte Inteligencias Multiples");
 
         	            Map<String, Object> model = new HashMap<>();
@@ -273,6 +291,7 @@ public class EmailService {
         	            helper.addInline("img2.jpg", barChart2);
 
         	            emailSender.send(message);
+        	            
         			}
         		}
         		
@@ -314,7 +333,7 @@ public class EmailService {
     	    		Persona profesor = personaService.findByIdAlumno(clase.getProfesor().getId());
 
     	    		Mail mail = new Mail();
-    	    		mail.setFrom("no-reply@sistemadaptativo.com");
+    	    		mail.setFrom("sysadapini@gmail.com");
     	    		mail.setTo("oscarquerevalu@gmail.com");
     	    		mail.setSubject("Reporte Inteligencias Multiples");
 

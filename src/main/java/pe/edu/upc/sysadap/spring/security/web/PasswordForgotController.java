@@ -61,7 +61,7 @@ public class PasswordForgotController {
         tokenRepository.save(token);
 
         Mail mail = new Mail();
-        mail.setFrom("no-reply@sistemadaptativo.com");
+        mail.setFrom("sysadapini@gmail.com");
         mail.setTo(persona.getEmail());
         mail.setSubject("Reiniciar contraseña");
 

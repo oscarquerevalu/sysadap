@@ -3,14 +3,14 @@
 # ===============================
 spring:
   datasource:
-#    url: jdbc:mysql://dbeduini2.c6qojqnu4td3.us-east-1.rds.amazonaws.com:3306/db_eduini?serverTimezone=UTC
-    url: jdbc:mysql://localhost:3306/db_eduini?serverTimezone=UTC
+    url: jdbc:mysql://database-1.c6qojqnu4td3.us-east-1.rds.amazonaws.com:3306/db_eduini?serverTimezone=UTC
+#    url: jdbc:mysql://localhost:3306/db_eduini?serverTimezone=UTC
     username: root
-#    password: adminHola1414
-    password: root
+    password: adminHola1414
+#    password: root
   devtools:
     restart:
-      additional-paths: /Users/Oscar/git/sysadap/sysadap/src/main/resources/templates
+      additional-paths: /git/sysadap/src/main/resources/templates
 
 # ===============================
 # = JPA configurations
@@ -29,9 +29,9 @@ spring:
 # ===============================
   mail:
     default-encoding: UTF-8
-    host: smtp.gmail.com
-    username: sysadapini@gmail.com
-    password: Hola1414
+    host: email-smtp.us-east-1.amazonaws.com
+    username: AKIAYAROB3SKN4A6Q5IN
+    password: BECGvhOnSnXstx1GxM10PCSL0j47nPhAGMPOhSu9hKcJ
     port: 587
     #host: mailrelay.intranet.hdp.be
     #username: test
@@ -56,6 +56,13 @@ logging:
     org.springframework.web: INFO
     org.springframework.security: INFO
     
-#server:
-#  port: 8080
+server:
+  port: 8081
+  
+accessKey:
+  AKIAYAROB3SKN4A6Q5IN
+secretKey:
+  BECGvhOnSnXstx1GxM10PCSL0j47nPhAGMPOhSu9hKcJ
+region:
+  us-east-1
   
