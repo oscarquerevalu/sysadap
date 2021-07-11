@@ -256,7 +256,7 @@ public class EmailService {
         	    		consultarReporte(listaClaseAlumnoProf, competenciasArrayProf, claseAlumnoActividadesProf, competenciasLstProf, listPromedioProf, year, month, alumno.getClase(), (periodo+" Clase: "+alumno.getClase().getNombre()), barChart2);
         				
         				Mail mail = new Mail();
-        	            mail.setFrom("sysadapini@gmail.com");
+        	            mail.setFrom("sysadapini@gmail.com"); 
         	            mail.setTo("oscarquerevalu@gmail.com");
         	            mail.setSubject("Reporte Inteligencias Multiples");
 
