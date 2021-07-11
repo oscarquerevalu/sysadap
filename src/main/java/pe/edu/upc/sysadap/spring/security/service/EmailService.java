@@ -263,7 +263,7 @@ public class EmailService {
         	            Map<String, Object> model = new HashMap<>(); 
         	            model.put("token", "");
         	            model.put("user", "");
-        	            model.put("alumno", alumnoPer.getName());
+        	            model.put("alumno", alumnoPer.getName()); 
         	            model.put("recursos", listPromedio);
         	            model.put("competencias", competenciasLst);
         	            model.put("apoderado", apoderadoPer.getName());
