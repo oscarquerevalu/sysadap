@@ -269,7 +269,7 @@ public class EmailService {
         	            model.put("apoderado", apoderadoPer.getName());
         	            model.put("clase", alumno.getClase().getNombre());
         	            
-        	            model.put("signature", "https://sistemadaptativo.com");
+        	            model.put("signature", "https://sistemadaptativo.com"); 
         	            mail.setModel(model);
         	            MimeMessage message = emailSender.createMimeMessage();
         	            MimeMessageHelper helper = new MimeMessageHelper(message,
