@@ -35,6 +35,11 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.converter.Promoter; 
+import com.twilio.type.PhoneNumber; 
+
 import pe.edu.upc.sysadap.spring.security.model.Alumno;
 import pe.edu.upc.sysadap.spring.security.model.Apoderado;
 import pe.edu.upc.sysadap.spring.security.model.Clase;
@@ -46,20 +51,15 @@ import pe.edu.upc.sysadap.spring.security.model.Persona;
 import pe.edu.upc.sysadap.spring.security.repository.ClaseAlumnoActividadesRepository.Actidad;
 import pe.edu.upc.sysadap.spring.security.repository.EstiloAlumnoRepository.PromId;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
-import com.amazonaws.services.simpleemail.model.Destination;
-import com.amazonaws.services.simpleemail.model.SendTemplatedEmailRequest;
-
 @Service
 public class EmailService {
 	
 	Logger logger = LoggerFactory.getLogger(EmailService.class);
 	String confidentialMarkerText = "CONFIDENTIAL";
     Marker confidentialMarker = MarkerFactory.getMarker(confidentialMarkerText);
+    
+    public static final String ACCOUNT_SID = "ACdeb21ee2f0a7f5fe417dbb5a1e019f4b"; 
+    public static final String AUTH_TOKEN = "62cca737b012a558955d86b8d468f796"; 
 
     @Autowired
     private JavaMailSender emailSender;
@@ -299,7 +299,11 @@ public class EmailService {
         } catch (RuntimeException|IOException|MessagingException e){
         	logger.error(error, e);
         }
-        sendEmailProfesor();
+//        sendEmailProfesor();
+        enviaNotiWp("oscarquerevalu@gmail.com", "941103487");
+        enviaNotiSms("oscarquerevalu@gmail.com", "941103487");
+        enviaNotiWp("oscarquerevalu@gmail.com", "952937072");
+        enviaNotiSms("oscarquerevalu@gmail.com", "952937072");
     }
     
     public void sendEmailProfesor(){
@@ -530,5 +534,28 @@ public class EmailService {
 			break;
 		}
     }
+    
+    private void enviaNotiWp(String correo,String number) {
+    	Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
+        Message message = Message.creator( 
+                new com.twilio.type.PhoneNumber("whatsapp:+51"+number), 
+                new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),  
+                "Buenos días, le ha llegado una notificación al correo :" + correo + " con el reporte de sysadap mensual.")      
+            .create(); 
+ 
+        System.out.println(message.getSid());
+    }
+    
+    private void enviaNotiSms(String correo,String number) {
+    	Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
+        Message message = Message.creator( 
+        		new com.twilio.type.PhoneNumber("+51"+number),
+                "MG583ac56769bd73cb3a073fb6d839bd1e", "Buenos días, le ha llegado una notificación al correo :" + correo + " con el reporte de sysadap mensual.")     
+            .create(); 
+
+        System.out.println(message.getSid()); 
+    }
+    
+    
 
 }
