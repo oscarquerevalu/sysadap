@@ -59,7 +59,7 @@ public class EmailService {
     Marker confidentialMarker = MarkerFactory.getMarker(confidentialMarkerText);
     
     public static final String ACCOUNT_SID = "ACdeb21ee2f0a7f5fe417dbb5a1e019f4b"; 
-    public static final String AUTH_TOKEN = "62cca737b012a558955d86b8d468f796"; 
+    public static final String AUTH_TOKEN = "651eae2fd30e32272ba5273fe7e5723b"; 
 
     @Autowired
     private JavaMailSender emailSender;
