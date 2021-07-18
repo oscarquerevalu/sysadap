@@ -37,8 +37,6 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.converter.Promoter; 
-import com.twilio.type.PhoneNumber; 
 
 import pe.edu.upc.sysadap.spring.security.model.Alumno;
 import pe.edu.upc.sysadap.spring.security.model.Apoderado;
@@ -57,10 +55,12 @@ public class EmailService {
 	Logger logger = LoggerFactory.getLogger(EmailService.class);
 	String confidentialMarkerText = "CONFIDENTIAL";
     Marker confidentialMarker = MarkerFactory.getMarker(confidentialMarkerText);
+    @Value("${accountSid}")
+	private String ACCOUNT_SID;
     
-    public static final String ACCOUNT_SID = "ACdeb21ee2f0a7f5fe417dbb5a1e019f4b"; 
-    public static final String AUTH_TOKEN = "651eae2fd30e32272ba5273fe7e5723b"; 
-
+    @Value("${authToken}")
+	private String AUTH_TOKEN;
+    
     @Autowired
     private JavaMailSender emailSender;
 
