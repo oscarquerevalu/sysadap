@@ -3,10 +3,10 @@
 # ===============================
 spring:
   datasource:
-    url: jdbc:mysql://database-1.c6qojqnu4td3.us-east-1.rds.amazonaws.com:3306/db_eduini?serverTimezone=UTC
+    url: jdbc:mysql://XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:3306/XXXXXX?serverTimezone=UTC
 #    url: jdbc:mysql://localhost:3306/db_eduini?serverTimezone=UTC
-    username: root
-    password: adminHola1414
+    username: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    password: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #    password: root
   devtools:
     restart:
@@ -30,8 +30,8 @@ spring:
   mail:
     default-encoding: UTF-8
     host: email-smtp.us-east-1.amazonaws.com
-    username: AKIAYAROB3SKN4A6Q5IN
-    password: BECGvhOnSnXstx1GxM10PCSL0j47nPhAGMPOhSu9hKcJ
+    username: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    password: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     port: 587
     #host: mailrelay.intranet.hdp.be
     #username: test
@@ -55,11 +55,20 @@ logging:
     com.memorynotfound: DEBUG
     org.springframework.web: INFO
     org.springframework.security: INFO
+    
   
 accessKey:
-  AKIAYAROB3SKN4A6Q5IN
+  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 secretKey:
-  BECGvhOnSnXstx1GxM10PCSL0j47nPhAGMPOhSu9hKcJ
+  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 region:
   us-east-1
+  
+accountSid:
+  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+authToken:
+  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  
+urlCntx:
+  http://localhost:8080
   
