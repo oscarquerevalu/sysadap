@@ -225,7 +225,7 @@ public class EmailService {
         				//Promedios de Estilos 
         				List<PromId> promedios = estiloAlumnoService.findByFechasIdByMonth(year, month, alumno.getId());
         				File BarChart = new File( "BarChart.jpeg" ); 
-        				if(!promedios.isEmpty()) {
+        				if(!promedios.isEmpty()) { 
         					for (PromId promedio : promedios) {
         						JFreeChart pieChart = ChartFactory.createPieChart3D
                 	            		(periodo, createDataset(
