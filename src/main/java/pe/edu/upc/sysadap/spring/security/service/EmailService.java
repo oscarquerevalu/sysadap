@@ -540,7 +540,7 @@ public class EmailService {
         Message message = Message.creator( 
                 new com.twilio.type.PhoneNumber("whatsapp:+51"+number), 
                 new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),  
-                "Buenos días, le ha llegado una notificación al correo :" + correo + " con el reporte de sysadap mensual.")      
+                "Buenos días, le ha llegado una notificación al correo :" + correo + " con el reporte de sysadap mensual, por favor revise.")      
             .create(); 
  
         System.out.println(message.getSid());
