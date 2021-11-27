@@ -143,7 +143,7 @@ public class EmailService {
 		int month = 5;//localDate.getMonthValue();
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(fecha);
-		int year = calendar.get(Calendar.YEAR);
+		int year = 2020;//calendar.get(Calendar.YEAR);
 		String periodo ="Periodo: "+ StringUtils.leftPad(""+month, 2, "0")+"/"+year;
     	List<Apoderado> apoderados = apoderadoService.findAll();
         try {
