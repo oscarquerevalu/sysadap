@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import pe.edu.upc.sysadap.spring.security.model.Persona;
@@ -95,6 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/accessdenied");;
         http.sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
     }
     
     @Bean
