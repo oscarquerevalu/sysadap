@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ import pe.edu.upc.sysadap.spring.security.service.PersonaService;
 @RestController
 @RequestMapping("/alumno")
 @Api(value="Controlador para Alumnos", description="Operaciones de carga de datos")
+@CrossOrigin(origins = "*")
 public class AlumnoController {
 	
 	Logger logger = LoggerFactory.getLogger(AlumnoController.class);
