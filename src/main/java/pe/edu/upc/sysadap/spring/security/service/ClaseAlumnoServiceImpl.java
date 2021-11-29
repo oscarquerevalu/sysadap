@@ -18,7 +18,7 @@ public class ClaseAlumnoServiceImpl implements ClaseAlumnoService {
 	@Override
 	public List<ClaseAlumno> findByAll() {
 		
-		return claseAlumnoRepository.findAllMax100();
+		return claseAlumnoRepository.findAll();
 	}
 	
 	@Override
